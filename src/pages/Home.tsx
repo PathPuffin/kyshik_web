@@ -113,8 +113,8 @@ const GALLERY = [
     alt: "Dog swag көшірме суреті",
   },
   {
-    src: dogScreaming,
-    alt: "Айқайлап тұрған ит",
+    src: confusedDoggy,
+    alt: "Аң-таң болған ит",
   },
 ];
 
