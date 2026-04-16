@@ -7,8 +7,6 @@ import confusedDoggy from "../../confused_doggy.webp";
 import dogScreaming from "../../dog_screaming.webp";
 import adoptDontKill from "../../adopt_dont_kill.webp";
 import dogSad from "../../dog_sad.webp";
-import pawsDog from "../../paws_dog.png";
-import doggiesPoster from "../../doggies.PNG";
 
 const TELEGRAM_URL = "https://t.me/kyshikbot";
 
@@ -34,14 +32,14 @@ const DOG_OVERLAYS = [
     delay: 0.55,
   },
   {
-    src: pawsDog,
+    src: dogSad,
     className: "left-[45%] sm:left-[44%] bottom-[18%] sm:bottom-[24%] w-[150px] sm:w-[160px] md:w-[180px]",
     float: { y: [0, -3, 0], rotate: [-2, 2, -2] },
     duration: 2.8,
     delay: 0.85,
   },
   {
-    src: pawsDog,
+    src: dogSad,
     className: "left-[43%] sm:left-[42%] top-[14%] sm:top-[12%] w-[132px] sm:w-[142px] md:w-[160px]",
     float: { y: [0, -3, 0], rotate: [2, -2, 2] },
     duration: 2.7,
@@ -237,7 +235,7 @@ const BottomPoster = () => (
         transition={{ duration: 0.7 }}
       >
         <img
-          src={doggiesPoster}
+          src={posterArt}
           alt="Stop Shelter Killings poster"
           className="block w-full h-auto"
           loading="lazy"
