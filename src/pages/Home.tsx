@@ -22,63 +22,63 @@ const TgIcon = () => (
 const DOG_OVERLAYS = [
   {
     src: dogSad,
-    className: "left-[17%] sm:left-[29%] top-[6%] sm:top-[11%] w-[78px] sm:w-[126px] md:w-[208px] -translate-x-[2px] -translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
+    className: "left-[14%] sm:left-[15%] top-[4%] sm:top-[11%] w-[102px] sm:w-[164px] md:w-[270px] -translate-x-[2px] -translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
     float: { y: [0, -4, 0] },
     duration: 3.2,
     delay: 0.4,
   },
   {
     src: dogSwag,
-    className: "left-[3%] sm:left-[15%] top-[24%] w-[82px] sm:w-[147px] md:w-[248px] -translate-x-[6px] translate-y-[15px] sm:translate-x-0",
+    className: "left-[3%] sm:left-[-1%] top-[24%] w-[82px] sm:w-[191px] md:w-[322px] -translate-x-[6px] translate-y-[15px] sm:translate-x-0",
     float: { rotate: [-2, 2, -2], y: [0, -4, 0] },
     duration: 3.4,
     delay: 0.55,
   },
   {
     src: pawsPoster,
-    className: "hidden sm:block left-1/2 top-1/2 w-[128px] sm:w-[154px] md:w-[220px] -translate-x-1/2 -translate-y-1/2 rotate-[8deg]",
+    className: "hidden sm:block left-1/2 top-[14%] w-[128px] sm:w-[200px] md:w-[286px] -translate-x-1/2 -translate-y-1/2 rotate-[8deg]",
     float: { y: [0, -3, 0], rotate: [6, 9, 5] },
     duration: 3,
     delay: 0.75,
   },
   {
     src: pawsPoster,
-    className: "hidden sm:block left-[58%] top-[56%] w-[92px] sm:w-[112px] md:w-[156px] -translate-x-1/2 -translate-y-1/2 -rotate-[7deg]",
+    className: "hidden sm:block left-[58%] bottom-[14%] w-[92px] sm:w-[146px] md:w-[203px] -translate-x-1/2 translate-y-1/2 -rotate-[7deg]",
     float: { y: [0, -2, 0], rotate: [-9, -6, -10] },
     duration: 3.1,
     delay: 0.82,
   },
   {
     src: pawsPoster,
-    className: "sm:hidden left-1/2 top-[18%] w-[96px] -translate-x-1/2 -translate-y-1/2 rotate-[11deg]",
+    className: "sm:hidden left-1/2 top-[18%] w-[125px] -translate-x-1/2 -translate-y-1/2 rotate-[11deg]",
     float: { y: [0, -3, 0], rotate: [8, 12, 7] },
     duration: 3,
     delay: 0.62,
   },
   {
     src: pawsPoster,
-    className: "sm:hidden left-1/2 bottom-[18%] w-[96px] -translate-x-1/2 translate-y-1/2 -rotate-[9deg]",
+    className: "sm:hidden left-1/2 bottom-[18%] w-[125px] -translate-x-1/2 translate-y-1/2 -rotate-[9deg]",
     float: { y: [0, -3, 0], rotate: [-12, -8, -11] },
     duration: 3,
     delay: 0.88,
   },
   {
     src: confusedDoggy,
-    className: "right-[19%] sm:right-[23%] top-[9%] sm:top-[22%] w-[84px] sm:w-[156px] md:w-[268px] -translate-y-[5px] sm:translate-y-0",
+    className: "right-[13%] sm:right-[14%] top-[6%] sm:top-[7%] w-[109px] sm:w-[203px] md:w-[348px] -translate-y-[5px] sm:translate-y-0",
     float: { rotate: [180, 176, 184, 178, 180], y: [0, -3, 0] },
     duration: 3.1,
     delay: 0.7,
   },
   {
     src: adoptDontKill,
-    className: "right-[11%] sm:right-[15%] top-[61%] sm:top-[48%] w-[82px] sm:w-[143px] md:w-[238px]",
+    className: "right-[11%] sm:right-[12%] top-[61%] sm:top-[58%] w-[107px] sm:w-[186px] md:w-[309px]",
     float: { y: [0, -5, 0] },
     duration: 3.6,
     delay: 0.9,
   },
   {
     src: dogScreaming,
-    className: "left-[14%] sm:left-[27%] bottom-[6%] sm:bottom-[12%] w-[102px] sm:w-[183px] md:w-[304px] -translate-x-[2px] translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
+    className: "left-[14%] sm:left-[13%] bottom-[6%] sm:bottom-[12%] w-[133px] sm:w-[238px] md:w-[395px] -translate-x-[2px] translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
     float: { rotate: [-1.3, 1.3, -1.3], y: [0, -3, 0] },
     duration: 2.9,
     delay: 1.05,
@@ -107,12 +107,14 @@ const GALLERY = [
   {
     src: greenDogSad,
     alt: "Жасыл тондағы қайғылы ит",
-    label: "Қорғау керек",
   },
   {
     src: dogSwag,
     alt: "Dog swag көшірме суреті",
-    label: "Swag",
+  },
+  {
+    src: dogScreaming,
+    alt: "Айқайлап тұрған ит",
   },
 ];
 
@@ -173,28 +175,28 @@ const Hero = () => (
         <TgIcon />
         Телеграм Ботқа Өту
       </motion.a>
+
     </div>
   </section>
 );
 
 const About = () => (
-  <section id="about" className="relative py-32 bg-background overflow-hidden">
-    <div className="pointer-events-none absolute -left-12 top-20 w-44 h-44 rounded-full bg-accent/18 blur-2xl" />
-    <div className="pointer-events-none absolute -right-10 bottom-20 w-40 h-40 rounded-full bg-tg/20 blur-2xl" />
-    <div className="max-w-5xl mx-auto px-6">
+  <section className="relative py-24 bg-[linear-gradient(180deg,#f6f1e8_0%,#ede6db_100%)] overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 opacity-35 bg-[radial-gradient(circle_at_12%_10%,rgba(255,59,48,0.18),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(0,167,232,0.16),transparent_30%),radial-gradient(circle_at_52%_82%,rgba(17,17,17,0.1),transparent_36%)]" />
+    <div className="relative max-w-6xl mx-auto px-6">
       <motion.div
-        className="text-center mb-16"
-        initial={{ opacity: 0, y: 20 }}
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.6 }}
       >
         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-secondary mb-4">
           Біздің мақсат
         </p>
         <h2 className="text-[2.6rem] md:text-[4.1rem] font-bold text-primary leading-[0.92]">
           Иттер мен адамдар арасындағы{" "}
-          <span className="italic text-accent">көпір.</span>
+          <span className="italic text-accent">көпір</span>
         </h2>
       </motion.div>
 
@@ -233,18 +235,15 @@ const Gallery = () => (
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-secondary mb-4">
-          Суреттер
-        </p>
         <h2 className="text-[2.4rem] md:text-[3.8rem] font-bold text-primary leading-[0.95]">
-          Сен берген <span className="italic text-accent">суреттер.</span>
+          Сен берген <span className="italic text-accent">суреттер</span>
         </h2>
       </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {GALLERY.map((item, index) => (
           <motion.figure
-            key={item.label}
+            key={item.alt}
             className={`group relative overflow-hidden rounded-[24px] border-2 border-black/70 bg-white shadow-[0_16px_0_rgba(0,0,0,0.18)] ${
               index % 3 === 1 ? "rotate-[-1deg]" : index % 3 === 2 ? "rotate-[1deg]" : ""
             }`}
@@ -259,9 +258,6 @@ const Gallery = () => (
               className="block w-full h-[270px] object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             />
-            <figcaption className="absolute left-4 bottom-4 rounded-full bg-black/82 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-sm">
-              {item.label}
-            </figcaption>
           </motion.figure>
         ))}
       </div>
@@ -281,7 +277,7 @@ const CTA = () => (
     >
       <h2 className="text-[2.7rem] md:text-[4.4rem] font-bold text-white leading-[0.92]">
         Қазір қосыл —{" "}
-        <span className="italic text-accent">өмір сақта.</span>
+        <span className="italic text-accent">өмір сақта</span>
       </h2>
       <p className="text-white/60 text-base font-light leading-relaxed">
         Telegram ботымыз арқылы иесіз иттерді тап, асырап ал немесе жәрдемде.

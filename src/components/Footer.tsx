@@ -22,7 +22,7 @@ export const Footer = () => (
         Телеграм
       </a>
       <p className="text-white/25 text-xs tracking-widest uppercase">
-        © 2025 kyshik.com
+        © 2026 kyshik.com
       </p>
     </div>
   </footer>
