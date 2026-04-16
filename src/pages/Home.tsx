@@ -120,7 +120,7 @@ const GALLERY = [
 
 const Hero = () => (
   <section
-    className="relative min-h-screen overflow-hidden flex items-center justify-center"
+    className="relative min-h-[100svh] overflow-hidden flex items-start sm:items-center justify-center"
     style={{
       background:
         "radial-gradient(900px 560px at 14% 12%, #f7f6f2 0%, #ece9e3 54%, #d9d4cb 100%)",
@@ -128,7 +128,7 @@ const Hero = () => (
   >
     <div className="pointer-events-none absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_18%_16%,rgba(255,59,48,0.2)_0,rgba(255,59,48,0)_33%),radial-gradient(circle_at_84%_70%,rgba(0,167,232,0.2)_0,rgba(0,167,232,0)_34%),repeating-linear-gradient(-18deg,rgba(0,0,0,0.08),rgba(0,0,0,0.08)_1px,transparent_1px,transparent_8px)]" />
 
-    <div className="relative z-10 w-full min-h-screen pt-24 pb-12 px-3 sm:px-4 md:px-6 flex flex-col items-center justify-center gap-8">
+    <div className="relative z-10 w-full min-h-[100svh] pt-16 sm:pt-24 pb-8 sm:pb-12 px-3 sm:px-4 md:px-6 flex flex-col items-center justify-start sm:justify-center gap-5 sm:gap-8">
       <motion.div
         className="relative w-full max-w-[1200px] rounded-[20px] overflow-hidden border-4 border-black/80 shadow-[0_20px_65px_rgba(0,0,0,0.38)] rotate-[-0.35deg]"
         initial={{ opacity: 0, y: 16, scale: 0.98 }}
@@ -165,7 +165,7 @@ const Hero = () => (
         href={TELEGRAM_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2.5 bg-tg text-white px-9 py-4 rounded-full text-sm shadow-[0_8px_32px_rgba(34,158,217,0.38)]"
+        className="mt-1 sm:mt-0 flex items-center gap-2.5 bg-tg text-white px-9 py-4 rounded-full text-sm shadow-[0_8px_32px_rgba(34,158,217,0.38)]"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
