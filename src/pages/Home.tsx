@@ -7,6 +7,9 @@ import confusedDoggy from "../../confused_doggy.webp";
 import dogScreaming from "../../dog_screaming.webp";
 import adoptDontKill from "../../adopt_dont_kill.webp";
 import dogSad from "../../dog_sad.webp";
+import doggiesPoster from "../../doggies.webp";
+import greenDogSad from "../../green_dog_sad.webp";
+import pawsPoster from "../../paws.webp";
 
 const TELEGRAM_URL = "https://t.me/kyshikbot";
 
@@ -19,49 +22,63 @@ const TgIcon = () => (
 const DOG_OVERLAYS = [
   {
     src: dogSad,
-    className: "left-[16%] sm:left-[20%] top-[10%] sm:top-[11%] w-[98px] sm:w-[126px] md:w-[208px] -translate-x-[5px] -translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
+    className: "left-[17%] sm:left-[29%] top-[6%] sm:top-[11%] w-[78px] sm:w-[126px] md:w-[208px] -translate-x-[2px] -translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
     float: { y: [0, -4, 0] },
     duration: 3.2,
     delay: 0.4,
   },
   {
     src: dogSwag,
-    className: "left-[9%] sm:left-[11%] top-[29%] w-[108px] sm:w-[147px] md:w-[248px] -translate-x-[5px] sm:translate-x-0",
+    className: "left-[3%] sm:left-[15%] top-[24%] w-[82px] sm:w-[147px] md:w-[248px] -translate-x-[6px] translate-y-[15px] sm:translate-x-0",
     float: { rotate: [-2, 2, -2], y: [0, -4, 0] },
     duration: 3.4,
     delay: 0.55,
   },
   {
-    src: dogSad,
-    className: "left-[45%] sm:left-[44%] bottom-[18%] sm:bottom-[24%] w-[150px] sm:w-[160px] md:w-[180px]",
-    float: { y: [0, -3, 0], rotate: [-2, 2, -2] },
-    duration: 2.8,
-    delay: 0.85,
+    src: pawsPoster,
+    className: "hidden sm:block left-1/2 top-1/2 w-[128px] sm:w-[154px] md:w-[220px] -translate-x-1/2 -translate-y-1/2 rotate-[8deg]",
+    float: { y: [0, -3, 0], rotate: [6, 9, 5] },
+    duration: 3,
+    delay: 0.75,
   },
   {
-    src: dogSad,
-    className: "left-[43%] sm:left-[42%] top-[14%] sm:top-[12%] w-[132px] sm:w-[142px] md:w-[160px]",
-    float: { y: [0, -3, 0], rotate: [2, -2, 2] },
-    duration: 2.7,
-    delay: 0.65,
+    src: pawsPoster,
+    className: "hidden sm:block left-[58%] top-[56%] w-[92px] sm:w-[112px] md:w-[156px] -translate-x-1/2 -translate-y-1/2 -rotate-[7deg]",
+    float: { y: [0, -2, 0], rotate: [-9, -6, -10] },
+    duration: 3.1,
+    delay: 0.82,
+  },
+  {
+    src: pawsPoster,
+    className: "sm:hidden left-1/2 top-[18%] w-[96px] -translate-x-1/2 -translate-y-1/2 rotate-[11deg]",
+    float: { y: [0, -3, 0], rotate: [8, 12, 7] },
+    duration: 3,
+    delay: 0.62,
+  },
+  {
+    src: pawsPoster,
+    className: "sm:hidden left-1/2 bottom-[18%] w-[96px] -translate-x-1/2 translate-y-1/2 -rotate-[9deg]",
+    float: { y: [0, -3, 0], rotate: [-12, -8, -11] },
+    duration: 3,
+    delay: 0.88,
   },
   {
     src: confusedDoggy,
-    className: "right-[10%] sm:right-[14%] top-[15%] sm:top-[17%] w-[116px] sm:w-[156px] md:w-[268px] translate-x-[5px] -translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
+    className: "right-[19%] sm:right-[23%] top-[9%] sm:top-[22%] w-[84px] sm:w-[156px] md:w-[268px] -translate-y-[5px] sm:translate-y-0",
     float: { rotate: [180, 176, 184, 178, 180], y: [0, -3, 0] },
     duration: 3.1,
     delay: 0.7,
   },
   {
     src: adoptDontKill,
-    className: "right-[6%] sm:right-[9%] top-[39%] sm:top-[37%] w-[156px] sm:w-[204px] md:w-[340px] translate-x-[5px] sm:translate-x-0",
+    className: "right-[11%] sm:right-[15%] top-[61%] sm:top-[48%] w-[82px] sm:w-[143px] md:w-[238px]",
     float: { y: [0, -5, 0] },
     duration: 3.6,
     delay: 0.9,
   },
   {
     src: dogScreaming,
-    className: "left-[14%] sm:left-[17%] bottom-[13%] sm:bottom-[12%] w-[142px] sm:w-[183px] md:w-[304px] -translate-x-[5px] translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
+    className: "left-[14%] sm:left-[27%] bottom-[6%] sm:bottom-[12%] w-[102px] sm:w-[183px] md:w-[304px] -translate-x-[2px] translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
     float: { rotate: [-1.3, 1.3, -1.3], y: [0, -3, 0] },
     duration: 2.9,
     delay: 1.05,
@@ -83,6 +100,19 @@ const CARDS = [
     Icon: Users,
     title: "Қауымдастық",
     desc: "Жануарларды жақсы көретін адамдарды біріктіреміз. Бірге күштіміз.",
+  },
+];
+
+const GALLERY = [
+  {
+    src: greenDogSad,
+    alt: "Жасыл тондағы қайғылы ит",
+    label: "Қорғау керек",
+  },
+  {
+    src: dogSwag,
+    alt: "Dog swag көшірме суреті",
+    label: "Swag",
   },
 ];
 
@@ -192,6 +222,53 @@ const About = () => (
   </section>
 );
 
+const Gallery = () => (
+  <section className="relative py-24 bg-[linear-gradient(180deg,#f6f1e8_0%,#ede6db_100%)] overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 opacity-35 bg-[radial-gradient(circle_at_12%_10%,rgba(255,59,48,0.18),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(0,167,232,0.16),transparent_30%),radial-gradient(circle_at_52%_82%,rgba(17,17,17,0.1),transparent_36%)]" />
+    <div className="relative max-w-6xl mx-auto px-6">
+      <motion.div
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-secondary mb-4">
+          Суреттер
+        </p>
+        <h2 className="text-[2.4rem] md:text-[3.8rem] font-bold text-primary leading-[0.95]">
+          Сен берген <span className="italic text-accent">суреттер.</span>
+        </h2>
+      </motion.div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {GALLERY.map((item, index) => (
+          <motion.figure
+            key={item.label}
+            className={`group relative overflow-hidden rounded-[24px] border-2 border-black/70 bg-white shadow-[0_16px_0_rgba(0,0,0,0.18)] ${
+              index % 3 === 1 ? "rotate-[-1deg]" : index % 3 === 2 ? "rotate-[1deg]" : ""
+            }`}
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.08, duration: 0.55 }}
+          >
+            <img
+              src={item.src}
+              alt={item.alt}
+              className="block w-full h-[270px] object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+            <figcaption className="absolute left-4 bottom-4 rounded-full bg-black/82 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-sm">
+              {item.label}
+            </figcaption>
+          </motion.figure>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 const CTA = () => (
   <section className="relative py-28 overflow-hidden bg-[linear-gradient(160deg,#171717_0%,#0f0f0f_64%,#050505_100%)]">
     <div className="pointer-events-none absolute inset-0 opacity-45 bg-[radial-gradient(circle_at_15%_20%,rgba(255,59,48,0.22),transparent_38%),radial-gradient(circle_at_85%_76%,rgba(0,167,232,0.24),transparent_36%)]" />
@@ -235,8 +312,8 @@ const BottomPoster = () => (
         transition={{ duration: 0.7 }}
       >
         <img
-          src={posterArt}
-          alt="Stop Shelter Killings poster"
+          src={doggiesPoster}
+          alt="Doggies poster"
           className="block w-full h-auto"
           loading="lazy"
         />
@@ -250,6 +327,7 @@ export const Home = () => (
     <main>
       <Hero />
       <About />
+      <Gallery />
       <CTA />
       <BottomPoster />
     </main>
