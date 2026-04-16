@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,300..700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans:  "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Newsreader", serif;
+
+  --color-bg:              #e8e5dd;
+  --color-bg-deep:         #d1cbc0;
+  --color-primary:         #121212;
+  --color-secondary:       #3f3b35;
+  --color-accent:          #ff3b30;
+  --color-tg:              #00aeea;
+  --color-surface:         #efede7;
+  --color-card:            #f5f2ec;
+  --color-border:          #a9a296;
+  --color-on-primary:      #f6f6f4;
+  --color-background:      #e8e5dd;
+  --color-on-surface:      #171717;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-surface font-sans antialiased;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(255, 59, 48, 0.16) 0, rgba(255, 59, 48, 0) 32%),
+      radial-gradient(circle at 84% 82%, rgba(0, 174, 234, 0.16) 0, rgba(0, 174, 234, 0) 34%),
+      linear-gradient(158deg, #f0ede6 0%, #dfdbd2 58%, #cbc4b7 100%);
+    text-rendering: optimizeLegibility;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.22;
+    background-image:
+      linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 45%),
+      repeating-linear-gradient(
+        -15deg,
+        rgba(22, 22, 22, 0.07),
+        rgba(22, 22, 22, 0.07) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+  }
+}
+
+@layer utilities {
+  .street-chip {
+  }
+}
