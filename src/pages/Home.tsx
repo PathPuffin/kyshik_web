@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { motion } from "motion/react";
-import { Heart, Users, Home as HomeIcon } from "lucide-react";
+import { ArrowRight, CheckCircle2, Heart, Users, Home as HomeIcon } from "lucide-react";
 
 import posterArt from "../../stop_killing_dogs.webp";
 import dogSwag from "../../dog_swag.webp";
@@ -12,6 +13,8 @@ import greenDogSad from "../../green_dog_sad.webp";
 import pawsPoster from "../../paws.webp";
 
 const TELEGRAM_URL = "https://t.me/kyshikbot";
+const VOLUNTEER_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeqx_xST3RUvYqF-gfLgvMcVR2SqPcQ9Vmb_KbziWUIwMLisw/viewform?usp=dialog";
+const WEB3FORMS_ACCESS_KEY = "f117ad90-c89c-4844-b9ce-3dae5a63b2de";
 
 const TgIcon = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -120,7 +123,7 @@ const GALLERY = [
 
 const Hero = () => (
   <section
-    className="relative min-h-[100svh] overflow-hidden flex items-start sm:items-center justify-center"
+    className="relative min-h-svh overflow-hidden flex items-start sm:items-center justify-center"
     style={{
       background:
         "radial-gradient(900px 560px at 14% 12%, #f7f6f2 0%, #ece9e3 54%, #d9d4cb 100%)",
@@ -128,15 +131,15 @@ const Hero = () => (
   >
     <div className="pointer-events-none absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_18%_16%,rgba(255,59,48,0.2)_0,rgba(255,59,48,0)_33%),radial-gradient(circle_at_84%_70%,rgba(0,167,232,0.2)_0,rgba(0,167,232,0)_34%),repeating-linear-gradient(-18deg,rgba(0,0,0,0.08),rgba(0,0,0,0.08)_1px,transparent_1px,transparent_8px)]" />
 
-    <div className="relative z-10 w-full min-h-[100svh] pt-16 sm:pt-24 pb-8 sm:pb-12 px-3 sm:px-4 md:px-6 flex flex-col items-center justify-start sm:justify-center gap-5 sm:gap-8">
+    <div className="relative z-10 w-full min-h-svh pt-16 sm:pt-24 pb-8 sm:pb-12 px-3 sm:px-4 md:px-6 flex flex-col items-center justify-start sm:justify-center gap-5 sm:gap-8">
       <motion.div
-        className="relative w-full max-w-[1200px] rounded-[20px] overflow-hidden border-4 border-black/80 shadow-[0_20px_65px_rgba(0,0,0,0.38)] rotate-[-0.35deg]"
+        className="relative w-full max-w-300 rounded-[20px] overflow-hidden border-4 border-black/80 shadow-[0_20px_65px_rgba(0,0,0,0.38)] rotate-[-0.35deg]"
         initial={{ opacity: 0, y: 16, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.75, ease: "easeOut" }}
       >
-        <div className="absolute left-[8%] top-0 z-20 w-20 h-6 bg-black/55 rounded-b-sm rotate-[-2deg]" />
-        <div className="absolute right-[9%] top-0 z-20 w-20 h-6 bg-black/55 rounded-b-sm rotate-[2deg]" />
+        <div className="absolute left-[8%] top-0 z-20 w-20 h-6 bg-black/55 rounded-b-sm -rotate-2" />
+        <div className="absolute right-[9%] top-0 z-20 w-20 h-6 bg-black/55 rounded-b-sm rotate-2" />
 
         <img
           src={posterArt}
@@ -161,20 +164,35 @@ const Hero = () => (
         </div>
       </motion.div>
 
-      <motion.a
-        href={TELEGRAM_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-1 sm:mt-0 flex items-center gap-2.5 bg-tg text-white px-9 py-4 rounded-full text-sm shadow-[0_8px_32px_rgba(34,158,217,0.38)]"
+      <motion.div
+        className="mt-1 sm:mt-0 flex flex-col sm:flex-row items-center gap-3"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(34,158,217,0.5)" }}
-        whileTap={{ scale: 0.97 }}
       >
-        <TgIcon />
-        Телеграм Ботқа Өту
-      </motion.a>
+        <motion.a
+          href={VOLUNTEER_FORM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2.5 bg-accent text-white px-9 py-4 rounded-full text-sm shadow-[0_8px_32px_rgba(255,59,48,0.34)]"
+          whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(255,59,48,0.46)" }}
+          whileTap={{ scale: 0.97 }}
+        >
+          Volunteering
+        </motion.a>
+
+        <motion.a
+          href={TELEGRAM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2.5 bg-tg text-white px-9 py-4 rounded-full text-sm shadow-[0_8px_32px_rgba(34,158,217,0.38)]"
+          whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(34,158,217,0.5)" }}
+          whileTap={{ scale: 0.97 }}
+        >
+          <TgIcon />
+          Телеграм Ботқа Өту
+        </motion.a>
+      </motion.div>
 
     </div>
   </section>
@@ -209,7 +227,7 @@ const About = () => (
             viewport={{ once: true }}
             transition={{ delay: i * 0.12, duration: 0.6 }}
             className={`bg-card rounded-2xl p-8 border-2 border-black/70 hover:border-accent transition-all duration-300 shadow-[0_10px_0_rgba(0,0,0,0.25)] ${
-              i === 0 ? "rotate-[-1deg]" : i === 2 ? "rotate-[1deg]" : ""
+              i === 0 ? "-rotate-1" : i === 2 ? "rotate-1" : ""
             }`}
           >
             <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-6">
@@ -244,8 +262,8 @@ const Gallery = () => (
         {GALLERY.map((item, index) => (
           <motion.figure
             key={item.alt}
-            className={`group relative overflow-hidden rounded-[24px] border-2 border-black/70 bg-white shadow-[0_16px_0_rgba(0,0,0,0.18)] ${
-              index % 3 === 1 ? "rotate-[-1deg]" : index % 3 === 2 ? "rotate-[1deg]" : ""
+            className={`group relative overflow-hidden rounded-3xl border-2 border-black/70 bg-white shadow-[0_16px_0_rgba(0,0,0,0.18)] ${
+              index % 3 === 1 ? "-rotate-1" : index % 3 === 2 ? "rotate-1" : ""
             }`}
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -255,7 +273,7 @@ const Gallery = () => (
             <img
               src={item.src}
               alt={item.alt}
-              className="block w-full h-[270px] object-cover transition-transform duration-500 group-hover:scale-105"
+              className="block w-full h-67.5 object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             />
           </motion.figure>
@@ -264,6 +282,170 @@ const Gallery = () => (
     </div>
   </section>
 );
+
+const Contact = () => {
+  const [sent, setSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    company: "",
+    email: "",
+    message: "",
+  });
+
+  const inputClass =
+    "w-full rounded-lg border border-black/25 bg-white/95 px-4 py-3 text-sm text-primary placeholder:text-secondary/60 outline-none transition-all duration-200 focus:border-accent focus:ring-2 focus:ring-accent/25";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const payload = new FormData();
+      payload.append("access_key", WEB3FORMS_ACCESS_KEY);
+      payload.append("name", form.name);
+      payload.append("email", form.email);
+      payload.append("message", form.message);
+      payload.append("company", form.company);
+      payload.append("subject", `New contact from ${form.name}`);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: payload,
+      });
+
+      const result = (await response.json()) as { success?: boolean; message?: string };
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Failed to submit form.");
+      }
+
+      setSent(true);
+      setForm({ name: "", company: "", email: "", message: "" });
+    } catch {
+      window.alert("Could not send your message right now. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <section className="relative py-24 bg-[linear-gradient(180deg,#f6f1e8_0%,#ede6db_100%)] overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 opacity-35 bg-[radial-gradient(circle_at_12%_10%,rgba(255,59,48,0.18),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(0,167,232,0.16),transparent_30%),radial-gradient(circle_at_52%_82%,rgba(17,17,17,0.1),transparent_36%)]" />
+      <div className="relative max-w-6xl mx-auto px-6">
+        <motion.div
+          className="grid grid-cols-1 lg:grid-cols-2 rounded-2xl overflow-hidden border-2 border-black/70 shadow-[0_16px_0_rgba(0,0,0,0.22)]"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <div className="bg-[linear-gradient(160deg,#171717_0%,#0f0f0f_64%,#050505_100%)] p-12 lg:p-20 text-white flex flex-col justify-between gap-10">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/60 mb-4">
+                Байланыс
+              </p>
+              <h2 className="text-[2.1rem] md:text-[3rem] font-bold leading-[0.95]">
+                Жобаң туралы
+                <span className="italic text-accent"> бізге жаз</span>
+              </h2>
+              <p className="text-white/65 text-sm leading-relaxed mt-5 max-w-md">
+                Толық ақпаратты қалдыр. Командамыз қысқа уақытта жауап береді.
+              </p>
+            </div>
+
+            <div className="space-y-3 text-sm text-white/80">
+              <p>Email: salem@kyshik.com</p>
+              <p>Telegram: @kyshikbot</p>
+            </div>
+          </div>
+
+          <div className="bg-surface-container-low p-12 lg:p-20 flex items-center">
+            {sent ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center w-full"
+              >
+                <CheckCircle2 className="w-12 h-12 text-primary mx-auto mb-4 opacity-60" />
+                <h3 className="font-serif text-2xl text-primary mb-2">Message sent successfully</h3>
+                <p className="text-secondary font-light text-sm">
+                  Thanks for contacting us. We&apos;ll be in touch shortly.
+                </p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
+                <h3 className="font-serif text-2xl text-primary mb-2">How can we help?</h3>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs uppercase tracking-widest text-secondary font-medium">Name *</label>
+                    <input
+                      type="text"
+                      placeholder="niyaz kazken"
+                      required
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs uppercase tracking-widest text-secondary font-medium">Company</label>
+                    <input
+                      type="text"
+                      placeholder="kyshik"
+                      value={form.company}
+                      onChange={(e) => setForm({ ...form, company: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs uppercase tracking-widest text-secondary font-medium">Email *</label>
+                  <input
+                    type="email"
+                    placeholder="salem@kyshik.com"
+                    required
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className={inputClass}
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs uppercase tracking-widest text-secondary font-medium">Message *</label>
+                  <textarea
+                    placeholder=""
+                    required
+                    rows={5}
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    className={`${inputClass} resize-none`}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-primary text-on-primary py-4 rounded-lg font-medium text-sm uppercase tracking-widest hover:bg-primary/80 transition-all duration-300 flex items-center justify-center gap-2 group mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {!isSubmitting && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
+                </button>
+              </form>
+            )}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
 
 const CTA = () => (
   <section className="relative py-28 overflow-hidden bg-[linear-gradient(160deg,#171717_0%,#0f0f0f_64%,#050505_100%)]">
@@ -324,6 +506,7 @@ export const Home = () => (
       <Hero />
       <About />
       <Gallery />
+      <Contact />
       <CTA />
       <BottomPoster />
     </main>

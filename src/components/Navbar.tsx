@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const TELEGRAM_URL = "https://t.me/kyshikbot";
+const VOLUNTEER_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeqx_xST3RUvYqF-gfLgvMcVR2SqPcQ9Vmb_KbziWUIwMLisw/viewform?usp=dialog";
 
 const TgIcon = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -24,6 +25,7 @@ export const Navbar = () => {
       setScrolled(y > 80);
       lastY.current = y;
     };
+
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
@@ -40,20 +42,33 @@ export const Navbar = () => {
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold text-primary [text-shadow:0_1px_0_rgba(255,255,255,0.22),0_3px_10px_rgba(0,0,0,0.25)]">
+          <Link
+            to="/"
+            className="text-2xl font-bold text-primary [text-shadow:0_1px_0_rgba(255,255,255,0.22),0_3px_10px_rgba(0,0,0,0.25)]"
+          >
             kyshik<span className="text-accent">.com</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            <a href="/#about" className="text-xs font-medium uppercase tracking-widest text-secondary hover:text-primary transition-colors">
+            <a
+              href="/#about"
+              className="text-xs font-medium uppercase tracking-widest text-secondary hover:text-primary transition-colors"
+            >
               Туралы
             </a>
-            {/* <Link to="/blog" className="text-xs font-medium uppercase tracking-widest text-secondary hover:text-primary transition-colors">
-              Блог
-            </Link> */}
           </div>
 
           <div className="flex items-center gap-3">
+            <motion.a
+              href={VOLUNTEER_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-2 bg-accent text-white px-5 py-2.5 rounded-full text-xs shadow-[0_8px_20px_rgba(255,59,48,0.34)]"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Volunteering
+            </motion.a>
             <motion.a
               href={TELEGRAM_URL}
               target="_blank"
@@ -84,7 +99,7 @@ export const Navbar = () => {
       >
         {[
           { label: "Туралы", href: "/#about" },
-          // { label: "Блог", href: "/blog" },
+          { label: "Volunteering", href: VOLUNTEER_FORM_URL, external: true },
           { label: "Телеграм", href: TELEGRAM_URL, external: true },
         ].map(({ label, href, external }) => (
           <a
