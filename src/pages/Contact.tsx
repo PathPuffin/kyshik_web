@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, CheckCircle2, MapPin, ShieldCheck } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 const WEB3FORMS_ACCESS_KEY = "f117ad90-c89c-4844-b9ce-3dae5a63b2de";
 
 export const Contact = () => {
+  const { language } = useLanguage();
   const [sent, setSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -16,6 +18,57 @@ export const Contact = () => {
 
   const inputClass =
     "w-full rounded-lg border-2 border-black/25 bg-white px-4 py-3 text-sm text-primary placeholder:text-secondary/50 outline-none transition-all duration-200 focus:border-accent focus:ring-2 focus:ring-accent/20";
+
+  const t =
+    language === "en"
+      ? {
+          sectionTag: "Contact",
+          title: "Connect with Kyshik",
+          desc: "Write to us if you want to help with pilots, partnerships, or data for stray animal protection.",
+          leftTag: "Connection",
+          leftTitle: "Let's start a conversation",
+          leftDesc: "We are open to pilots, volunteers, partners, and people who want to make animal counting more honest.",
+          location: "Kazakhstan",
+          privacy: "No public exact coordinates",
+          sentTitle: "Message sent",
+          sentDesc: "Thank you. We will get back to you soon.",
+          formTitle: "Tell us how you want to help",
+          name: "Name *",
+          org: "Organization",
+          email: "Email *",
+          message: "Message *",
+          namePlaceholder: "Niyaz",
+          orgPlaceholder: "Kyshik",
+          emailPlaceholder: "hello@kyshik.com",
+          messagePlaceholder: "I want to discuss a city pilot...",
+          sending: "Sending...",
+          send: "Send",
+          alert: "Could not send your message right now. Please try again.",
+        }
+      : {
+          sectionTag: "Контакт",
+          title: "Подключиться к Kyshik",
+          desc: "Напиши нам, если хочешь помочь с пилотом, партнерством или данными по бездомным животным.",
+          leftTag: "Байланыс",
+          leftTitle: "Начнем разговор",
+          leftDesc: "Мы открыты к пилотам, волонтерам, партнерам и людям, которые хотят сделать учет животных честнее.",
+          location: "Казахстан",
+          privacy: "Без публичных точных координат",
+          sentTitle: "Сообщение отправлено",
+          sentDesc: "Спасибо. Мы свяжемся с тобой в ближайшее время.",
+          formTitle: "Расскажи, чем хочешь помочь",
+          name: "Имя *",
+          org: "Организация",
+          email: "Email *",
+          message: "Сообщение *",
+          namePlaceholder: "Нияз",
+          orgPlaceholder: "Kyshik",
+          emailPlaceholder: "salem@kyshik.com",
+          messagePlaceholder: "Хочу обсудить пилот в городе...",
+          sending: "Отправляем...",
+          send: "Отправить",
+          alert: "Could not send your message right now. Please try again.",
+        };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,7 +102,7 @@ export const Contact = () => {
       setSent(true);
       setForm({ name: "", company: "", email: "", message: "" });
     } catch {
-      window.alert("Could not send your message right now. Please try again.");
+      window.alert(t.alert);
     } finally {
       setIsSubmitting(false);
     }
@@ -66,13 +119,13 @@ export const Contact = () => {
           transition={{ duration: 0.6 }}
         >
           <p className="text-xs font-bold uppercase tracking-[0.28em] text-accent mb-5">
-            Контакт
+            {t.sectionTag}
           </p>
           <h1 className="text-[2.45rem] md:text-[4.25rem] font-bold text-primary leading-[0.98]">
-            Подключиться к Kyshik
+            {t.title}
           </h1>
           <p className="mt-5 max-w-2xl text-base sm:text-lg leading-8 text-secondary">
-            Напиши нам, если хочешь помочь с пилотом, партнерством или данными по бездомным животным.
+            {t.desc}
           </p>
         </motion.div>
 
@@ -85,24 +138,24 @@ export const Contact = () => {
           <div className="bg-primary p-8 sm:p-10 lg:p-14 text-white flex flex-col justify-between gap-10">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.28em] text-white/55 mb-5">
-                Байланыс
+                {t.leftTag}
               </p>
               <h2 className="text-[2.1rem] md:text-[3.1rem] font-bold leading-[0.98]">
-                Начнем разговор
+                {t.leftTitle}
               </h2>
               <p className="text-white/70 text-base leading-7 mt-5 max-w-md">
-                Мы открыты к пилотам, волонтерам, партнерам и людям, которые хотят сделать учет животных честнее.
+                {t.leftDesc}
               </p>
             </div>
 
             <div className="space-y-4 text-sm text-white/80">
               <p className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-accent" />
-                Казахстан
+                {t.location}
               </p>
               <p className="flex items-center gap-3">
                 <ShieldCheck className="w-4 h-4 text-accent" />
-                Без публичных точных координат
+                {t.privacy}
               </p>
               <p className="flex items-center gap-3">
                 <ArrowRight className="w-4 h-4 text-accent" />
@@ -119,21 +172,21 @@ export const Contact = () => {
                 className="text-center w-full"
               >
                 <CheckCircle2 className="w-12 h-12 text-accent mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-primary mb-2">Сообщение отправлено</h3>
+                <h3 className="text-2xl font-bold text-primary mb-2">{t.sentTitle}</h3>
                 <p className="text-secondary font-light text-sm">
-                  Спасибо. Мы свяжемся с тобой в ближайшее время.
+                  {t.sentDesc}
                 </p>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
-                <h3 className="text-2xl font-bold text-primary mb-1">Расскажи, чем хочешь помочь</h3>
+                <h3 className="text-2xl font-bold text-primary mb-1">{t.formTitle}</h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs uppercase tracking-widest text-secondary font-bold">Имя *</label>
+                    <label className="text-xs uppercase tracking-widest text-secondary font-bold">{t.name}</label>
                     <input
                       type="text"
-                      placeholder="Нияз"
+                      placeholder={t.namePlaceholder}
                       required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -141,10 +194,10 @@ export const Contact = () => {
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs uppercase tracking-widest text-secondary font-bold">Организация</label>
+                    <label className="text-xs uppercase tracking-widest text-secondary font-bold">{t.org}</label>
                     <input
                       type="text"
-                      placeholder="Kyshik"
+                      placeholder={t.orgPlaceholder}
                       value={form.company}
                       onChange={(e) => setForm({ ...form, company: e.target.value })}
                       className={inputClass}
@@ -153,10 +206,10 @@ export const Contact = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs uppercase tracking-widest text-secondary font-bold">Email *</label>
+                  <label className="text-xs uppercase tracking-widest text-secondary font-bold">{t.email}</label>
                   <input
                     type="email"
-                    placeholder="salem@kyshik.com"
+                    placeholder={t.emailPlaceholder}
                     required
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -165,9 +218,9 @@ export const Contact = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs uppercase tracking-widest text-secondary font-bold">Сообщение *</label>
+                  <label className="text-xs uppercase tracking-widest text-secondary font-bold">{t.message}</label>
                   <textarea
-                    placeholder="Хочу обсудить пилот в городе..."
+                    placeholder={t.messagePlaceholder}
                     required
                     rows={5}
                     value={form.message}
@@ -181,7 +234,7 @@ export const Contact = () => {
                   disabled={isSubmitting}
                   className="bg-primary text-on-primary py-4 rounded-lg font-bold text-sm uppercase tracking-widest hover:bg-accent transition-all duration-300 flex items-center justify-center gap-2 group mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? "Отправляем..." : "Отправить"}
+                  {isSubmitting ? t.sending : t.send}
                   {!isSubmitting && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
                 </button>
               </form>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { Mail, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 const TELEGRAM_URL = "https://t.me/kyshikbot";
 
@@ -16,6 +17,11 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Crew", href: "/crew" },
 ];
 
+const NAV_ITEMS_EN: NavItem[] = [
+  { label: "Blog", href: "/blog" },
+  { label: "Crew", href: "/crew" },
+];
+
 const TgIcon = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.25-2.04 9.61c-.15.66-.54.82-1.08.51l-3-2.21-1.45 1.39c-.16.16-.3.3-.61.3l.21-3.05 5.56-5.02c.24-.21-.05-.33-.37-.12L7.26 14.34l-2.94-.92c-.64-.2-.65-.64.14-.95l11.48-4.43c.53-.19 1 .13.62.21z" />
@@ -23,10 +29,15 @@ const TgIcon = () => (
 );
 
 export const Navbar = () => {
+  const { language, toggleLanguage } = useLanguage();
   const [visible, setVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const lastY = useRef(0);
+  const navItems = language === "en" ? NAV_ITEMS_EN : NAV_ITEMS;
+  const telegramLabel = language === "en" ? "Telegram" : "Телеграм";
+  const contactLabel = language === "en" ? "Contact page" : "Контакт";
+  const toggleMenuLabel = language === "en" ? "Toggle menu" : "Открыть меню";
 
   useEffect(() => {
     const fn = () => {
@@ -60,7 +71,7 @@ export const Navbar = () => {
           </Link>
 
           <div className="hidden md:flex items-center gap-6">
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
@@ -72,6 +83,14 @@ export const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={toggleLanguage}
+              className="flex h-10 min-w-12 items-center justify-center rounded-full border-2 border-black/80 bg-white text-[11px] font-extrabold tracking-[0.14em] text-primary shadow-[0_8px_18px_rgba(0,0,0,0.16)]"
+              aria-label={language === "en" ? "Switch to Russian" : "Switch to English"}
+            >
+              {language === "en" ? "RU" : "EN"}
+            </button>
             <motion.a
               href={TELEGRAM_URL}
               target="_blank"
@@ -81,12 +100,12 @@ export const Navbar = () => {
               whileTap={{ scale: 0.97 }}
             >
               <TgIcon />
-              <span className="hidden sm:inline">Телеграм</span>
+              <span className="hidden sm:inline">{telegramLabel}</span>
             </motion.a>
             <motion.a
               href="/contact"
               className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-black/80 bg-white text-primary shadow-[0_8px_18px_rgba(0,0,0,0.16)]"
-              aria-label="Contact page"
+              aria-label={contactLabel}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -95,7 +114,7 @@ export const Navbar = () => {
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden p-2 text-primary"
-              aria-label="Toggle menu"
+              aria-label={toggleMenuLabel}
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -109,7 +128,7 @@ export const Navbar = () => {
         animate={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "auto" : "none" }}
         transition={{ duration: 0.22 }}
       >
-        {NAV_ITEMS.map(({ label, href, external }) => (
+        {navItems.map(({ label, href, external }) => (
           <a
             key={label}
             href={href}

@@ -1,31 +1,47 @@
 import { motion } from "motion/react";
+import { useLanguage } from "../context/LanguageContext";
 
 import crewPhoto from "../../us.webp";
 import abylayWeb from "../../abylay.webp";
 import niyazCroppedWeb from "../../niyaz.webp";
 
-export const Crew = () => (
-  <div className="min-h-screen bg-primary text-white">
-    <section className="relative overflow-hidden py-20 sm:py-24">
-      <div className="pointer-events-none absolute inset-0 opacity-14 bg-[repeating-linear-gradient(-18deg,rgba(255,255,255,0.18),rgba(255,255,255,0.18)_1px,transparent_1px,transparent_8px)]" />
+export const Crew = () => {
+  const { language } = useLanguage();
+  const t =
+    language === "en"
+      ? {
+          tag: "Crew",
+          title: "The people behind Kyshik",
+          desc: "We are building the first independent AI platform for counting stray animals in Kazakhstan.",
+        }
+      : {
+          tag: "Crew",
+          title: "Люди за Kyshik",
+          desc: "Мы строим первую независимую ИИ-платформу для учета бездомных животных в Казахстане.",
+        };
 
-      <div className="relative max-w-6xl mx-auto px-5 sm:px-6">
-        <motion.div
-          className="mb-10 max-w-4xl"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="text-xs font-bold uppercase tracking-[0.28em] text-white/55 mb-5">
-            Crew
-          </p>
-          <h1 className="text-[3rem] md:text-[5.4rem] font-extrabold leading-[0.92]">
-            Люди за Kyshik
-          </h1>
-          <p className="mt-6 max-w-2xl text-base sm:text-lg leading-8 text-white/68">
-            Мы строим первую независимую ИИ-платформу для учета бездомных животных в Казахстане.
-          </p>
-        </motion.div>
+  return (
+    <div className="min-h-screen bg-primary text-white">
+      <section className="relative overflow-hidden py-20 sm:py-24">
+        <div className="pointer-events-none absolute inset-0 opacity-14 bg-[repeating-linear-gradient(-18deg,rgba(255,255,255,0.18),rgba(255,255,255,0.18)_1px,transparent_1px,transparent_8px)]" />
+
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-6">
+          <motion.div
+            className="mb-10 max-w-4xl"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-white/55 mb-5">
+              {t.tag}
+            </p>
+            <h1 className="text-[3rem] md:text-[5.4rem] font-extrabold leading-[0.92]">
+              {t.title}
+            </h1>
+            <p className="mt-6 max-w-2xl text-base sm:text-lg leading-8 text-white/68">
+              {t.desc}
+            </p>
+          </motion.div>
 
         <motion.figure
           className="overflow-hidden rounded-lg border-2 border-white/20 bg-white/6 shadow-[0_10px_0_rgba(255,255,255,0.08)]"
@@ -76,7 +92,8 @@ export const Crew = () => (
             </figcaption>
           </motion.figure>
         </div>
-      </div>
-    </section>
-  </div>
-);
+        </div>
+      </section>
+    </div>
+  );
+};

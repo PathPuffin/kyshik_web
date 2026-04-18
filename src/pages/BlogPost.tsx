@@ -1,24 +1,42 @@
 import { motion } from "motion/react";
 import { Link, useParams } from "react-router-dom";
 
-import { POSTS } from "./blogData";
+import { useLanguage } from "../context/LanguageContext";
+import { getBlogData } from "./blogData";
 
 export const BlogPost = () => {
+  const { language } = useLanguage();
   const { slug } = useParams();
-  const post = POSTS.find((item) => item.slug === slug);
+  const { posts } = getBlogData(language);
+  const post = posts.find((item) => item.slug === slug);
+
+  const t =
+    language === "en"
+      ? {
+          notFoundTag: "Article not found",
+          notFoundTitle: "This post has not been published yet",
+          backToBlog: "Back to blog",
+          backInArticle: "Back",
+        }
+      : {
+          notFoundTag: "Статья не найдена",
+          notFoundTitle: "Такой материал еще не опубликован",
+          backToBlog: "Вернуться в блог",
+          backInArticle: "Назад в блог",
+        };
 
   if (!post) {
     return (
       <div className="min-h-screen bg-primary text-white">
         <section className="max-w-4xl mx-auto px-5 sm:px-6 py-24">
           <p className="text-xs font-bold uppercase tracking-[0.28em] text-accent mb-5">
-            Статья не найдена
+            {t.notFoundTag}
           </p>
           <h1 className="text-[2.6rem] md:text-[4rem] font-extrabold leading-[0.95]">
-            Такой материал еще не опубликован
+            {t.notFoundTitle}
           </h1>
           <Link to="/blog" className="mt-8 inline-flex text-sm font-extrabold uppercase tracking-[0.2em] text-accent">
-            Вернуться в блог
+            {t.backToBlog}
           </Link>
         </section>
       </div>
@@ -39,7 +57,7 @@ export const BlogPost = () => {
             transition={{ duration: 0.6 }}
           >
             <Link to="/blog" className="text-xs font-extrabold uppercase tracking-[0.2em] text-accent">
-              Назад в блог
+              {t.backInArticle}
             </Link>
 
             <div className="mt-10 flex items-center gap-4">

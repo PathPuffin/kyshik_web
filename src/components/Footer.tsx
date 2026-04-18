@@ -1,3 +1,5 @@
+import { useLanguage } from "../context/LanguageContext";
+
 const TELEGRAM_URL = "https://t.me/kyshikbot";
 
 const TgIcon = () => (
@@ -6,32 +8,57 @@ const TgIcon = () => (
   </svg>
 );
 
-export const Footer = () => (
-  <footer className="bg-primary border-t-2 border-accent/60 py-10">
-    <div className="max-w-7xl mx-auto px-5 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-5">
-      <a href="/" className="text-2xl font-bold text-white/75 hover:text-white transition-colors">
-        kyshik<span className="text-accent">.com</span>
-      </a>
-      <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs font-bold uppercase tracking-widest text-white/38">
-        <a href="/#about" className="hover:text-white transition-colors">Проблема</a>
-        <a href="/#how" className="hover:text-white transition-colors">Процесс</a>
-        <a href="/#proof" className="hover:text-white transition-colors">Данные</a>
-        <a href="/blog" className="hover:text-white transition-colors">Блог</a>
-        <a href="/crew" className="hover:text-white transition-colors">Crew</a>
-        <a href="/contact" className="hover:text-white transition-colors">Контакт</a>
-      </nav>
-      <a
-        href={TELEGRAM_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-1.5 text-white/40 hover:text-white/80 text-sm transition-colors"
-      >
-        <TgIcon />
-        Телеграм
-      </a>
-      <p className="text-white/25 text-xs tracking-widest uppercase">
-        © 2026 kyshik.com
-      </p>
-    </div>
-  </footer>
-);
+export const Footer = () => {
+  const { language } = useLanguage();
+
+  const labels =
+    language === "en"
+      ? {
+          problem: "Problem",
+          process: "Process",
+          data: "Data",
+          blog: "Blog",
+          crew: "Crew",
+          contact: "Contact",
+          telegram: "Telegram",
+        }
+      : {
+          problem: "Проблема",
+          process: "Процесс",
+          data: "Данные",
+          blog: "Блог",
+          crew: "Crew",
+          contact: "Контакт",
+          telegram: "Телеграм",
+        };
+
+  return (
+    <footer className="bg-primary border-t-2 border-accent/60 py-10">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-5">
+        <a href="/" className="text-2xl font-bold text-white/75 hover:text-white transition-colors">
+          kyshik<span className="text-accent">.com</span>
+        </a>
+        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs font-bold uppercase tracking-widest text-white/38">
+          <a href="/#about" className="hover:text-white transition-colors">{labels.problem}</a>
+          <a href="/#how" className="hover:text-white transition-colors">{labels.process}</a>
+          <a href="/#proof" className="hover:text-white transition-colors">{labels.data}</a>
+          <a href="/blog" className="hover:text-white transition-colors">{labels.blog}</a>
+          <a href="/crew" className="hover:text-white transition-colors">{labels.crew}</a>
+          <a href="/contact" className="hover:text-white transition-colors">{labels.contact}</a>
+        </nav>
+        <a
+          href={TELEGRAM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 text-white/40 hover:text-white/80 text-sm transition-colors"
+        >
+          <TgIcon />
+          {labels.telegram}
+        </a>
+        <p className="text-white/25 text-xs tracking-widest uppercase">
+          © 2026 kyshik.com
+        </p>
+      </div>
+    </footer>
+  );
+};
