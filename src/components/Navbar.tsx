@@ -1,10 +1,20 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { Mail, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const TELEGRAM_URL = "https://t.me/kyshikbot";
-const VOLUNTEER_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeqx_xST3RUvYqF-gfLgvMcVR2SqPcQ9Vmb_KbziWUIwMLisw/viewform?usp=dialog";
+
+type NavItem = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+const NAV_ITEMS: NavItem[] = [
+  { label: "Блог", href: "/blog" },
+  { label: "Crew", href: "/crew" },
+];
 
 const TgIcon = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -35,8 +45,8 @@ export const Navbar = () => {
       <motion.nav
         className={`fixed top-0 w-full z-50 transition-colors duration-500 border-b ${
           scrolled || menuOpen
-            ? "bg-black/70 backdrop-blur-xl border-accent/40"
-            : "bg-transparent border-transparent"
+            ? "bg-white/88 backdrop-blur-xl border-black/15"
+            : "bg-white/20 backdrop-blur-sm border-transparent"
         }`}
         animate={{ y: visible ? 0 : "-100%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -44,41 +54,43 @@ export const Navbar = () => {
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Link
             to="/"
-            className="text-2xl font-bold text-primary [text-shadow:0_1px_0_rgba(255,255,255,0.22),0_3px_10px_rgba(0,0,0,0.25)]"
+            className="text-2xl font-bold text-primary"
           >
             kyshik<span className="text-accent">.com</span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
-            <a
-              href="/#about"
-              className="text-xs font-medium uppercase tracking-widest text-secondary hover:text-primary transition-colors"
-            >
-              Туралы
-            </a>
+          <div className="hidden md:flex items-center gap-6">
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="text-xs font-bold uppercase tracking-widest text-secondary hover:text-accent transition-colors"
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
 
           <div className="flex items-center gap-3">
             <motion.a
-              href={VOLUNTEER_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-2 bg-accent text-white px-5 py-2.5 rounded-full text-xs shadow-[0_8px_20px_rgba(255,59,48,0.34)]"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              Volunteering
-            </motion.a>
-            <motion.a
               href={TELEGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-2 bg-tg text-white px-5 py-2.5 rounded-full text-xs shadow-[0_8px_20px_rgba(0,167,232,0.36)]"
+              className="flex items-center gap-2 bg-tg text-white px-4 sm:px-5 py-2.5 rounded-full text-xs font-bold shadow-[0_8px_20px_rgba(0,167,232,0.36)]"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
               <TgIcon />
-              Телеграм
+              <span className="hidden sm:inline">Телеграм</span>
+            </motion.a>
+            <motion.a
+              href="/contact"
+              className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-black/80 bg-white text-primary shadow-[0_8px_18px_rgba(0,0,0,0.16)]"
+              aria-label="Contact page"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <Mail size={17} />
             </motion.a>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -97,11 +109,7 @@ export const Navbar = () => {
         animate={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "auto" : "none" }}
         transition={{ duration: 0.22 }}
       >
-        {[
-          { label: "Туралы", href: "/#about" },
-          { label: "Volunteering", href: VOLUNTEER_FORM_URL, external: true },
-          { label: "Телеграм", href: TELEGRAM_URL, external: true },
-        ].map(({ label, href, external }) => (
+        {NAV_ITEMS.map(({ label, href, external }) => (
           <a
             key={label}
             href={href}

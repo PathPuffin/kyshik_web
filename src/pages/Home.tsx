@@ -1,6 +1,12 @@
-import { useState } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, CheckCircle2, Heart, Users, Home as HomeIcon } from "lucide-react";
+import {
+  Camera,
+  Database,
+  Fingerprint,
+  Heart,
+  LockKeyhole,
+  Users,
+} from "lucide-react";
 
 import posterArt from "../../stop_killing_dogs.webp";
 import dogSwag from "../../dog_swag.webp";
@@ -13,8 +19,6 @@ import greenDogSad from "../../green_dog_sad.webp";
 import pawsPoster from "../../paws.webp";
 
 const TELEGRAM_URL = "https://t.me/kyshikbot";
-const VOLUNTEER_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeqx_xST3RUvYqF-gfLgvMcVR2SqPcQ9Vmb_KbziWUIwMLisw/viewform?usp=dialog";
-const WEB3FORMS_ACCESS_KEY = "f117ad90-c89c-4844-b9ce-3dae5a63b2de";
 
 const TgIcon = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -90,19 +94,47 @@ const DOG_OVERLAYS = [
 
 const CARDS = [
   {
-    Icon: HomeIcon,
-    title: "Жануарлар баспанасы табу",
-    desc: "Иесіз иттерге жылы баспана мен дұрыс күтім табуға көмектесеміз.",
+    Icon: Users,
+    eyebrow: "Что мешает учету",
+    title: "Проблема",
+    paragraphs: [
+      "Существующие методы идентификации не справляются с учетом бездомных животных.",
+      "Высокая стоимость чипирования делает массовый учет недоступным.",
+      "В итоге статистика расходится с реальностью, а общественность не получает объективную картину.",
+    ],
   },
   {
     Icon: Heart,
-    title: "Асырап алу",
-    desc: "Дүкеннен сатып алма — панажайдан асырап ал. Бір өмірін құтқарасың.",
+    eyebrow: "Как работает Kyshik",
+    title: "Наше решение",
+    paragraphs: [
+      "Kyshik — первая независимая ИИ-платформа для учета животных в Казахстане.",
+      "Искусственный интеллект превращает каждое фото в достоверный цифровой факт.",
+      "Публичный мониторинг показывает факт и динамику, но не раскрывает точную геопозицию животного.",
+    ],
+  },
+];
+
+const STEPS = [
+  {
+    Icon: Camera,
+    title: "Сделать фото",
+    desc: "Пользователь фиксирует животное без раскрытия опасных деталей для посторонних.",
   },
   {
-    Icon: Users,
-    title: "Қауымдастық",
-    desc: "Жануарларды жақсы көретін адамдарды біріктіреміз. Бірге күштіміз.",
+    Icon: Fingerprint,
+    title: "Распознать",
+    desc: "ИИ помогает отличать животных и связывать новые снимки с уже найденными следами.",
+  },
+  {
+    Icon: LockKeyhole,
+    title: "Защитить место",
+    desc: "Точные координаты скрываются, а публично остается безопасный сигнал о факте наблюдения.",
+  },
+  {
+    Icon: Database,
+    title: "Собрать картину",
+    desc: "Общественность получает объективную статистику и динамику, а не только отчеты на бумаге.",
   },
 ];
 
@@ -110,14 +142,17 @@ const GALLERY = [
   {
     src: greenDogSad,
     alt: "Жасыл тондағы қайғылы ит",
+    title: "Каждый снимок важен",
   },
   {
     src: dogSwag,
     alt: "Dog swag көшірме суреті",
+    title: "Животное не теряется в системе",
   },
   {
     src: confusedDoggy,
     alt: "Аң-таң болған ит",
+    title: "Данные остаются проверяемыми",
   },
 ];
 
@@ -126,25 +161,12 @@ const Hero = () => (
     className="relative min-h-svh overflow-hidden flex items-start sm:items-center justify-center"
     style={{
       background:
-        "radial-gradient(900px 560px at 14% 12%, #f7f6f2 0%, #ece9e3 54%, #d9d4cb 100%)",
+        "linear-gradient(160deg, #f7f8f5 0%, #e8ece8 58%, #d6dcd6 100%)",
     }}
   >
-    <div className="pointer-events-none absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_18%_16%,rgba(255,59,48,0.2)_0,rgba(255,59,48,0)_33%),radial-gradient(circle_at_84%_70%,rgba(0,167,232,0.2)_0,rgba(0,167,232,0)_34%),repeating-linear-gradient(-18deg,rgba(0,0,0,0.08),rgba(0,0,0,0.08)_1px,transparent_1px,transparent_8px)]" />
+    <div className="pointer-events-none absolute inset-0 opacity-35 bg-[repeating-linear-gradient(-18deg,rgba(0,0,0,0.08),rgba(0,0,0,0.08)_1px,transparent_1px,transparent_8px)]" />
 
     <div className="relative z-10 w-full min-h-svh pt-12 sm:pt-24 pb-6 sm:pb-12 px-3 sm:px-4 md:px-6 flex flex-col items-center justify-start sm:justify-center gap-4 sm:gap-8">
-      <motion.div
-        className="w-full max-w-300 rounded-2xl border-2 border-black/70 bg-white/80 backdrop-blur-sm px-3 sm:px-6 py-3.5 sm:py-5 shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <p className="text-[12.5px] sm:text-sm leading-snug sm:leading-relaxed text-black/85">
-          <span className="font-bold text-black">Проблема:</span> Существующие методы идентификации не справляются с учетом бездомных животных, поэтому официальные данные часто расходятся с реальностью. Это не позволяет эффективно распределять ресурсы и принимать верные решения.
-        </p>
-        <p className="mt-2.5 sm:mt-3 text-[12.5px] sm:text-sm leading-snug sm:leading-relaxed text-black/85">
-          <span className="font-bold text-black">Наше решение:</span> Kyshik — первая независимая база данных бездомных животных в Казахстане. Мы фиксируем реальную ситуацию, превращая каждое фото в достоверный факт: наша цель — обеспечить прозрачность данных и дать обществу объективную картину для поиска решений.
-        </p>
-      </motion.div>
       <motion.div
         className="relative w-full max-w-300 rounded-[20px] overflow-hidden border-4 border-black/80 shadow-[0_20px_65px_rgba(0,0,0,0.38)] rotate-[-0.35deg]"
         initial={{ opacity: 0, y: 16, scale: 0.98 }}
@@ -178,22 +200,11 @@ const Hero = () => (
       </motion.div>
 
       <motion.div
-        className="mt-1 sm:mt-0 flex flex-col sm:flex-row items-center gap-3"
+        className="mt-1 sm:mt-0 flex items-center"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
       >
-        <motion.a
-          href={VOLUNTEER_FORM_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2.5 bg-accent text-white px-9 py-4 rounded-full text-sm shadow-[0_8px_32px_rgba(255,59,48,0.34)]"
-          whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(255,59,48,0.46)" }}
-          whileTap={{ scale: 0.97 }}
-        >
-          Volunteering
-        </motion.a>
-
         <motion.a
           href={TELEGRAM_URL}
           target="_blank"
@@ -207,48 +218,124 @@ const Hero = () => (
         </motion.a>
       </motion.div>
 
+      <motion.div
+        className="relative w-full max-w-5xl px-2 text-center"
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, delay: 0.42 }}
+      >
+        <p className="relative inline-flex -rotate-2 rounded-lg border-2 border-black bg-accent px-5 py-2 text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.26em] text-white shadow-[6px_6px_0_rgba(0,0,0,0.24)]">
+          Первые в Казахстане
+        </p>
+        <h1 className="relative mx-auto mt-5 max-w-5xl text-[2.15rem] sm:text-[3rem] md:text-[4.35rem] font-extrabold leading-[0.95] text-primary">
+          Независимая ИИ-платформа для учета бездомных животных
+        </h1>
+        <p className="relative mx-auto mt-5 max-w-2xl text-sm sm:text-base font-medium leading-7 text-secondary">
+          Каждое фото помогает общественности видеть объективную статистику, при этом точная геопозиция животных остается защищенной.
+        </p>
+      </motion.div>
+
     </div>
   </section>
 );
 
 const About = () => (
-  <section className="relative py-24 bg-[linear-gradient(180deg,#f6f1e8_0%,#ede6db_100%)] overflow-hidden">
-    <div className="pointer-events-none absolute inset-0 opacity-35 bg-[radial-gradient(circle_at_12%_10%,rgba(255,59,48,0.18),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(0,167,232,0.16),transparent_30%),radial-gradient(circle_at_52%_82%,rgba(17,17,17,0.1),transparent_36%)]" />
-    <div className="relative max-w-6xl mx-auto px-6">
+  <section id="about" className="relative overflow-hidden bg-surface py-20 sm:py-24">
+    <div className="max-w-6xl mx-auto px-5 sm:px-6">
       <motion.div
-        className="text-center mb-12"
+        className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-start"
         initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-secondary mb-4">
-          Біздің мақсат
+        <div className="lg:sticky lg:top-28">
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-accent mb-5">
+            ИИ-платформа для учета животных
+          </p>
+          <h2 className="max-w-3xl text-[2.35rem] md:text-[4rem] font-bold text-primary leading-[0.98]">
+            Объективная статистика вместо исчезновения
+          </h2>
+          <p className="mt-6 max-w-xl text-base sm:text-lg leading-8 text-secondary">
+            Kyshik фиксирует то, что обычно остается невидимым: факт наблюдения, историю животного и изменения во времени. Точная геопозиция не становится публичной.
+          </p>
+          <p className="mt-5 max-w-xl border-l-2 border-accent/60 pl-5 text-base sm:text-lg leading-8 text-secondary">
+            Мы используем архитектуру Privacy by Design. В базе данных Kyshik нет точных адресов — они превращены в необратимые цифровые следы. Мы защищаем животных, не создавая рисков для их безопасности.
+          </p>
+        </div>
+
+        <div className="space-y-5">
+          {CARDS.map(({ Icon, eyebrow, title, paragraphs }, i) => (
+            <motion.article
+              key={title}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.55 }}
+              className="rounded-lg border-2 border-black/70 bg-card p-6 sm:p-8 shadow-[0_8px_0_rgba(0,0,0,0.2)]"
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-11 h-11 rounded-full bg-accent/10 flex shrink-0 items-center justify-center">
+                  <Icon className="w-5 h-5 text-accent" />
+                </div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-secondary">
+                  {eyebrow}
+                </p>
+              </div>
+              <h3 className="text-[1.95rem] md:text-[2.25rem] font-bold text-primary mb-5 leading-tight">{title}</h3>
+              <div className="space-y-4">
+                {paragraphs.map((paragraph) => (
+                  <p key={paragraph} className="border-l-2 border-accent/45 pl-4 text-[15px] sm:text-base leading-7 text-secondary">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </motion.div>
+
+    </div>
+  </section>
+);
+
+const HowItWorks = () => (
+  <section id="how" className="bg-primary py-20 sm:py-24 text-white">
+    <div className="max-w-6xl mx-auto px-5 sm:px-6">
+      <motion.div
+        className="max-w-3xl"
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <p className="text-xs font-bold uppercase tracking-[0.28em] text-accent mb-5">
+          Механика доверия
         </p>
-        <h2 className="text-[2.6rem] md:text-[4.1rem] font-bold text-primary leading-[0.92]">
-          Иттер мен адамдар арасындағы{" "}
-          <span className="italic text-accent">көпір</span>
+        <h2 className="text-[2.25rem] md:text-[3.75rem] font-bold text-white leading-[0.98]">
+          От случайного кадра к объективной статистике
         </h2>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {CARDS.map(({ Icon, title, desc }, i) => (
-          <motion.div
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-4">
+        {STEPS.map(({ Icon, title, desc }, index) => (
+          <motion.article
             key={title}
-            initial={{ opacity: 0, y: 20 }}
+            className="relative rounded-lg border-2 border-white/20 bg-white/7 p-6 shadow-[0_8px_0_rgba(255,255,255,0.08)]"
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.12, duration: 0.6 }}
-            className={`bg-card rounded-2xl p-8 border-2 border-black/70 hover:border-accent transition-all duration-300 shadow-[0_10px_0_rgba(0,0,0,0.25)] ${
-              i === 0 ? "-rotate-1" : i === 2 ? "rotate-1" : ""
-            }`}
+            transition={{ delay: index * 0.08, duration: 0.55 }}
           >
-            <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-6">
-              <Icon className="w-5 h-5 text-accent" />
+            <div className="mb-8 flex items-start justify-between gap-4">
+              <div className="w-11 h-11 rounded-full bg-tg/18 flex items-center justify-center">
+                <Icon className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xs font-extrabold text-accent">0{index + 1}</span>
             </div>
-            <h3 className="text-[1.85rem] font-bold text-primary mb-3">{title}</h3>
-            <p className="text-secondary text-sm leading-relaxed">{desc}</p>
-          </motion.div>
+            <h3 className="text-xl font-extrabold text-white leading-tight">{title}</h3>
+            <p className="mt-4 text-sm leading-6 text-white/68">{desc}</p>
+          </motion.article>
         ))}
       </div>
     </div>
@@ -256,28 +343,33 @@ const About = () => (
 );
 
 const Gallery = () => (
-  <section className="relative py-24 bg-[linear-gradient(180deg,#f6f1e8_0%,#ede6db_100%)] overflow-hidden">
-    <div className="pointer-events-none absolute inset-0 opacity-35 bg-[radial-gradient(circle_at_12%_10%,rgba(255,59,48,0.18),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(0,167,232,0.16),transparent_30%),radial-gradient(circle_at_52%_82%,rgba(17,17,17,0.1),transparent_36%)]" />
-    <div className="relative max-w-6xl mx-auto px-6">
+  <section id="proof" className="relative py-20 sm:py-24 bg-surface overflow-hidden">
+    <div className="relative max-w-6xl mx-auto px-5 sm:px-6">
       <motion.div
-        className="text-center mb-12"
+        className="mb-12 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 items-end"
         initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="text-[2.4rem] md:text-[3.8rem] font-bold text-primary leading-[0.95]">
-          Сен берген <span className="italic text-accent">суреттер</span>
-        </h2>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-accent mb-5">
+            Цифровой след
+          </p>
+          <h2 className="text-[2.25rem] md:text-[3.75rem] font-bold text-primary leading-[0.98]">
+            Фото, которое нельзя просто забыть
+          </h2>
+        </div>
+        <p className="max-w-xl text-base leading-8 text-secondary lg:ml-auto">
+          Снимки превращаются в защищенную историю наблюдений. Чем больше людей участвует, тем объективнее становится статистика для общественности, без публикации точных координат животных.
+        </p>
       </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {GALLERY.map((item, index) => (
           <motion.figure
             key={item.alt}
-            className={`group relative overflow-hidden rounded-3xl border-2 border-black/70 bg-white shadow-[0_16px_0_rgba(0,0,0,0.18)] ${
-              index % 3 === 1 ? "-rotate-1" : index % 3 === 2 ? "rotate-1" : ""
-            }`}
+            className="group relative overflow-hidden rounded-lg border-2 border-black/70 bg-white shadow-[0_10px_0_rgba(0,0,0,0.18)]"
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -289,6 +381,9 @@ const Gallery = () => (
               className="block w-full h-67.5 object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             />
+            <figcaption className="border-t-2 border-black/70 bg-white px-5 py-4">
+              <p className="text-sm font-extrabold text-primary">{item.title}</p>
+            </figcaption>
           </motion.figure>
         ))}
       </div>
@@ -296,197 +391,34 @@ const Gallery = () => (
   </section>
 );
 
-const Contact = () => {
-  const [sent, setSent] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    company: "",
-    email: "",
-    message: "",
-  });
-
-  const inputClass =
-    "w-full rounded-lg border border-black/25 bg-white/95 px-4 py-3 text-sm text-primary placeholder:text-secondary/60 outline-none transition-all duration-200 focus:border-accent focus:ring-2 focus:ring-accent/25";
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (isSubmitting) {
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const payload = new FormData();
-      payload.append("access_key", WEB3FORMS_ACCESS_KEY);
-      payload.append("name", form.name);
-      payload.append("email", form.email);
-      payload.append("message", form.message);
-      payload.append("company", form.company);
-      payload.append("subject", `New contact from ${form.name}`);
-
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: payload,
-      });
-
-      const result = (await response.json()) as { success?: boolean; message?: string };
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Failed to submit form.");
-      }
-
-      setSent(true);
-      setForm({ name: "", company: "", email: "", message: "" });
-    } catch {
-      window.alert("Could not send your message right now. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <section className="relative py-24 bg-[linear-gradient(180deg,#f6f1e8_0%,#ede6db_100%)] overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 opacity-35 bg-[radial-gradient(circle_at_12%_10%,rgba(255,59,48,0.18),transparent_28%),radial-gradient(circle_at_88%_18%,rgba(0,167,232,0.16),transparent_30%),radial-gradient(circle_at_52%_82%,rgba(17,17,17,0.1),transparent_36%)]" />
-      <div className="relative max-w-6xl mx-auto px-6">
-        <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 rounded-2xl overflow-hidden border-2 border-black/70 shadow-[0_16px_0_rgba(0,0,0,0.22)]"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
-          <div className="bg-[linear-gradient(160deg,#171717_0%,#0f0f0f_64%,#050505_100%)] p-12 lg:p-20 text-white flex flex-col justify-between gap-10">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/60 mb-4">
-                Байланыс
-              </p>
-              <h2 className="text-[2.1rem] md:text-[3rem] font-bold leading-[0.95]">
-                Жобаң туралы
-                <span className="italic text-accent"> бізге жаз</span>
-              </h2>
-              <p className="text-white/65 text-sm leading-relaxed mt-5 max-w-md">
-                Толық ақпаратты қалдыр. Командамыз қысқа уақытта жауап береді.
-              </p>
-            </div>
-
-            <div className="space-y-3 text-sm text-white/80">
-              <p>Email: salem@kyshik.com</p>
-              <p>Telegram: @kyshikbot</p>
-            </div>
-          </div>
-
-          <div className="bg-surface-container-low p-12 lg:p-20 flex items-center">
-            {sent ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-center w-full"
-              >
-                <CheckCircle2 className="w-12 h-12 text-primary mx-auto mb-4 opacity-60" />
-                <h3 className="font-serif text-2xl text-primary mb-2">Message sent successfully</h3>
-                <p className="text-secondary font-light text-sm">
-                  Thanks for contacting us. We&apos;ll be in touch shortly.
-                </p>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
-                <h3 className="font-serif text-2xl text-primary mb-2">How can we help?</h3>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs uppercase tracking-widest text-secondary font-medium">Name *</label>
-                    <input
-                      type="text"
-                      placeholder="niyaz kazken"
-                      required
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className={inputClass}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs uppercase tracking-widest text-secondary font-medium">Company</label>
-                    <input
-                      type="text"
-                      placeholder="kyshik"
-                      value={form.company}
-                      onChange={(e) => setForm({ ...form, company: e.target.value })}
-                      className={inputClass}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs uppercase tracking-widest text-secondary font-medium">Email *</label>
-                  <input
-                    type="email"
-                    placeholder="salem@kyshik.com"
-                    required
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className={inputClass}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs uppercase tracking-widest text-secondary font-medium">Message *</label>
-                  <textarea
-                    placeholder=""
-                    required
-                    rows={5}
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className={`${inputClass} resize-none`}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="bg-primary text-on-primary py-4 rounded-lg font-medium text-sm uppercase tracking-widest hover:bg-primary/80 transition-all duration-300 flex items-center justify-center gap-2 group mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                  {!isSubmitting && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
-                </button>
-              </form>
-            )}
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
-
 const CTA = () => (
-  <section className="relative py-28 overflow-hidden bg-[linear-gradient(160deg,#171717_0%,#0f0f0f_64%,#050505_100%)]">
-    <div className="pointer-events-none absolute inset-0 opacity-45 bg-[radial-gradient(circle_at_15%_20%,rgba(255,59,48,0.22),transparent_38%),radial-gradient(circle_at_85%_76%,rgba(0,167,232,0.24),transparent_36%)]" />
+  <section className="relative py-20 sm:py-24 overflow-hidden bg-primary">
     <motion.div
-      className="relative z-10 max-w-2xl mx-auto px-6 text-center flex flex-col items-center gap-7"
+      className="relative z-10 max-w-4xl mx-auto px-5 sm:px-6 text-center flex flex-col items-center gap-7"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
     >
-      <h2 className="text-[2.7rem] md:text-[4.4rem] font-bold text-white leading-[0.92]">
-        Қазір қосыл —{" "}
-        <span className="italic text-accent">өмір сақта</span>
+      <p className="text-xs font-bold uppercase tracking-[0.28em] text-white/55">
+        Қазір қосыл
+      </p>
+      <h2 className="text-[2.45rem] md:text-[4.25rem] font-bold text-white leading-[0.96]">
+        Помоги сделать животных видимыми
       </h2>
-      <p className="text-white/60 text-base font-light leading-relaxed">
-        Telegram ботымыз арқылы иесіз иттерді тап, асырап ал немесе жәрдемде.
+      <p className="max-w-2xl text-white/68 text-base sm:text-lg leading-8">
+        Открой Telegram-бот, зафиксируй животное и добавь еще один честный факт в общую картину.
       </p>
       <motion.a
         href={TELEGRAM_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-3 bg-tg text-white px-10 py-4 rounded-full text-sm shadow-[0_8px_40px_rgba(34,158,217,0.35)]"
+        className="flex items-center gap-3 bg-tg text-white px-10 py-4 rounded-full text-sm font-bold shadow-[0_8px_40px_rgba(34,158,217,0.35)]"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.97 }}
       >
         <TgIcon />
-        Телеграмда Ашу
+        Открыть Telegram
       </motion.a>
     </motion.div>
   </section>
@@ -518,8 +450,8 @@ export const Home = () => (
     <main>
       <Hero />
       <About />
+      <HowItWorks />
       <Gallery />
-      <Contact />
       <CTA />
       <BottomPoster />
     </main>

@@ -7,11 +7,19 @@ const TgIcon = () => (
 );
 
 export const Footer = () => (
-  <footer className="bg-[linear-gradient(180deg,#0f0f0f_0%,#090909_100%)] border-t-2 border-accent/45 py-10">
-    <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+  <footer className="bg-primary border-t-2 border-accent/60 py-10">
+    <div className="max-w-7xl mx-auto px-5 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-5">
       <a href="/" className="text-2xl font-bold text-white/75 hover:text-white transition-colors">
         kyshik<span className="text-accent">.com</span>
       </a>
+      <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs font-bold uppercase tracking-widest text-white/38">
+        <a href="/#about" className="hover:text-white transition-colors">Проблема</a>
+        <a href="/#how" className="hover:text-white transition-colors">Процесс</a>
+        <a href="/#proof" className="hover:text-white transition-colors">Данные</a>
+        <a href="/blog" className="hover:text-white transition-colors">Блог</a>
+        <a href="/crew" className="hover:text-white transition-colors">Crew</a>
+        <a href="/contact" className="hover:text-white transition-colors">Контакт</a>
+      </nav>
       <a
         href={TELEGRAM_URL}
         target="_blank"

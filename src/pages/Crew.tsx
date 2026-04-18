@@ -1,0 +1,82 @@
+import { motion } from "motion/react";
+
+import crewPhoto from "../../us.webp";
+import abylayWeb from "../../abylay.webp";
+import niyazCroppedWeb from "../../niyaz.webp";
+
+export const Crew = () => (
+  <div className="min-h-screen bg-primary text-white">
+    <section className="relative overflow-hidden py-20 sm:py-24">
+      <div className="pointer-events-none absolute inset-0 opacity-14 bg-[repeating-linear-gradient(-18deg,rgba(255,255,255,0.18),rgba(255,255,255,0.18)_1px,transparent_1px,transparent_8px)]" />
+
+      <div className="relative max-w-6xl mx-auto px-5 sm:px-6">
+        <motion.div
+          className="mb-10 max-w-4xl"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-white/55 mb-5">
+            Crew
+          </p>
+          <h1 className="text-[3rem] md:text-[5.4rem] font-extrabold leading-[0.92]">
+            Люди за Kyshik
+          </h1>
+          <p className="mt-6 max-w-2xl text-base sm:text-lg leading-8 text-white/68">
+            Мы строим первую независимую ИИ-платформу для учета бездомных животных в Казахстане.
+          </p>
+        </motion.div>
+
+        <motion.figure
+          className="overflow-hidden rounded-lg border-2 border-white/20 bg-white/6 shadow-[0_10px_0_rgba(255,255,255,0.08)]"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.08 }}
+        >
+          <img
+            src={crewPhoto}
+            alt="Kyshik crew"
+            className="block w-full h-auto"
+            loading="eager"
+          />
+        </motion.figure>
+
+        <div className="mt-8 w-full max-w-[520px] grid grid-cols-2 gap-3 sm:gap-4">
+          <motion.figure
+            className="w-full rounded-2xl border-2 border-white/35 bg-white/95 p-2 shadow-[0_10px_24px_rgba(0,0,0,0.28)]"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.24 }}
+          >
+            <img
+              src={niyazCroppedWeb}
+              alt="Niyaz M"
+              className="block w-full h-auto rounded-xl"
+              loading="lazy"
+            />
+            <figcaption className="pt-2 text-center text-xs sm:text-sm font-semibold tracking-wide text-primary">
+              Niyaz M.
+            </figcaption>
+          </motion.figure>
+
+          <motion.figure
+            className="w-full rounded-2xl border-2 border-white/35 bg-white/95 p-2 shadow-[0_10px_24px_rgba(0,0,0,0.28)]"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.3 }}
+          >
+            <img
+              src={abylayWeb}
+              alt="Abylay D"
+              className="block w-full h-auto rounded-xl"
+              loading="lazy"
+            />
+            <figcaption className="pt-2 text-center text-xs sm:text-sm font-semibold tracking-wide text-primary">
+              Abylay D.
+            </figcaption>
+          </motion.figure>
+        </div>
+      </div>
+    </section>
+  </div>
+);

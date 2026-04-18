@@ -3,6 +3,9 @@ import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { Home } from "./pages/Home";
 import { Blog } from "./pages/Blog";
+import { BlogPost } from "./pages/BlogPost";
+import { Contact } from "./pages/Contact";
+import { Crew } from "./pages/Crew";
 
 export default function App() {
   return (
@@ -13,6 +16,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/crew" element={<Crew />} />
           </Routes>
         </main>
         <Footer />
