@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import { Mail, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -37,7 +37,6 @@ export const Navbar = () => {
   const lastY = useRef(0);
   const navItems = language === "en" ? NAV_ITEMS_EN : NAV_ITEMS;
   const telegramLabel = language === "en" ? "Telegram" : "Телеграм";
-  const contactLabel = language === "en" ? "Contact page" : "Контакт";
   const toggleMenuLabel = language === "en" ? "Toggle menu" : "Открыть меню";
 
   useEffect(() => {
@@ -97,7 +96,7 @@ export const Navbar = () => {
               className="flex h-10 min-w-12 items-center justify-center rounded-full border-2 border-black/80 bg-white text-[11px] font-extrabold tracking-[0.14em] text-primary shadow-[0_8px_18px_rgba(0,0,0,0.16)]"
               aria-label={language === "en" ? "Switch to Russian" : "Switch to English"}
             >
-              {language === "en" ? "RU" : "EN"}
+              {language === "en" ? "EN" : "RU"}
             </button>
             <motion.a
               href={TELEGRAM_URL}
@@ -109,15 +108,6 @@ export const Navbar = () => {
             >
               <TgIcon />
               <span className="hidden sm:inline">{telegramLabel}</span>
-            </motion.a>
-            <motion.a
-              href="/contact"
-              className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-black/80 bg-white text-primary shadow-[0_8px_18px_rgba(0,0,0,0.16)]"
-              aria-label={contactLabel}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <Mail size={17} />
             </motion.a>
             <button
               onClick={() => setMenuOpen(!menuOpen)}

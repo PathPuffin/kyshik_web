@@ -1,4 +1,5 @@
 import { useLanguage } from "../context/LanguageContext";
+import { Mail } from "lucide-react";
 
 const TELEGRAM_URL = "https://t.me/kyshikbot";
 
@@ -46,15 +47,24 @@ export const Footer = () => {
           <a href="/crew" className="hover:text-white transition-colors">{labels.crew}</a>
           <a href="/contact" className="hover:text-white transition-colors">{labels.contact}</a>
         </nav>
-        <a
-          href={TELEGRAM_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 text-white/40 hover:text-white/80 text-sm transition-colors"
-        >
-          <TgIcon />
-          {labels.telegram}
-        </a>
+        <div className="flex items-center gap-4">
+          <a
+            href={TELEGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-white/40 hover:text-white/80 text-sm transition-colors"
+          >
+            <TgIcon />
+            {labels.telegram}
+          </a>
+          <a
+            href="/contact"
+            className="flex items-center gap-1.5 text-white/40 hover:text-white/80 text-sm transition-colors"
+          >
+            <Mail size={15} />
+            {labels.contact}
+          </a>
+        </div>
         <p className="text-white/25 text-xs tracking-widest uppercase">
           © 2026 kyshik.com
         </p>

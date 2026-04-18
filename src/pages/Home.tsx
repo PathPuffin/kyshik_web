@@ -5,6 +5,7 @@ import {
   Fingerprint,
   Heart,
   LockKeyhole,
+  Mail,
   Users,
 } from "lucide-react";
 
@@ -20,6 +21,7 @@ import pawsPoster from "../../paws.webp";
 import { useLanguage } from "../context/LanguageContext";
 
 const TELEGRAM_URL = "https://t.me/kyshikbot";
+const CONTACT_URL = "/contact";
 
 const TgIcon = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -102,6 +104,7 @@ const HOME_TEXT = {
     heroDesc:
       "Каждое фото помогает общественности видеть объективную статистику, при этом точная геопозиция животных остается защищенной.",
     heroTg: "Телеграм Ботқа Өту",
+    heroContact: "Контакт",
     aboutTag: "ИИ-платформа для учета животных",
     aboutTitle: "Объективная статистика вместо исчезновения",
     aboutP1:
@@ -119,6 +122,7 @@ const HOME_TEXT = {
     ctaDesc:
       "Открой Telegram-бот, зафиксируй животное и добавь еще один честный факт в общую картину.",
     ctaButton: "Открыть Telegram",
+    ctaContact: "Контакт",
     posterAlt: "Тірі жанды қорғау постері",
   },
   en: {
@@ -127,6 +131,7 @@ const HOME_TEXT = {
     heroDesc:
       "Every photo helps the public see objective statistics while the precise location of animals remains protected.",
     heroTg: "Open Telegram Bot",
+    heroContact: "Contact",
     aboutTag: "AI platform for animal registry",
     aboutTitle: "Objective statistics instead of disappearance",
     aboutP1:
@@ -144,6 +149,7 @@ const HOME_TEXT = {
     ctaDesc:
       "Open our Telegram bot, record an animal, and add one more honest data point to the bigger picture.",
     ctaButton: "Open Telegram",
+    ctaContact: "Contact",
     posterAlt: "Protect life poster",
   },
 };
@@ -336,7 +342,7 @@ const Hero = () => {
         </motion.div>
 
         <motion.div
-          className="mt-1 sm:mt-0 flex items-center"
+          className="mt-1 sm:mt-0 flex flex-col sm:flex-row items-center gap-3"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -351,6 +357,15 @@ const Hero = () => {
           >
             <TgIcon />
             {t.heroTg}
+          </motion.a>
+          <motion.a
+            href={CONTACT_URL}
+            className="flex items-center gap-2.5 border-2 border-black/80 bg-white px-7 py-3.5 rounded-full text-sm font-bold text-primary shadow-[0_8px_22px_rgba(0,0,0,0.16)]"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <Mail size={16} />
+            {t.heroContact}
           </motion.a>
         </motion.div>
 
@@ -566,17 +581,28 @@ const CTA = () => {
         <p className="max-w-2xl text-white/68 text-base sm:text-lg leading-8">
           {t.ctaDesc}
         </p>
-        <motion.a
-          href={TELEGRAM_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-3 bg-tg text-white px-10 py-4 rounded-full text-sm font-bold shadow-[0_8px_40px_rgba(34,158,217,0.35)]"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
-        >
-          <TgIcon />
-          {t.ctaButton}
-        </motion.a>
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          <motion.a
+            href={TELEGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 bg-tg text-white px-10 py-4 rounded-full text-sm font-bold shadow-[0_8px_40px_rgba(34,158,217,0.35)]"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <TgIcon />
+            {t.ctaButton}
+          </motion.a>
+          <motion.a
+            href={CONTACT_URL}
+            className="flex items-center gap-2.5 border-2 border-white/75 bg-white/8 px-8 py-3.5 rounded-full text-sm font-bold text-white"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <Mail size={16} />
+            {t.ctaContact}
+          </motion.a>
+        </div>
       </motion.div>
     </section>
   );
