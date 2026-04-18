@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { Mail, Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 
 const TELEGRAM_URL = "https://t.me/kyshikbot";
@@ -29,6 +29,7 @@ const TgIcon = () => (
 );
 
 export const Navbar = () => {
+  const location = useLocation();
   const { language, toggleLanguage } = useLanguage();
   const [visible, setVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
@@ -50,6 +51,13 @@ export const Navbar = () => {
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
+
+  useEffect(() => {
+    setVisible(true);
+    setMenuOpen(false);
+    lastY.current = window.scrollY;
+    setScrolled(window.scrollY > 80);
+  }, [location.pathname]);
 
   return (
     <>
