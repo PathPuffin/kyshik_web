@@ -131,7 +131,20 @@ const Hero = () => (
   >
     <div className="pointer-events-none absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_18%_16%,rgba(255,59,48,0.2)_0,rgba(255,59,48,0)_33%),radial-gradient(circle_at_84%_70%,rgba(0,167,232,0.2)_0,rgba(0,167,232,0)_34%),repeating-linear-gradient(-18deg,rgba(0,0,0,0.08),rgba(0,0,0,0.08)_1px,transparent_1px,transparent_8px)]" />
 
-    <div className="relative z-10 w-full min-h-svh pt-16 sm:pt-24 pb-8 sm:pb-12 px-3 sm:px-4 md:px-6 flex flex-col items-center justify-start sm:justify-center gap-5 sm:gap-8">
+    <div className="relative z-10 w-full min-h-svh pt-12 sm:pt-24 pb-6 sm:pb-12 px-3 sm:px-4 md:px-6 flex flex-col items-center justify-start sm:justify-center gap-4 sm:gap-8">
+      <motion.div
+        className="w-full max-w-300 rounded-2xl border-2 border-black/70 bg-white/80 backdrop-blur-sm px-3 sm:px-6 py-3.5 sm:py-5 shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <p className="text-[12.5px] sm:text-sm leading-snug sm:leading-relaxed text-black/85">
+          <span className="font-bold text-black">Проблема:</span> Существующие методы идентификации не справляются с учетом бездомных животных, поэтому официальные данные часто расходятся с реальностью. Это не позволяет эффективно распределять ресурсы и принимать верные решения.
+        </p>
+        <p className="mt-2.5 sm:mt-3 text-[12.5px] sm:text-sm leading-snug sm:leading-relaxed text-black/85">
+          <span className="font-bold text-black">Наше решение:</span> Kyshik — первая независимая база данных бездомных животных в Казахстане. Мы фиксируем реальную ситуацию, превращая каждое фото в достоверный факт: наша цель — обеспечить прозрачность данных и дать обществу объективную картину для поиска решений.
+        </p>
+      </motion.div>
       <motion.div
         className="relative w-full max-w-300 rounded-[20px] overflow-hidden border-4 border-black/80 shadow-[0_20px_65px_rgba(0,0,0,0.38)] rotate-[-0.35deg]"
         initial={{ opacity: 0, y: 16, scale: 0.98 }}
