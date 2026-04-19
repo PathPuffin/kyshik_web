@@ -1,13 +1,7 @@
 import { useLanguage } from "../context/LanguageContext";
-import { Mail } from "lucide-react";
+import { Mail, Sparkles } from "lucide-react";
 
-const TELEGRAM_URL = "https://t.me/kyshikbot";
-
-const TgIcon = () => (
-  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.25-2.04 9.61c-.15.66-.54.82-1.08.51l-3-2.21-1.45 1.39c-.16.16-.3.3-.61.3l.21-3.05 5.56-5.02c.24-.21-.05-.33-.37-.12L7.26 14.34l-2.94-.92c-.64-.2-.65-.64.14-.95l11.48-4.43c.53-.19 1 .13.62.21z" />
-  </svg>
-);
+const BETA_URL = "https://tally.so/r/rjrG2p";
 
 export const Footer = () => {
   const { language } = useLanguage();
@@ -21,7 +15,7 @@ export const Footer = () => {
           blog: "Blog",
           crew: "Crew",
           contact: "Contact",
-          telegram: "Telegram",
+          beta: "Beta Testing",
         }
       : {
           problem: "Проблема",
@@ -30,7 +24,7 @@ export const Footer = () => {
           blog: "Блог",
           crew: "Crew",
           contact: "Контакт",
-          telegram: "Телеграм",
+          beta: "Бета тестинг",
         };
 
   return (
@@ -49,13 +43,13 @@ export const Footer = () => {
         </nav>
         <div className="flex items-center gap-4">
           <a
-            href={TELEGRAM_URL}
+            href={BETA_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 text-white/40 hover:text-white/80 text-sm transition-colors"
           >
-            <TgIcon />
-            {labels.telegram}
+            <Sparkles size={15} />
+            {labels.beta}
           </a>
           <a
             href="/contact"

@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Camera, Database, Fingerprint, LockKeyhole, Mail } from "lucide-react";
+import { Camera, Database, Fingerprint, LockKeyhole, Mail, Sparkles } from "lucide-react";
 
 import posterArt from "../../stop_killing_dogs.webp";
 import dogSwag from "../../dog_swag.webp";
@@ -12,7 +12,7 @@ import greenDogSad from "../../green_dog_sad.webp";
 import pawsPoster from "../../paws.webp";
 import { useLanguage } from "../context/LanguageContext";
 
-const TELEGRAM_URL = "https://t.me/kyshikbot";
+const BETA_URL = "https://tally.so/r/rjrG2p";
 const CONTACT_URL = "/contact";
 
 type Language = "ru" | "en";
@@ -20,8 +20,6 @@ type Language = "ru" | "en";
 const HOME_TEXT: Record<
   Language,
   {
-    telegramButton: string;
-    contactButton: string;
     heroTag: string;
     heroTitle: string;
     heroDesc: string;
@@ -36,127 +34,119 @@ const HOME_TEXT: Record<
   }
 > = {
   ru: {
-    telegramButton: "Телеграм Ботқа Өту",
-    contactButton: "Контакт",
-    heroTag: "Первые в Казахстане",
-    heroTitle: "Независимая ИИ-платформа для учета бездомных животных",
+    heroTag: "See to be seen",
+    heroTitle: "Kyshik",
     heroDesc:
-      "Каждое фото помогает общественности видеть объективную статистику, при этом точная геопозиция животных остается защищенной.",
-    problemTag: "Проблема",
-    title: "Kyshik: Платформа общественной ответственности",
+      "Нельзя игнорировать того, кого ты уже увидел.",
+    problemTag: "Видимость",
+    title: "90% животных в Казахстане это пустота.",
     problem:
-      "Сегодня чипирование — это просто цифровая метка, которая не гарантирует животному безопасность. В закрытой системе без внешнего контроля жизнь превращается в сухую статистику, а бюджетные средства расходуются без видимого результата.",
+      "Система не видит их. Статистика их игнорирует. Это не их выбор. Это изъян общества.",
     solution:
-      "Kyshik — это цифровая экосистема, которая превращает «учетную единицу» в живую историю. Мы создаем прозрачный путь для каждого животного, делая его видимым для общества, волонтеров и города.",
-    solutionTag: "Решение",
-    whyTitle: "Почему это работает",
+      "Kyshik технология признания. Мы превращаем животных в личности.",
+    solutionTag: "Признание",
+    whyTitle: "Жизнь, которую больше нельзя отрицать.",
     whyItems: [
       {
-        title: "Прозрачность вместо анонимности",
-        desc: "Когда у животного есть публичный цифровой профиль, его судьба становится предметом общественного договора. Это исключает любые манипуляции данными.",
+        title: "ID",
+        desc: "История, которую нельзя стереть.",
       },
       {
-        title: "Эффективность управления",
-        desc: "Мы заменяем формальный отчет реальным мониторингом. Это помогает направлять ресурсы на спасение и устройство животных, а не на бесконечный процесс «регулирования численности».",
+        title: "Безопасность",
+        desc: "Мы видим их, скрывая от угрозы.",
       },
       {
-        title: "Доверие",
-        desc: "Kyshik дает обществу инструмент контроля. Мы делаем процесс гуманным не на бумаге, а на деле, подтверждая каждое действие открытыми данными.",
+        title: "Факт",
+        desc: "Жизнь, которую больше нельзя отрицать.",
       },
     ],
     closing:
-      "Kyshik — это переход от формального учета к реальной ответственности, где каждая жизнь имеет значение, потому что она видна каждому.",
+      "Нельзя игнорировать того, кого ты уже увидел.",
   },
   en: {
-    telegramButton: "Open Telegram Bot",
-    contactButton: "Contact",
-    heroTag: "First in Kazakhstan",
-    heroTitle: "Independent AI platform for counting stray animals",
+    heroTag: "See to be seen",
+    heroTitle: "Kyshik",
     heroDesc:
-      "Every photo helps the public see objective statistics while the precise location of animals remains protected.",
-    problemTag: "The problem",
-    title: "Kyshik: A Platform for Public Accountability",
+      "You cannot ignore someone you have already seen.",
+    problemTag: "Visibility",
+    title: "90% of animals in Kazakhstan are a blank space.",
     problem:
-      "Today, microchipping is only a digital tag. It does not guarantee an animal's safety. In a closed system without external oversight, life turns into dry statistics, while public funds are spent without visible results.",
+      "The system does not see them. Statistics ignore them. This is not their choice. It is a flaw in society.",
     solution:
-      "Kyshik is a digital ecosystem that turns an “accounting unit” into a living story. We create a transparent path for every animal, making it visible to society, volunteers, and the city.",
-    solutionTag: "The solution",
-    whyTitle: "Why it works",
+      "Kyshik is recognition technology. We turn animals into individuals.",
+    solutionTag: "Recognition",
+    whyTitle: "A life that can no longer be denied.",
     whyItems: [
       {
-        title: "Transparency instead of anonymity",
-        desc: "When an animal has a public digital profile, its fate becomes part of a social contract. This prevents manipulation of the data.",
+        title: "ID",
+        desc: "A story that cannot be erased.",
       },
       {
-        title: "Management efficiency",
-        desc: "We replace formal reporting with real monitoring. This helps direct resources toward rescue and adoption instead of an endless process of “population control.”",
+        title: "Safety",
+        desc: "We see them while hiding them from danger.",
       },
       {
-        title: "Trust",
-        desc: "Kyshik gives society a tool for oversight. We make the process humane not on paper, but in practice, confirming every action with open data.",
+        title: "Fact",
+        desc: "A life that can no longer be denied.",
       },
     ],
     closing:
-      "Kyshik is a shift from formal registration to real accountability, where every life matters because it is visible to everyone.",
+      "You cannot ignore someone you have already seen.",
   },
 };
 
-const TgIcon = () => (
-  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.25-2.04 9.61c-.15.66-.54.82-1.08.51l-3-2.21-1.45 1.39c-.16.16-.3.3-.61.3l.21-3.05 5.56-5.02c.24-.21-.05-.33-.37-.12L7.26 14.34l-2.94-.92c-.64-.2-.65-.64.14-.95l11.48-4.43c.53-.19 1 .13.62.21z" />
-  </svg>
-);
-
 const HOW_TEXT = {
   ru: {
-    tag: "Механика доверия",
-    title: "От случайного кадра к объективной статистике",
+    tag: "Как работает доверие",
+    title: "Мы отказываемся от закрытых отчетов в пользу открытых данных.",
+    desc: "Kyshik превращает случайный кадр в объективное доказательство жизни.",
     steps: [
       {
         Icon: Camera,
-        title: "Сделать фото",
-        desc: "Пользователь фиксирует животное без раскрытия опасных деталей для посторонних.",
+        title: "Снять.",
+        desc: "Один кадр и животное попадает в поле зрения общества. Без геотегов, без лишнего шума. Только сам факт присутствия.",
       },
       {
         Icon: Fingerprint,
-        title: "Распознать",
-        desc: "ИИ помогает отличать животных и связывать новые снимки с уже найденными следами.",
+        title: "Распознать.",
+        desc: "ИИ связывает снимки в уникальную историю. Разрозненные кадры становятся судьбой одного существа.",
       },
       {
         Icon: LockKeyhole,
-        title: "Защитить место",
-        desc: "Точные координаты скрываются, а публично остается безопасный сигнал о факте наблюдения.",
+        title: "Скрыть.",
+        desc: "Безопасность важнее координат. Мы защищаем их от угроз, оставляя видимым только сам факт жизни.",
       },
       {
         Icon: Database,
-        title: "Собрать картину",
-        desc: "Общественность получает объективную статистику и динамику, а не только отчеты на бумаге.",
+        title: "Сформировать картину.",
+        desc: "Общество получает доступ к честной статистике. Не сухой, не усредненной. Реальной. Громкой. Неоспоримой.",
       },
     ],
   },
   en: {
     tag: "How trust works",
-    title: "From a random photo to objective statistics",
+    title: "We reject closed reports in favor of open data.",
+    desc: "Kyshik turns a random frame into objective proof of life.",
     steps: [
       {
         Icon: Camera,
-        title: "Take a photo",
-        desc: "A user records an animal without exposing risky details to strangers.",
+        title: "Capture.",
+        desc: "One frame brings an animal into society's field of view. No geotags, no extra noise. Only the fact of presence.",
       },
       {
         Icon: Fingerprint,
-        title: "Recognize",
-        desc: "AI helps distinguish animals and connect new photos to existing traces.",
+        title: "Recognize.",
+        desc: "AI connects photos into a unique story. Scattered frames become the fate of one living being.",
       },
       {
         Icon: LockKeyhole,
-        title: "Protect location",
-        desc: "Precise coordinates stay hidden while public data keeps a safe observation signal.",
+        title: "Hide.",
+        desc: "Safety matters more than coordinates. We protect them from threats while keeping the fact of life visible.",
       },
       {
         Icon: Database,
-        title: "Build the picture",
-        desc: "The public gets objective statistics and trends, not only paper reports.",
+        title: "Build the picture.",
+        desc: "Society gets access to honest statistics. Not dry, not averaged. Real. Loud. Undeniable.",
       },
     ],
   },
@@ -165,8 +155,8 @@ const HOW_TEXT = {
 const GALLERY_TEXT = {
   ru: {
     tag: "Цифровой след",
-    title: "Фото, которое нельзя просто забыть",
-    desc: "Снимки превращаются в защищенную историю наблюдений. Чем больше людей участвует, тем объективнее становится статистика для общественности, без публикации точных координат животных.",
+    title: "Фото, которое нельзя забыть.",
+    desc: "Каждый снимок это голос. Чем больше нас, тем отчетливее становится общая картина. Это не просто учет, это цифровая история, которую невозможно игнорировать.",
     items: [
       {
         src: greenDogSad,
@@ -187,8 +177,8 @@ const GALLERY_TEXT = {
   },
   en: {
     tag: "Digital footprint",
-    title: "A photo that cannot simply be forgotten",
-    desc: "Photos become a protected history of observations. The more people participate, the more objective public statistics become, without exposing exact animal coordinates.",
+    title: "A photo that cannot be forgotten.",
+    desc: "Every photo is a voice. The more of us there are, the clearer the bigger picture becomes. This is not just counting, it is a digital history that cannot be ignored.",
     items: [
       {
         src: greenDogSad,
@@ -211,17 +201,17 @@ const GALLERY_TEXT = {
 
 const CTA_TEXT = {
   ru: {
-    tag: "Қазір қосыл",
-    title: "Помоги сделать животных видимыми",
-    desc: "Открой Telegram-бот, зафиксируй животное и добавь еще один честный факт в общую картину.",
-    button: "Открыть Telegram",
+    tag: "Kyshik",
+    title: "Нельзя игнорировать того, кого ты уже увидел.",
+    desc: "Присоединись к beta и помоги добавить еще один честный факт в общую картину.",
+    button: "Бета тестинг",
     contact: "Контакт",
   },
   en: {
-    tag: "Join now",
-    title: "Help make animals visible",
-    desc: "Open the Telegram bot, record an animal, and add one more honest fact to the bigger picture.",
-    button: "Open Telegram",
+    tag: "Kyshik",
+    title: "You cannot ignore someone you have already seen.",
+    desc: "Join the beta and help add one more honest fact to the bigger picture.",
+    button: "Beta Testing",
     contact: "Contact",
   },
 };
@@ -424,6 +414,9 @@ const HowItWorks = () => {
           <h2 className="text-[2.25rem] md:text-[3.75rem] font-bold text-white leading-[0.98]">
             {t.title}
           </h2>
+          <p className="mt-6 max-w-2xl text-base sm:text-lg leading-8 text-white/68">
+            {t.desc}
+          </p>
         </motion.div>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -530,14 +523,14 @@ const CTA = () => {
         </p>
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <motion.a
-            href={TELEGRAM_URL}
+            href={BETA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-tg text-white px-10 py-4 rounded-full text-sm font-bold shadow-[0_8px_40px_rgba(34,158,217,0.35)]"
+            className="flex items-center gap-3 bg-accent text-white px-10 py-4 rounded-full text-sm font-bold shadow-[0_8px_40px_rgba(255,59,48,0.35)]"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
           >
-            <TgIcon />
+            <Sparkles size={17} />
             {t.button}
           </motion.a>
           <motion.a
@@ -588,34 +581,6 @@ export const Home = () => {
           <div className="pointer-events-none absolute inset-0 opacity-35 bg-[repeating-linear-gradient(-18deg,rgba(0,0,0,0.08),rgba(0,0,0,0.08)_1px,transparent_1px,transparent_8px)]" />
           <div className="relative z-10 w-full min-h-svh pt-12 sm:pt-24 pb-6 sm:pb-12 px-3 sm:px-4 md:px-6 flex flex-col items-center justify-center gap-4 sm:gap-8">
             <HeroPoster />
-
-          <motion.div
-            className="mt-1 sm:mt-0 flex flex-col sm:flex-row items-center gap-3"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <motion.a
-              href={TELEGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2.5 bg-tg text-white px-9 py-4 rounded-full text-sm shadow-[0_8px_32px_rgba(34,158,217,0.38)]"
-              whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(34,158,217,0.5)" }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <TgIcon />
-              {t.telegramButton}
-            </motion.a>
-            <motion.a
-              href={CONTACT_URL}
-              className="flex items-center gap-2.5 border-2 border-black/80 bg-white px-7 py-3.5 rounded-full text-sm font-bold text-primary shadow-[0_8px_22px_rgba(0,0,0,0.16)]"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <Mail size={16} />
-              {t.contactButton}
-            </motion.a>
-          </motion.div>
 
           <motion.div
             className="relative w-full max-w-5xl px-2 text-center"

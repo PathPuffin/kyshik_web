@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { Menu, Sparkles, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 
-const TELEGRAM_URL = "https://t.me/kyshikbot";
+const BETA_URL = "https://tally.so/r/rjrG2p";
 
 type NavItem = {
   label: string;
@@ -22,12 +22,6 @@ const NAV_ITEMS_EN: NavItem[] = [
   { label: "Crew", href: "/crew" },
 ];
 
-const TgIcon = () => (
-  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.25-2.04 9.61c-.15.66-.54.82-1.08.51l-3-2.21-1.45 1.39c-.16.16-.3.3-.61.3l.21-3.05 5.56-5.02c.24-.21-.05-.33-.37-.12L7.26 14.34l-2.94-.92c-.64-.2-.65-.64.14-.95l11.48-4.43c.53-.19 1 .13.62.21z" />
-  </svg>
-);
-
 export const Navbar = () => {
   const location = useLocation();
   const { language, toggleLanguage } = useLanguage();
@@ -36,7 +30,7 @@ export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const lastY = useRef(0);
   const navItems = language === "en" ? NAV_ITEMS_EN : NAV_ITEMS;
-  const telegramLabel = language === "en" ? "Telegram" : "Телеграм";
+  const betaLabel = language === "en" ? "Beta Testing" : "Бета тестинг";
   const toggleMenuLabel = language === "en" ? "Toggle menu" : "Открыть меню";
 
   useEffect(() => {
@@ -99,15 +93,15 @@ export const Navbar = () => {
               {language === "en" ? "EN" : "RU"}
             </button>
             <motion.a
-              href={TELEGRAM_URL}
+              href={BETA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-tg text-white px-4 sm:px-5 py-2.5 rounded-full text-xs font-bold shadow-[0_8px_20px_rgba(0,167,232,0.36)]"
+              className="flex items-center gap-2 bg-accent text-white px-4 sm:px-5 py-2.5 rounded-full text-xs font-bold shadow-[0_8px_20px_rgba(255,59,48,0.36)]"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
-              <TgIcon />
-              <span className="hidden sm:inline">{telegramLabel}</span>
+              <Sparkles size={16} />
+              <span className="hidden sm:inline">{betaLabel}</span>
             </motion.a>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
