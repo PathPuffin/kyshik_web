@@ -1,5 +1,6 @@
 import { useLanguage } from "../context/LanguageContext";
 import { Mail, Sparkles } from "lucide-react";
+import logo from "../../logo.webp";
 
 const BETA_URL = "https://tally.so/r/rjrG2p";
 
@@ -30,8 +31,16 @@ export const Footer = () => {
   return (
     <footer className="bg-primary border-t-2 border-accent/60 py-10">
       <div className="max-w-7xl mx-auto px-5 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-5">
-        <a href="/" className="text-2xl font-bold text-white/75 hover:text-white transition-colors">
-          kyshik<span className="text-accent">.com</span>
+        <a href="/" className="flex items-center gap-2 opacity-75 hover:opacity-100 transition-opacity" aria-label="Kyshik home">
+          <img
+            src={logo}
+            alt=""
+            className="block h-12 w-auto object-contain"
+            loading="lazy"
+          />
+          <span className="text-2xl font-bold text-white leading-none">
+            kyshik<span className="text-accent">.com</span>
+          </span>
         </a>
         <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs font-bold uppercase tracking-widest text-white/38">
           <a href="/#about" className="hover:text-white transition-colors">{labels.problem}</a>

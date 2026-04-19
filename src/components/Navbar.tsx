@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Menu, Sparkles, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
+import logo from "../../logo.webp";
 
 const BETA_URL = "https://tally.so/r/rjrG2p";
 
@@ -66,9 +67,18 @@ export const Navbar = () => {
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Link
             to="/"
-            className="text-2xl font-bold text-primary"
+            className="flex items-center gap-2 sm:gap-3"
+            aria-label="Kyshik home"
           >
-            kyshik<span className="text-accent">.com</span>
+            <img
+              src={logo}
+              alt=""
+              className="block h-11 sm:h-14 w-auto object-contain"
+              loading="eager"
+            />
+            <span className="text-2xl sm:text-3xl font-bold text-primary leading-none">
+              kyshik<span className="text-accent">.com</span>
+            </span>
           </Link>
 
           <div className="hidden md:flex items-center gap-6">
