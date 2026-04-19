@@ -4,6 +4,8 @@ import { useLanguage } from "../context/LanguageContext";
 import crewPhoto from "../../us.webp";
 import abylayWeb from "../../abylay.webp";
 import niyazCroppedWeb from "../../niyaz.webp";
+import vladaWeb from "../../me_vlada.webp";
+import vladaSoloWeb from "../../vlada.webp";
 
 export const Crew = () => {
   const { language } = useLanguage();
@@ -57,9 +59,23 @@ export const Crew = () => {
           />
         </motion.figure>
 
-        <div className="mt-8 w-full max-w-[520px] grid grid-cols-2 gap-3 sm:gap-4">
+        <motion.figure
+          className="mt-8 overflow-hidden rounded-lg border-2 border-white/20 bg-white/6 shadow-[0_10px_0_rgba(255,255,255,0.08)]"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.16 }}
+        >
+          <img
+            src={vladaWeb}
+            alt="Vlada and Abylay"
+            className="block w-full h-auto"
+            loading="lazy"
+          />
+        </motion.figure>
+
+        <div className="mt-8 grid w-full max-w-[820px] grid-cols-2 items-start gap-3 sm:grid-cols-3 sm:gap-4">
           <motion.figure
-            className="w-full rounded-2xl border-2 border-white/35 bg-white/95 p-2 shadow-[0_10px_24px_rgba(0,0,0,0.28)]"
+            className="w-full self-start rounded-2xl border-2 border-white/35 bg-white/95 p-2 shadow-[0_10px_24px_rgba(0,0,0,0.28)]"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.24 }}
@@ -67,7 +83,7 @@ export const Crew = () => {
             <img
               src={niyazCroppedWeb}
               alt="Niyaz M"
-              className="block w-full h-auto rounded-xl"
+              className="block aspect-square w-full rounded-xl object-cover"
               loading="lazy"
             />
             <figcaption className="pt-2 text-center text-xs sm:text-sm font-semibold tracking-wide text-primary">
@@ -76,15 +92,32 @@ export const Crew = () => {
           </motion.figure>
 
           <motion.figure
-            className="w-full rounded-2xl border-2 border-white/35 bg-white/95 p-2 shadow-[0_10px_24px_rgba(0,0,0,0.28)]"
+            className="w-full self-start rounded-2xl border-2 border-white/35 bg-white/95 p-2 shadow-[0_10px_24px_rgba(0,0,0,0.28)]"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.3 }}
           >
             <img
+              src={vladaSoloWeb}
+              alt="Vlada"
+              className="block aspect-square w-full rounded-xl object-cover object-[32%_50%]"
+              loading="lazy"
+            />
+            <figcaption className="pt-2 text-center text-xs sm:text-sm font-semibold tracking-wide text-primary">
+              Vlada
+            </figcaption>
+          </motion.figure>
+
+          <motion.figure
+            className="w-full self-start rounded-2xl border-2 border-white/35 bg-white/95 p-2 shadow-[0_10px_24px_rgba(0,0,0,0.28)]"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.36 }}
+          >
+            <img
               src={abylayWeb}
               alt="Abylay D"
-              className="block w-full h-auto rounded-xl"
+              className="block aspect-square w-full rounded-xl object-cover"
               loading="lazy"
             />
             <figcaption className="pt-2 text-center text-xs sm:text-sm font-semibold tracking-wide text-primary">

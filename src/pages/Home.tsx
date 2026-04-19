@@ -38,26 +38,25 @@ const HOME_TEXT: Record<
     heroTitle: "Kyshik",
     heroDesc:
       "Нельзя игнорировать того, кого ты уже увидел.",
-    problemTag: "Видимость",
-    title: "90% животных в Казахстане это пустота.",
+    problemTag: "Признание",
+    title: "Kyshik технология признания.",
     problem:
-      "Система не видит их. Статистика их игнорирует. Это не их выбор. Это изъян общества.",
-    solution:
-      "Kyshik технология признания. Мы превращаем животных в личности.",
+      "Мы превращаем животных в личности.",
+    solution: "",
     solutionTag: "Признание",
     whyTitle: "Жизнь, которую больше нельзя отрицать.",
     whyItems: [
       {
-        title: "ID",
-        desc: "История, которую нельзя стереть.",
+        title: "Публичность",
+        desc: "Фото через ИИ создает цифровой паспорт. У животного появляется уникальный ID и своя история.",
+      },
+      {
+        title: "Прозрачность",
+        desc: "Твое фото превращает существование животного в неоспоримый факт.",
       },
       {
         title: "Безопасность",
-        desc: "Мы видим их, скрывая от угрозы.",
-      },
-      {
-        title: "Факт",
-        desc: "Жизнь, которую больше нельзя отрицать.",
+        desc: "Мы не наводчики. Система бережно скрывает точные координаты, оставляя только район.",
       },
     ],
     closing:
@@ -68,26 +67,25 @@ const HOME_TEXT: Record<
     heroTitle: "Kyshik",
     heroDesc:
       "You cannot ignore someone you have already seen.",
-    problemTag: "Visibility",
-    title: "90% of animals in Kazakhstan are a blank space.",
+    problemTag: "Recognition",
+    title: "Kyshik is recognition technology.",
     problem:
-      "The system does not see them. Statistics ignore them. This is not their choice. It is a flaw in society.",
-    solution:
-      "Kyshik is recognition technology. We turn animals into individuals.",
+      "We turn animals into individuals.",
+    solution: "",
     solutionTag: "Recognition",
     whyTitle: "A life that can no longer be denied.",
     whyItems: [
       {
-        title: "ID",
-        desc: "A story that cannot be erased.",
+        title: "Public Visibility",
+        desc: "A photo processed by AI creates a digital passport. The animal gets a unique ID and its own story.",
+      },
+      {
+        title: "Transparency",
+        desc: "Your photo turns the animal's existence into an undeniable fact.",
       },
       {
         title: "Safety",
-        desc: "We see them while hiding them from danger.",
-      },
-      {
-        title: "Fact",
-        desc: "A life that can no longer be denied.",
+        desc: "We are not spotters. The system carefully hides exact coordinates and leaves only the district visible.",
       },
     ],
     closing:
@@ -216,84 +214,130 @@ const CTA_TEXT = {
   },
 };
 
+const SCALE_TEXT = {
+  ru: {
+    tag: "Масштаб проблемы",
+    stats: [
+      {
+        value: "+200к",
+        desc: "животных попадают в систему отлова ежегодно. Большинство — безвозвратно.",
+      },
+      {
+        value: "95%",
+        desc: "собак в некоторых городах не покидают пункты отлова живыми.",
+      },
+      {
+        value: "0",
+        desc: "единой базы данных бездомных животных. Ни одной фотографии. Ни одной судьбы.",
+      },
+    ],
+  },
+  en: {
+    tag: "The Scale of the Problem",
+    stats: [
+      {
+        value: "+200k",
+        desc: "animals enter the capture system every year. Most disappear without a trace.",
+      },
+      {
+        value: "95%",
+        desc: "of dogs in some cities do not leave capture facilities alive.",
+      },
+      {
+        value: "0",
+        desc: "unified database of stray animals. Not one photo. Not one fate.",
+      },
+    ],
+  },
+};
+
 const DOG_OVERLAYS = [
   {
     src: dogSad,
     className:
       "left-[14%] sm:left-[15%] top-[4%] sm:top-[11%] w-[102px] sm:w-[164px] md:w-[270px] -translate-x-[2px] -translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
-    float: { y: [0, -4, 0] },
-    duration: 3.2,
+    float: { y: [0, -7, -3, -9, 0], rotate: [-1, 1.6, -0.8, 1.1, -1], scale: [1, 1.025, 1, 1.02, 1] },
+    duration: 4.2,
     delay: 0.4,
+    origin: "50% 82%",
   },
   {
     src: dogSwag,
     className:
       "left-[3%] sm:left-[-1%] top-[24%] w-[82px] sm:w-[191px] md:w-[322px] -translate-x-[6px] translate-y-[15px] sm:translate-x-0",
-    float: { rotate: [-2, 2, -2], y: [0, -4, 0] },
-    duration: 3.4,
+    float: { x: [0, 4, -3, 2, 0], y: [0, -5, -1, -6, 0], rotate: [-3, 3.5, -1.5, 2.5, -3] },
+    duration: 3.6,
     delay: 0.55,
+    origin: "32% 72%",
   },
   {
     src: pawsPoster,
     className:
       "hidden sm:block left-1/2 top-[14%] w-[128px] sm:w-[200px] md:w-[286px] -translate-x-1/2 -translate-y-1/2 rotate-[8deg]",
-    float: { y: [0, -3, 0], rotate: [6, 9, 5] },
-    duration: 3,
+    float: { y: [0, -4, 0, -2, 0], rotate: [6, 11, 7, 10, 6], opacity: [0.88, 1, 0.92, 1, 0.88] },
+    duration: 2.8,
     delay: 0.75,
+    origin: "50% 50%",
   },
   {
     src: pawsPoster,
     className:
       "hidden sm:block left-[58%] bottom-[14%] w-[92px] sm:w-[146px] md:w-[203px] -translate-x-1/2 translate-y-1/2 -rotate-[7deg]",
-    float: { y: [0, -2, 0], rotate: [-9, -6, -10] },
-    duration: 3.1,
+    float: { x: [0, -2, 2, -1, 0], y: [0, -5, -1, -3, 0], rotate: [-10, -5, -9, -6, -10], opacity: [0.84, 1, 0.9, 1, 0.84] },
+    duration: 3.3,
     delay: 0.82,
+    origin: "50% 50%",
   },
   {
     src: pawsPoster,
     className:
       "sm:hidden left-1/2 top-[18%] w-[125px] -translate-x-1/2 -translate-y-1/2 rotate-[11deg]",
-    float: { y: [0, -3, 0], rotate: [8, 12, 7] },
-    duration: 3,
+    float: { y: [0, -4, -1, -3, 0], rotate: [8, 14, 9, 12, 8], opacity: [0.86, 1, 0.9, 1, 0.86] },
+    duration: 2.9,
     delay: 0.62,
+    origin: "50% 50%",
   },
   {
     src: pawsPoster,
     className:
       "sm:hidden left-1/2 bottom-[18%] w-[125px] -translate-x-1/2 translate-y-1/2 -rotate-[9deg]",
-    float: { y: [0, -3, 0], rotate: [-12, -8, -11] },
-    duration: 3,
+    float: { x: [0, 2, -2, 1, 0], y: [0, -5, -1, -3, 0], rotate: [-12, -7, -11, -8, -12], opacity: [0.84, 1, 0.88, 1, 0.84] },
+    duration: 3.2,
     delay: 0.88,
+    origin: "50% 50%",
   },
   {
     src: confusedDoggy,
     className:
       "right-[13%] sm:right-[14%] top-[6%] sm:top-[7%] w-[109px] sm:w-[203px] md:w-[348px] -translate-y-[5px] sm:translate-y-0",
-    float: { rotate: [180, 176, 184, 178, 180], y: [0, -3, 0] },
-    duration: 3.1,
+    float: { x: [0, -3, 4, -2, 0], y: [0, -8, -2, -6, 0], rotate: [180, 171, 187, 176, 180], scale: [1, 1.015, 0.995, 1.02, 1] },
+    duration: 3.9,
     delay: 0.7,
+    origin: "50% 18%",
   },
   {
     src: adoptDontKill,
     className:
       "right-[11%] sm:right-[12%] top-[61%] sm:top-[58%] w-[107px] sm:w-[186px] md:w-[309px]",
-    float: { y: [0, -5, 0] },
-    duration: 3.6,
+    float: { x: [0, 2, -2, 3, 0], y: [0, -8, -3, -10, 0], rotate: [-1, 1.5, -1.2, 1, -1], scale: [1, 1.03, 1.01, 1.035, 1] },
+    duration: 4.4,
     delay: 0.9,
+    origin: "50% 78%",
   },
   {
     src: dogScreaming,
     className:
       "left-[14%] sm:left-[13%] bottom-[6%] sm:bottom-[12%] w-[133px] sm:w-[238px] md:w-[395px] -translate-x-[2px] translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
-    float: { rotate: [-1.3, 1.3, -1.3], y: [0, -3, 0] },
-    duration: 2.9,
+    float: { x: [0, -2, 3, -3, 2, 0], y: [0, -4, -1, -5, -2, 0], rotate: [-2, 2.4, -1.5, 2, -2.2, -2], scale: [1, 1.02, 1, 1.018, 1.005, 1] },
+    duration: 2.5,
     delay: 1.05,
+    origin: "42% 72%",
   },
 ];
 
 const HeroPoster = () => (
   <motion.div
-    className="relative w-full max-w-300 rounded-[20px] overflow-hidden border-4 border-black/80 shadow-[0_20px_65px_rgba(0,0,0,0.38)] rotate-[-0.35deg]"
+    className="relative w-full max-w-[21rem] sm:max-w-300 rounded-[20px] overflow-hidden border-4 border-black/80 shadow-[0_20px_65px_rgba(0,0,0,0.38)] rotate-[-0.35deg]"
     initial={{ opacity: 0, y: 16, scale: 0.98 }}
     animate={{ opacity: 1, y: 0, scale: 1 }}
     transition={{ duration: 0.75, ease: "easeOut" }}
@@ -313,11 +357,12 @@ const HeroPoster = () => (
           className={`absolute ${dog.className} drop-shadow-[0_10px_20px_rgba(14,7,4,0.3)]`}
           initial={{ opacity: 1 }}
           animate={dog.float}
+          style={{ transformOrigin: dog.origin }}
           transition={{
             duration: dog.duration,
             delay: dog.delay + 0.08 * idx,
             repeat: Infinity,
-            ease: "linear",
+            ease: "easeInOut",
           }}
         />
       ))}
@@ -349,9 +394,11 @@ const HomeContent = () => {
             <p className="mt-6 max-w-xl text-base sm:text-lg leading-8 text-secondary">
               {t.problem}
             </p>
-            <p className="mt-5 max-w-xl border-l-2 border-accent/60 pl-5 text-base sm:text-lg leading-8 text-secondary">
-              {t.solution}
-            </p>
+            {t.solution && (
+              <p className="mt-5 max-w-xl border-l-2 border-accent/60 pl-5 text-base sm:text-lg leading-8 text-secondary">
+                {t.solution}
+              </p>
+            )}
           </div>
 
         <div className="space-y-5">
@@ -391,6 +438,88 @@ const HomeContent = () => {
       </motion.div>
     </div>
   </section>
+  );
+};
+
+const HeroActions = () => {
+  const { language } = useLanguage();
+  const labels =
+    language === "en"
+      ? { beta: "Beta Testing", contact: "Contact" }
+      : { beta: "Бета тестинг", contact: "Контакт" };
+
+  return (
+    <motion.div
+      className="flex flex-row flex-wrap items-center justify-center gap-3"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+    >
+      <motion.a
+        href={BETA_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2.5 bg-accent text-white px-6 sm:px-9 py-3.5 sm:py-4 rounded-full text-xs sm:text-sm font-bold shadow-[0_8px_32px_rgba(255,59,48,0.36)]"
+        whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(255,59,48,0.46)" }}
+        whileTap={{ scale: 0.97 }}
+      >
+        <Sparkles size={16} />
+        {labels.beta}
+      </motion.a>
+      <motion.a
+        href={CONTACT_URL}
+        className="flex items-center gap-2.5 border-2 border-black/80 bg-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full text-xs sm:text-sm font-bold text-primary shadow-[0_8px_22px_rgba(0,0,0,0.16)]"
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.97 }}
+      >
+        <Mail size={16} />
+        {labels.contact}
+      </motion.a>
+    </motion.div>
+  );
+};
+
+const ScaleOfSilence = () => {
+  const { language } = useLanguage();
+  const t = SCALE_TEXT[language];
+
+  return (
+    <section className="relative overflow-hidden bg-primary py-16 sm:py-24 text-white">
+      <div className="pointer-events-none absolute inset-0 opacity-16 bg-[repeating-linear-gradient(-18deg,rgba(255,255,255,0.18),rgba(255,255,255,0.18)_1px,transparent_1px,transparent_8px)]" />
+      <div className="relative max-w-6xl mx-auto px-5 sm:px-6">
+        <motion.div
+          className="max-w-4xl"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-accent mb-5">
+            {t.tag}
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {t.stats.map((stat, index) => (
+            <motion.article
+              key={stat.value}
+              className="rounded-lg border-2 border-white/18 bg-white/7 p-6 text-center sm:p-7 shadow-[0_8px_0_rgba(255,255,255,0.08)]"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.08, duration: 0.55 }}
+            >
+              <p className="text-[2.65rem] sm:text-[3.5rem] font-extrabold leading-none text-accent">
+                {stat.value}
+              </p>
+              <p className="mt-5 text-base leading-7 text-white/72">
+                {stat.desc}
+              </p>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -572,15 +701,16 @@ export const Home = () => {
     <div className="min-h-screen">
       <main>
         <section
-          className="relative min-h-svh overflow-hidden flex items-start sm:items-center justify-center"
+          className="relative overflow-hidden flex items-start sm:min-h-svh sm:items-center justify-center"
           style={{
             background:
               "linear-gradient(160deg, #f7f8f5 0%, #e8ece8 58%, #d6dcd6 100%)",
           }}
         >
           <div className="pointer-events-none absolute inset-0 opacity-35 bg-[repeating-linear-gradient(-18deg,rgba(0,0,0,0.08),rgba(0,0,0,0.08)_1px,transparent_1px,transparent_8px)]" />
-          <div className="relative z-10 w-full min-h-svh pt-12 sm:pt-24 pb-6 sm:pb-12 px-3 sm:px-4 md:px-6 flex flex-col items-center justify-center gap-4 sm:gap-8">
+          <div className="relative z-10 w-full pt-3 sm:pt-24 pb-8 sm:pb-12 px-3 sm:px-4 md:px-6 flex flex-col items-center justify-start sm:min-h-svh sm:justify-center gap-3 sm:gap-8">
             <HeroPoster />
+            <HeroActions />
 
           <motion.div
             className="relative w-full max-w-5xl px-2 text-center"
@@ -591,15 +721,16 @@ export const Home = () => {
             <p className="relative inline-flex -rotate-2 rounded-lg border-2 border-black bg-accent px-5 py-2 text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.26em] text-white shadow-[6px_6px_0_rgba(0,0,0,0.24)]">
               {t.heroTag}
             </p>
-            <h1 className="relative mx-auto mt-5 max-w-5xl text-[2.15rem] sm:text-[3rem] md:text-[4.35rem] font-extrabold leading-[0.95] text-primary">
+            <h1 className="relative mx-auto mt-4 sm:mt-5 max-w-5xl text-[2.05rem] sm:text-[3rem] md:text-[4.35rem] font-extrabold leading-[0.95] text-primary">
               {t.heroTitle}
             </h1>
-            <p className="relative mx-auto mt-5 max-w-2xl text-sm sm:text-base font-medium leading-7 text-secondary">
+            <p className="relative mx-auto mt-3 sm:mt-5 max-w-2xl text-sm sm:text-base font-medium leading-6 sm:leading-7 text-secondary">
               {t.heroDesc}
             </p>
           </motion.div>
         </div>
       </section>
+      <ScaleOfSilence />
       <HomeContent />
       <HowItWorks />
       <Gallery />
