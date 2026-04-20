@@ -1,10 +1,8 @@
 import { motion } from "motion/react";
 import { useLanguage } from "../context/LanguageContext";
 
-import crewPhoto from "../../us.webp";
 import abylayWeb from "../../abylay.webp";
 import niyazCroppedWeb from "../../niyaz.webp";
-import vladaWeb from "../../me_vlada.webp";
 import vladaSoloWeb from "../../vlada.webp";
 
 export const Crew = () => {
@@ -44,34 +42,6 @@ export const Crew = () => {
               {t.desc}
             </p>
           </motion.div>
-
-        <motion.figure
-          className="overflow-hidden rounded-lg border-2 border-white/20 bg-white/6 shadow-[0_10px_0_rgba(255,255,255,0.08)]"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.08 }}
-        >
-          <img
-            src={crewPhoto}
-            alt="Kyshik crew"
-            className="block w-full h-auto"
-            loading="eager"
-          />
-        </motion.figure>
-
-        <motion.figure
-          className="mt-8 overflow-hidden rounded-lg border-2 border-white/20 bg-white/6 shadow-[0_10px_0_rgba(255,255,255,0.08)]"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.16 }}
-        >
-          <img
-            src={vladaWeb}
-            alt="Vlada and Abylay"
-            className="block w-full h-auto"
-            loading="lazy"
-          />
-        </motion.figure>
 
         <div className="mt-8 grid w-full max-w-[820px] grid-cols-2 items-start gap-3 sm:grid-cols-3 sm:gap-4">
           <motion.figure
