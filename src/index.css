@@ -25,11 +25,13 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 @layer base {
   body {
     @apply bg-background text-on-surface font-sans antialiased;
+    overflow-x: hidden;
     background-image:
       linear-gradient(158deg, #f7f8f5 0%, #e8ece8 58%, #d6dcd6 100%);
     text-rendering: optimizeLegibility;

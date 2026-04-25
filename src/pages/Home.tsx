@@ -1,760 +1,608 @@
 import { motion } from "motion/react";
 import {
+  ArrowRight,
   BadgeCheck,
   Building2,
   Camera,
-  Cpu,
+  Clock3,
   Database,
-  FileCheck2,
-  Fingerprint,
-  HeartHandshake,
+  FileText,
+  HeartPulse,
   Mail,
-  Map,
-  Search,
-  Server,
+  MapPin,
+  Medal,
   ShieldCheck,
-  Smartphone,
   Sparkles,
-  Users,
+  Stethoscope,
+  Trophy,
 } from "lucide-react";
 
-import posterArt from "../../stop_killing_dogs.webp";
-import dogSwag from "../../dog_swag.webp";
-import confusedDoggy from "../../confused_doggy.webp";
-import dogScreaming from "../../dog_screaming.webp";
+import { useLanguage } from "../context/LanguageContext";
 import adoptDontKill from "../../adopt_dont_kill.webp";
 import dogSad from "../../dog_sad.webp";
-import doggiesPoster from "../../doggies.webp";
-import pawsPoster from "../../paws.webp";
-import { useLanguage } from "../context/LanguageContext";
+import dogScreaming from "../../dog_screaming.webp";
+import doggies from "../../doggies.webp";
+import greenDogSad from "../../green_dog_sad.webp";
+import paws from "../../paws.webp";
+import stopKillingDogs from "../../stop_killing_dogs.webp";
 
 const BETA_URL = "https://tally.so/r/rjrG2p";
-const CONTACT_URL = "/contact";
+const CONTACT_FORM_URL = "/contact#contact-form";
 
 type Language = "ru" | "en";
 
-type SectionItem = {
+type ProcessStep = {
   title: string;
   desc: string;
-  Icon:
-    | typeof Camera
-    | typeof Fingerprint
-    | typeof Search
-    | typeof FileCheck2
-    | typeof Building2
-    | typeof HeartHandshake
-    | typeof Users
-    | typeof ShieldCheck
-    | typeof Map
-    | typeof BadgeCheck
-    | typeof Cpu
-    | typeof Database
-    | typeof Smartphone
-    | typeof Server;
+  Icon: typeof Camera;
 };
 
 type PageCopy = {
-  heroTag: string;
+  heroTimer: string;
   heroTitle: string;
-  heroDesc: string;
-  betaButton: string;
-  partnerButton: string;
-  heroSignals: string[];
-  heroPosterNotes: string[];
-  engineTag: string;
-  engineTitle: string;
-  engineItems: SectionItem[];
-  engineAccent: string;
-  ecosystemTag: string;
-  ecosystemTitle: string;
-  ecosystemItems: SectionItem[];
-  evidenceTag: string;
-  evidenceTitle: string;
-  evidenceDesc: string;
-  evidenceItems: SectionItem[];
-  techTag: string;
-  techTitle: string;
-  techDesc: string;
-  techItems: SectionItem[];
+  heroLead: string;
+  heroButton: string;
+  heroStats: string[];
+  problemEyebrow: string;
+  problemTitle: string;
+  problemIntro: string;
+  problemCards: { value: string; text: string }[];
+  problemClose: string;
+  armorEyebrow: string;
+  armorTitle: string;
+  armorBody: string[];
+  armorCards: { title: string; desc: string }[];
+  howEyebrow: string;
+  howTitle: string;
+  howLead: string;
+  steps: ProcessStep[];
+  businessEyebrow: string;
+  businessTitle: string;
+  businessLead: string;
+  businessCards: { title: string; desc: string; Icon: typeof Stethoscope }[];
+  flywheelEyebrow: string;
+  flywheelTitle: string;
+  flywheelSteps: string[];
+  flywheelBody: string;
   ctaTitle: string;
-  ctaDesc: string;
+  ctaBody: string;
+  ctaButton: string;
 };
 
-const PAGE_TEXT: Record<Language, PageCopy> = {
+const COPY: Record<Language, PageCopy> = {
   ru: {
-    heroTag: "See to be seen",
-    heroTitle: "доказательная аналитика для управления популяцией животных.",
-    heroDesc:
-      "Мы превращаем разрозненные визуальные наблюдения в структурированные данные. Наша технология позволяет городам и профильным организациям принимать управленческие решения на основе реальных фактов, а не догадок.",
-    betaButton: "Присоединиться к Beta",
-    partnerButton: "API и партнерство",
-    heroSignals: ["Уникальный ID", "Скрытые координаты", "Доказательные данные"],
-    heroPosterNotes: ["Biometric Re-ID", "Evidence Layer"],
-    engineTag: "Kyshik Engine",
-    engineTitle: "Как работает Kyshik Engine",
-    engineItems: [
+    heroTimer: "119:59:58 до эвтаназии",
+    heroTitle: "У них есть всего 5 дней.",
+    heroLead:
+      "Проект Kyshik создан, чтобы остановить конвейер смерти. Мы предлагаем прозрачный цифровой учет вместо слепого истребления. Мы превращаем фотографии с вашего телефона в верифицированные цифровые паспорта, давая бездомным животным имя, историю и право на жизнь.",
+    heroButton: "Скачать приложение и стать глазами системы",
+    heroStats: ["5 дней без чипа", "60 дней с чипом", "Цифровой паспорт вместо бумажной тени"],
+    problemEyebrow: "Суровая реальность",
+    problemTitle: "230 000 собак убито за 2025 год. И это только начало.",
+    problemIntro:
+      "8 апреля 2026 года были приняты поправки в закон, легализующие массовое уничтожение бездомных животных. Старая схема отлов - стерилизация - вакцинация - выпуск сломана.",
+    problemCards: [
       {
-        Icon: Camera,
-        title: "Smart Capture",
-        desc: "ИИ-фильтр автоматически детектирует и изолирует животное, очищая кадр от визуального шума.",
+        value: "5 дней",
+        text: "есть у отловленной собаки без микрочипа, чтобы ее забрали. Иначе - смерть.",
       },
       {
-        Icon: Fingerprint,
-        title: "Biometric Re-ID",
-        desc: "Модель извлекает уникальный векторный отпечаток ключевых признаков особи.",
+        value: "60 дней",
+        text: "есть у тех, кому повезло иметь чип.",
       },
       {
-        Icon: Search,
-        title: "Cross-Reference",
-        desc: "Векторный поиск в облачной базе данных находит совпадения в режиме реального времени.",
-      },
-      {
-        Icon: FileCheck2,
-        title: "Evidence-Based Reporting",
-        desc: "Система генерирует отчет с индексом достоверности для верификации и принятия решений.",
+        value: "86%",
+        text: "пойманных собак уничтожаются по данным правительства.",
       },
     ],
-    engineAccent:
-      "Наша архитектура достигает высокой точности идентификации, сохраняя устойчивость к динамике движения и сложному городскому освещению.",
-    ecosystemTag: "Для кого",
-    ecosystemTitle: "Экосистема Kyshik",
-    ecosystemItems: [
+    problemClose:
+      "Почему так происходит? Из-за фрагментации данных. Бездомные или потерянные животные не имеют цифровой истории. Для системы их не существует.",
+    armorEyebrow: "Цифровая броня",
+    armorTitle: "Нет данных = нет ответственности.",
+    armorBody: [
+      "Когда собака - это просто цифра в бумажном отчете, ее легко списать. Без доказательств и истории любую собаку могут объявить опасной, чтобы оправдать убийство.",
+      "С Kyshik каждый пес перестает быть невидимкой. У него появляется цифровая личность. Животное с историей, за которым в приложении следят десятки людей, сложнее убить безнаказанно.",
+    ],
+    armorCards: [
       {
-        Icon: Building2,
-        title: "Smart City",
-        desc: "Оптимизация муниципальных бюджетов, мониторинг зон риска и планирование инфраструктуры на основе достоверных данных.",
+        title: "История вместо номера",
+        desc: "Фото, геометки, даты и заметки собираются в один живой профиль.",
       },
       {
-        Icon: HeartHandshake,
-        title: "Приюты и фонды",
-        desc: "Автоматизированная система учета, позволяющая отслеживать статус каждой особи и автоматизировать отчетность.",
+        title: "Прозрачность вместо слепых зон",
+        desc: "Запись видна сообществу, клиникам, приютам и партнерам, которым нужен проверяемый контекст.",
       },
       {
-        Icon: Users,
-        title: "Сообщество",
-        desc: "Инструмент создания цифрового следа, превращающий волонтерскую активность в доказательную базу для защиты животных.",
+        title: "Доказательства вместо слухов",
+        desc: "Каждое наблюдение оставляет проверяемый след и снижает риск безнаказанного списания.",
       },
     ],
-    evidenceTag: "Evidence Layer",
-    evidenceTitle: "Evidence Layer: Прозрачность как стандарт",
-    evidenceDesc: "Мы не просто храним фото — мы верифицируем факты жизни.",
-    evidenceItems: [
+    howEyebrow: "Как это работает",
+    howTitle: "Kyshik превращает сбор данных в игру с реальным последствием.",
+    howLead:
+      "Мы не опираемся только на волонтеров. Карта, миссии, серии наблюдений и ИИ-распознавание помогают обычным людям собирать данные, которые потом могут спасти жизнь.",
+    steps: [
       {
-        Icon: ShieldCheck,
-        title: "Privacy-by-Design",
-        desc: "Мы исключаем использование точных геолокационных данных в открытом доступе. Все данные проходят через алгоритмы размытия координат.",
+        Icon: MapPin,
+        title: "Найти",
+        desc: "Откройте приложение с картой: выполняйте миссии, собирайте коллекции, поддерживайте streaks и поднимайтесь в локальных рейтингах.",
       },
       {
-        Icon: Map,
-        title: "Heat Maps",
-        desc: "Доступ предоставляется только к агрегированным тепловым картам плотности популяции.",
+        Icon: FileText,
+        title: "Сформировать паспорт",
+        desc: "Каждая загрузка фотографий, геометок и заметок автоматически формирует первичный черновик цифрового паспорта животного.",
       },
       {
         Icon: BadgeCheck,
-        title: "Достоверность",
-        desc: "Каждая запись в базе данных подкреплена идентификатором, исключающим дублирование и фальсификацию данных.",
+        title: "Обогатить историю",
+        desc: "Встретили ту же собаку снова? ИИ сопоставляет визуальные признаки и геолокацию, не создает дубликаты, а дополняет единый паспорт.",
+      },
+      {
+        Icon: Stethoscope,
+        title: "Передать профессионалам",
+        desc: "Когда животное попадает в клинику, приют или к новому владельцу, паспорт становится официальной портативной записью.",
       },
     ],
-    techTag: "Инженерная экспертиза",
-    techTitle: "Инженерная экспертиза",
-    techDesc: "Мы создаем масштабируемую IT-инфраструктуру на базе современных AI-решений:",
-    techItems: [
+    businessEyebrow: "Инфраструктура для бизнеса",
+    businessTitle: "Слой данных корпоративного уровня для животных без истории.",
+    businessLead:
+      "Kyshik делает записи о животных полезными еще до сканирования чипа, вне клиник и в полевых условиях.",
+    businessCards: [
       {
-        Icon: Cpu,
-        title: "Модели",
-        desc: "Vision Transformers для высокоточной классификации и распознавания.",
+        Icon: Stethoscope,
+        title: "Для ветеринарных клиник",
+        desc: "Портативный паспорт с фото, отметками времени и контекстом спасения ускоряет triage и помогает принимать обоснованные решения о лечении.",
       },
       {
-        Icon: Database,
-        title: "Базы данных",
-        desc: "Векторные БД для сверхбыстрого поиска среди миллионов записей.",
-      },
-      {
-        Icon: Smartphone,
-        title: "Pipeline",
-        desc: "Методы машинного обучения, адаптированные для работы с низкокачественными данными пользовательских устройств.",
-      },
-      {
-        Icon: Server,
-        title: "Edge-friendly",
-        desc: "Архитектура готова к масштабированию и интеграции в городские и партнерские контуры.",
+        Icon: Building2,
+        title: "Для страховых компаний",
+        desc: "Верифицированная базовая информация снижает слепые зоны при андеррайтинге и поддерживает урегулирование убытков доказательствами с отметками времени.",
       },
     ],
-    ctaTitle: "Подключайте пилоты, данные и интеграции",
-    ctaDesc:
-      "Kyshik дает городам и профильным организациям инфраструктуру, в которой каждое наблюдение превращается в управляемый факт.",
+    flywheelEyebrow: "Наш маховик данных",
+    flywheelTitle: "Больше участия - больше защиты.",
+    flywheelSteps: [
+      "Больше пользователей",
+      "Больше уличных наблюдений",
+      "Более подробные паспорта",
+      "Защита от эвтаназии",
+      "Рост ценности данных",
+    ],
+    flywheelBody:
+      "Это инфраструктура, где за каждой собакой стоит история. Кем она была? Где жила? Была ли стерилизована? Чем больше ответов, тем сложнее стереть животное из системы.",
+    ctaTitle: "Нельзя игнорировать того, кого ты уже увидел.",
+    ctaBody:
+      "Система не видит их. Статистика их игнорирует. Станьте глазами системы. Помогите нам вести учет, чтобы спасти тех, кто не может постоять за себя.",
+    ctaButton: "Присоединиться к Kyshik",
   },
   en: {
-    heroTag: "See to be seen",
-    heroTitle: "is evidence-based analytics for animal population management.",
-    heroDesc:
-      "We turn fragmented visual observations into structured data. Our technology helps cities and specialized organizations make management decisions based on real evidence rather than guesswork.",
-    betaButton: "Join Beta",
-    partnerButton: "API & Partnerships",
-    heroSignals: ["Unique ID", "Protected Location", "Evidence Layer"],
-    heroPosterNotes: ["Biometric Re-ID", "Evidence Layer"],
-    engineTag: "Kyshik Engine",
-    engineTitle: "How Kyshik Engine Works",
-    engineItems: [
-      {
-        Icon: Camera,
-        title: "Smart Capture",
-        desc: "An AI filter automatically detects and isolates the animal, clearing the frame of visual noise.",
-      },
-      {
-        Icon: Fingerprint,
-        title: "Biometric Re-ID",
-        desc: "The model extracts a unique vector signature from the animal's key features.",
-      },
-      {
-        Icon: Search,
-        title: "Cross-Reference",
-        desc: "Vector search across the cloud database finds matches in real time.",
-      },
-      {
-        Icon: FileCheck2,
-        title: "Evidence-Based Reporting",
-        desc: "The system generates a report with a confidence index for verification and decision-making.",
-      },
+    heroTimer: "119:59:58 until euthanasia",
+    heroTitle: "They only have 5 days.",
+    heroLead:
+      "Kyshik exists to stop the death conveyor. We offer transparent digital records instead of blind extermination. Photos from your phone become verified digital passports, giving stray animals a name, a history, and a claim to life.",
+    heroButton: "Download the app and become the eyes of the system",
+    heroStats: ["5 days without a chip", "60 days with a chip", "A digital passport instead of a paper shadow"],
+    problemEyebrow: "The hard reality",
+    problemTitle: "230,000 dogs were killed in 2025. And this is only the beginning.",
+    problemIntro:
+      "On April 8, 2026, legal changes opened the door to mass destruction of stray animals. The old catch - sterilize - vaccinate - release model is broken.",
+    problemCards: [
+      { value: "5 days", text: "for a captured dog without a microchip to be claimed. Otherwise, death." },
+      { value: "60 days", text: "for those lucky enough to have a chip." },
+      { value: "86%", text: "of captured dogs are destroyed according to government data." },
     ],
-    engineAccent:
-      "Our architecture achieves high identification accuracy while remaining robust to motion dynamics and difficult urban lighting.",
-    ecosystemTag: "Who It Serves",
-    ecosystemTitle: "The Kyshik Ecosystem",
-    ecosystemItems: [
-      {
-        Icon: Building2,
-        title: "Smart City",
-        desc: "Optimize municipal budgets, monitor risk zones, and plan infrastructure using trustworthy data.",
-      },
-      {
-        Icon: HeartHandshake,
-        title: "Shelters & Foundations",
-        desc: "An automated record system that tracks the status of each animal and streamlines reporting.",
-      },
-      {
-        Icon: Users,
-        title: "Community",
-        desc: "A digital trail that turns volunteer activity into evidence for protecting animals.",
-      },
+    problemClose:
+      "Why does this happen? Because data is fragmented. Stray or lost animals have no digital history. To the system, they do not exist.",
+    armorEyebrow: "Digital armor",
+    armorTitle: "No data = no accountability.",
+    armorBody: [
+      "When a dog is just a number in a paper report, it is easy to write off. Without evidence and history, any dog can be labeled dangerous to justify killing.",
+      "With Kyshik, every dog stops being invisible. It gains a digital identity. An animal with a history, followed by people in the app, is harder to erase without consequence.",
     ],
-    evidenceTag: "Evidence Layer",
-    evidenceTitle: "Evidence Layer: Transparency as a Standard",
-    evidenceDesc: "We do not just store photos. We verify facts of life.",
-    evidenceItems: [
-      {
-        Icon: ShieldCheck,
-        title: "Privacy-by-Design",
-        desc: "We exclude exact geolocation data from public access. All data passes through coordinate-blurring algorithms.",
-      },
-      {
-        Icon: Map,
-        title: "Heat Maps",
-        desc: "Access is limited to aggregated heat maps of population density.",
-      },
-      {
-        Icon: BadgeCheck,
-        title: "Reliability",
-        desc: "Every record is backed by an identifier that prevents duplication and data falsification.",
-      },
+    armorCards: [
+      { title: "A story, not a number", desc: "Photos, geotags, dates, and notes gather into one living profile." },
+      { title: "Transparency, not blind spots", desc: "The record can support communities, clinics, shelters, and partners who need verified context." },
+      { title: "Evidence, not rumors", desc: "Every observation leaves a verifiable trail and reduces the risk of silent write-offs." },
     ],
-    techTag: "Engineering Expertise",
-    techTitle: "Engineering Expertise",
-    techDesc: "We build scalable IT infrastructure on top of modern AI systems:",
-    techItems: [
-      {
-        Icon: Cpu,
-        title: "Models",
-        desc: "Vision Transformers for high-precision classification and recognition.",
-      },
-      {
-        Icon: Database,
-        title: "Databases",
-        desc: "Vector databases for extremely fast search across millions of records.",
-      },
-      {
-        Icon: Smartphone,
-        title: "Pipeline",
-        desc: "Machine learning methods adapted to low-quality data from user devices.",
-      },
-      {
-        Icon: Server,
-        title: "Edge-friendly",
-        desc: "An architecture designed for scale and for integration into city and partner systems.",
-      },
+    howEyebrow: "How it works",
+    howTitle: "Kyshik turns data collection into a game with real consequences.",
+    howLead:
+      "We do not rely only on volunteers. A map, missions, streaks, rankings, and AI recognition help everyday people collect data that can later save a life.",
+    steps: [
+      { Icon: MapPin, title: "Find", desc: "Open the map, complete missions, collect sightings, maintain streaks, and rise in local rankings." },
+      { Icon: FileText, title: "Create a passport", desc: "Every upload of photos, geotags, and notes creates the first draft of an animal's digital passport." },
+      { Icon: BadgeCheck, title: "Enrich the history", desc: "Saw the same dog again? AI matches visual traits and location, avoids duplicates, and updates the same passport." },
+      { Icon: Stethoscope, title: "Hand it to professionals", desc: "When an animal reaches a clinic, shelter, or new owner, the passport becomes a portable official record." },
     ],
-    ctaTitle: "Connect pilots, data, and integrations",
-    ctaDesc:
-      "Kyshik gives cities and domain organizations an infrastructure where every observation becomes an actionable fact.",
+    businessEyebrow: "Business infrastructure",
+    businessTitle: "Enterprise-grade animal data for lives that had no records.",
+    businessLead:
+      "Kyshik makes animal records useful before a chip scan, outside clinics, and in field conditions.",
+    businessCards: [
+      { Icon: Stethoscope, title: "For veterinary clinics", desc: "A portable passport with photos, timestamps, and rescue context speeds up triage and supports better treatment decisions." },
+      { Icon: Building2, title: "For insurers", desc: "Verified baseline information reduces underwriting blind spots and supports claims with timestamped evidence." },
+    ],
+    flywheelEyebrow: "Our data flywheel",
+    flywheelTitle: "More participation means more protection.",
+    flywheelSteps: ["More users", "More street sightings", "Richer passports", "Protection from euthanasia", "Higher data value"],
+    flywheelBody:
+      "This is infrastructure where every dog has a history. Who was it? Where did it live? Was it sterilized? The more answers exist, the harder an animal is to erase.",
+    ctaTitle: "You cannot ignore someone you have already seen.",
+    ctaBody:
+      "The system does not see them. Statistics ignore them. Become the eyes of the system. Help us keep records and protect those who cannot defend themselves.",
+    ctaButton: "Join Kyshik",
   },
 };
 
-type DogOverlay = {
+const SectionLabel = ({ children, dark = false }: { children: string; dark?: boolean }) => (
+  <p className={`text-xs font-extrabold uppercase tracking-[0.26em] ${dark ? "text-white/55" : "text-accent"}`}>
+    {children}
+  </p>
+);
+
+const FadeIn = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+  <motion.div
+    className={className}
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-80px" }}
+    transition={{ duration: 0.58, ease: "easeOut" }}
+  >
+    {children}
+  </motion.div>
+);
+
+type FloatingDogProps = {
   src: string;
   className: string;
-  float: Record<string, number[]>;
-  duration: number;
-  delay: number;
-  origin: string;
+  delay?: number;
+  rotate?: number[];
+  x?: number[];
+  y?: number[];
 };
 
-const DOG_OVERLAYS: DogOverlay[] = [
-  {
-    src: dogSad,
-    className:
-      "left-[14%] sm:left-[15%] top-[4%] sm:top-[11%] w-[102px] sm:w-[164px] md:w-[270px] -translate-x-[2px] -translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
-    float: { y: [0, -7, -3, -9, 0], rotate: [-1, 1.6, -0.8, 1.1, -1], scale: [1, 1.025, 1, 1.02, 1] },
-    duration: 4.2,
-    delay: 0.4,
-    origin: "50% 82%",
-  },
-  {
-    src: dogSwag,
-    className:
-      "left-[3%] sm:left-[-1%] top-[24%] w-[82px] sm:w-[191px] md:w-[322px] -translate-x-[6px] translate-y-[15px] sm:translate-x-0",
-    float: { x: [0, 4, -3, 2, 0], y: [0, -5, -1, -6, 0], rotate: [-3, 3.5, -1.5, 2.5, -3] },
-    duration: 3.6,
-    delay: 0.55,
-    origin: "32% 72%",
-  },
-  {
-    src: pawsPoster,
-    className:
-      "hidden sm:block left-1/2 top-[14%] w-[128px] sm:w-[200px] md:w-[286px] -translate-x-1/2 -translate-y-1/2 rotate-[8deg]",
-    float: { y: [0, -4, 0, -2, 0], rotate: [6, 11, 7, 10, 6], opacity: [0.88, 1, 0.92, 1, 0.88] },
-    duration: 2.8,
-    delay: 0.75,
-    origin: "50% 50%",
-  },
-  {
-    src: pawsPoster,
-    className:
-      "hidden sm:block left-[58%] bottom-[14%] w-[92px] sm:w-[146px] md:w-[203px] -translate-x-1/2 translate-y-1/2 -rotate-[7deg]",
-    float: { x: [0, -2, 2, -1, 0], y: [0, -5, -1, -3, 0], rotate: [-10, -5, -9, -6, -10], opacity: [0.84, 1, 0.9, 1, 0.84] },
-    duration: 3.3,
-    delay: 0.82,
-    origin: "50% 50%",
-  },
-  {
-    src: pawsPoster,
-    className:
-      "sm:hidden left-1/2 top-[18%] w-[125px] -translate-x-1/2 -translate-y-1/2 rotate-[11deg]",
-    float: { y: [0, -4, -1, -3, 0], rotate: [8, 14, 9, 12, 8], opacity: [0.86, 1, 0.9, 1, 0.86] },
-    duration: 2.9,
-    delay: 0.62,
-    origin: "50% 50%",
-  },
-  {
-    src: pawsPoster,
-    className:
-      "sm:hidden left-1/2 bottom-[18%] w-[125px] -translate-x-1/2 translate-y-1/2 -rotate-[9deg]",
-    float: { x: [0, 2, -2, 1, 0], y: [0, -5, -1, -3, 0], rotate: [-12, -7, -11, -8, -12], opacity: [0.84, 1, 0.88, 1, 0.84] },
-    duration: 3.2,
-    delay: 0.88,
-    origin: "50% 50%",
-  },
-  {
-    src: confusedDoggy,
-    className:
-      "right-[13%] sm:right-[14%] top-[6%] sm:top-[7%] w-[109px] sm:w-[203px] md:w-[348px] -translate-y-[5px] sm:translate-y-0",
-    float: { x: [0, -3, 4, -2, 0], y: [0, -8, -2, -6, 0], rotate: [180, 171, 187, 176, 180], scale: [1, 1.015, 0.995, 1.02, 1] },
-    duration: 3.9,
-    delay: 0.7,
-    origin: "50% 18%",
-  },
-  {
-    src: adoptDontKill,
-    className:
-      "right-[11%] sm:right-[12%] top-[61%] sm:top-[58%] w-[107px] sm:w-[186px] md:w-[309px]",
-    float: { x: [0, 2, -2, 3, 0], y: [0, -8, -3, -10, 0], rotate: [-1, 1.5, -1.2, 1, -1], scale: [1, 1.03, 1.01, 1.035, 1] },
-    duration: 4.4,
-    delay: 0.9,
-    origin: "50% 78%",
-  },
-  {
-    src: dogScreaming,
-    className:
-      "left-[14%] sm:left-[13%] bottom-[6%] sm:bottom-[12%] w-[133px] sm:w-[238px] md:w-[395px] -translate-x-[2px] translate-y-[5px] sm:translate-x-0 sm:translate-y-0",
-    float: { x: [0, -2, 3, -3, 2, 0], y: [0, -4, -1, -5, -2, 0], rotate: [-2, 2.4, -1.5, 2, -2.2, -2], scale: [1, 1.02, 1, 1.018, 1.005, 1] },
-    duration: 2.5,
-    delay: 1.05,
-    origin: "42% 72%",
-  },
-];
+const FloatingDog = ({
+  src,
+  className,
+  delay = 0,
+  rotate = [-2, 2, -1, 2, -2],
+  x = [0, 3, -2, 2, 0],
+  y = [0, -8, -3, -10, 0],
+}: FloatingDogProps) => (
+  <motion.img
+    src={src}
+    alt=""
+    className={`pointer-events-none absolute z-20 object-contain drop-shadow-[0_22px_28px_rgba(0,0,0,0.34)] ${className}`}
+    loading="eager"
+    initial={{ opacity: 1, scale: 1 }}
+    animate={{ scale: [1, 1.02, 1], rotate, x, y }}
+    transition={{
+      scale: { duration: 4.4, repeat: Infinity, ease: "easeInOut", delay },
+      rotate: { duration: 4.4, repeat: Infinity, ease: "easeInOut", delay },
+      x: { duration: 4.4, repeat: Infinity, ease: "easeInOut", delay },
+      y: { duration: 4.4, repeat: Infinity, ease: "easeInOut", delay },
+    }}
+  />
+);
 
-const HeroSignalRail = ({ items }: { items: string[] }) => (
-  <motion.div
-    className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:mt-7 sm:gap-3"
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay: 0.25 }}
-  >
-    {items.map((item, index) => (
+const Hero = ({ t }: { t: PageCopy }) => (
+  <section className="relative overflow-hidden bg-primary text-white">
+    <div className="pointer-events-none absolute inset-0 opacity-20 bg-[repeating-linear-gradient(-18deg,rgba(255,255,255,0.18),rgba(255,255,255,0.18)_1px,transparent_1px,transparent_8px)]" />
+    <div className="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 items-center gap-8 px-5 pb-14 pt-10 sm:px-6 sm:pb-16 sm:pt-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12 lg:py-16">
       <motion.div
-        key={item}
-        className="inline-flex items-center gap-2 rounded-full border-2 border-black/75 bg-white/80 px-3.5 py-2 text-[10px] font-extrabold uppercase tracking-[0.16em] text-primary shadow-[0_8px_20px_rgba(0,0,0,0.12)] backdrop-blur sm:px-4 sm:text-[11px]"
-        initial={{ opacity: 0, y: 8 }}
+        className="min-w-0 text-center lg:text-left"
+        initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.3 + index * 0.08 }}
-        whileHover={{ y: -2 }}
+        transition={{ duration: 0.65 }}
       >
-        <span className="h-2 w-2 rounded-full bg-accent" />
-        <span>{item}</span>
-      </motion.div>
-    ))}
-  </motion.div>
-);
-
-const HeroPoster = ({ notes }: { notes: string[] }) => (
-  <motion.div
-    className="relative w-full max-w-[22rem] sm:max-w-[60rem]"
-    initial={{ opacity: 0, y: 16, scale: 0.98 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    transition={{ duration: 0.75, ease: "easeOut" }}
-  >
-    <div className="pointer-events-none absolute inset-x-[8%] top-[6%] h-24 rounded-full bg-accent/30 blur-3xl sm:inset-x-[18%] sm:h-28" />
-    <div className="pointer-events-none absolute inset-x-[18%] bottom-[2%] h-24 rounded-full bg-black/12 blur-3xl sm:inset-x-[24%] sm:h-20" />
-
-    <motion.div
-      className="pointer-events-none absolute left-0 top-[12%] z-30 hidden -translate-x-[18%] sm:block"
-      animate={{ y: [0, -6, 0], rotate: [-3, -1, -3] }}
-      transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
-    >
-      <div className="rounded-full border-2 border-black bg-white px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-primary shadow-[0_10px_24px_rgba(0,0,0,0.18)]">
-        {notes[0]}
-      </div>
-    </motion.div>
-
-    <motion.div
-      className="pointer-events-none absolute bottom-[10%] right-0 z-30 hidden translate-x-[12%] sm:block"
-      animate={{ y: [0, -7, 0], rotate: [2, 0, 2] }}
-      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
-    >
-      <div className="rounded-full border-2 border-black bg-accent px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-white shadow-[0_10px_24px_rgba(255,59,48,0.26)]">
-        {notes[1]}
-      </div>
-    </motion.div>
-
-    <div className="relative overflow-hidden rounded-[20px] border-4 border-black/80 shadow-[0_20px_65px_rgba(0,0,0,0.38)] rotate-[-0.35deg]">
-      <div className="absolute left-[8%] top-0 z-20 h-6 w-20 -rotate-2 rounded-b-sm bg-black/55" />
-      <div className="absolute right-[9%] top-0 z-20 h-6 w-20 rotate-2 rounded-b-sm bg-black/55" />
-
-      <img src={posterArt} alt="" className="block w-full h-auto" loading="eager" />
-
-      <div className="pointer-events-none absolute inset-0 z-10">
-        {DOG_OVERLAYS.map((dog, idx) => (
-          <motion.img
-            key={idx}
-            src={dog.src}
-            alt=""
-            loading="eager"
-            className={`absolute ${dog.className} drop-shadow-[0_10px_20px_rgba(14,7,4,0.3)]`}
-            initial={{ opacity: 1 }}
-            animate={dog.float}
-            style={{ transformOrigin: dog.origin }}
-            transition={{
-              duration: dog.duration,
-              delay: dog.delay + 0.08 * idx,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  </motion.div>
-);
-
-const HeroActions = ({
-  betaLabel,
-  partnerLabel,
-}: {
-  betaLabel: string;
-  partnerLabel: string;
-}) => (
-  <motion.div
-    className="flex flex-row flex-wrap items-center justify-center gap-3"
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay: 0.3 }}
-  >
-    <motion.a
-      href={BETA_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center gap-2.5 rounded-full bg-accent px-6 py-3.5 text-xs font-bold text-white shadow-[0_8px_32px_rgba(255,59,48,0.36)] sm:px-9 sm:py-4 sm:text-sm"
-      whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(255,59,48,0.46)" }}
-      whileTap={{ scale: 0.97 }}
-    >
-      <Sparkles size={16} />
-      {betaLabel}
-    </motion.a>
-    <motion.a
-      href={CONTACT_URL}
-      className="flex items-center gap-2.5 rounded-full border-2 border-black/80 bg-white px-6 py-3 text-xs font-bold text-primary shadow-[0_8px_22px_rgba(0,0,0,0.16)] sm:px-7 sm:py-3.5 sm:text-sm"
-      whileHover={{ scale: 1.04 }}
-      whileTap={{ scale: 0.97 }}
-    >
-      <Mail size={16} />
-      {partnerLabel}
-    </motion.a>
-  </motion.div>
-);
-
-const SectionIntro = ({
-  tag,
-  title,
-  desc,
-  dark = false,
-}: {
-  tag: string;
-  title: string;
-  desc?: string;
-  dark?: boolean;
-}) => (
-  <motion.div
-    className="max-w-4xl"
-    initial={{ opacity: 0, y: 18 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6 }}
-  >
-    <p className={`mb-5 text-xs font-bold uppercase tracking-[0.28em] ${dark ? "text-accent" : "text-accent"}`}>
-      {tag}
-    </p>
-    <h2 className={`text-[2.2rem] font-extrabold leading-[0.95] md:text-[4rem] ${dark ? "text-white" : "text-primary"}`}>
-      {title}
-    </h2>
-    {desc && (
-      <p className={`mt-6 max-w-3xl text-base leading-8 sm:text-lg ${dark ? "text-white/70" : "text-secondary"}`}>
-        {desc}
-      </p>
-    )}
-  </motion.div>
-);
-
-const EngineSection = ({ t }: { t: PageCopy }) => (
-  <section className="bg-primary py-20 text-white sm:py-24">
-    <div className="mx-auto max-w-6xl px-5 sm:px-6">
-      <SectionIntro tag={t.engineTag} title={t.engineTitle} dark />
-
-      <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-4">
-        {t.engineItems.map(({ Icon, title, desc }, index) => (
-          <motion.article
-            key={title}
-            className="relative rounded-lg border-2 border-white/20 bg-white/7 p-6 shadow-[0_8px_0_rgba(255,255,255,0.08)]"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.08, duration: 0.55 }}
+        <div className="inline-flex items-center gap-3 border-2 border-accent bg-accent px-4 py-2 text-sm font-extrabold uppercase tracking-[0.14em] text-white shadow-[8px_8px_0_rgba(255,255,255,0.14)]">
+          <Clock3 className="h-5 w-5" />
+          {t.heroTimer}
+        </div>
+        <h1 className="mx-auto mt-7 max-w-[18rem] text-[1.95rem] font-extrabold leading-[0.94] tracking-normal sm:max-w-4xl sm:text-[4.6rem] lg:mx-0 lg:text-[5.8rem]">
+          {t.heroTitle}
+        </h1>
+        <p className="mx-auto mt-7 max-w-[18rem] text-sm leading-7 text-white/74 sm:max-w-2xl sm:text-lg sm:leading-8 lg:mx-0">
+          {t.heroLead}
+        </p>
+        <div className="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
+          <motion.a
+            href={BETA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex w-full max-w-[22rem] items-center justify-center gap-2.5 rounded-full bg-accent px-5 py-4 text-center text-sm font-extrabold leading-5 text-white shadow-[0_14px_32px_rgba(255,59,48,0.38)] sm:w-auto sm:px-8"
+            whileHover={{ scale: 1.035 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <div className="mb-8 flex items-start justify-between gap-4">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-accent/20">
-                <Icon className="h-5 w-5 text-white" />
-              </div>
-              <span className="text-xs font-extrabold text-accent">0{index + 1}</span>
-            </div>
-            <h3 className="text-xl font-extrabold leading-tight text-white">{title}</h3>
-            <p className="mt-4 text-sm leading-6 text-white/68">{desc}</p>
-          </motion.article>
-        ))}
-      </div>
+            <Sparkles className="h-5 w-5" />
+            <span className="min-w-0 whitespace-normal">{t.heroButton}</span>
+          </motion.a>
+        </div>
+        <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+          {t.heroStats.map((item) => (
+            <span
+              key={item}
+              className="max-w-[21rem] rounded-full border border-white/20 bg-white/8 px-4 py-2 text-center text-xs font-bold uppercase tracking-[0.08em] text-white/78 sm:tracking-[0.12em]"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      </motion.div>
 
-      <motion.p
-        className="mt-8 max-w-4xl text-base leading-8 text-white/78 sm:text-lg"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+      <motion.div
+        className="relative mx-auto h-[390px] w-full max-w-[34rem] overflow-visible sm:h-[560px] sm:max-w-[46rem] lg:h-[660px] lg:max-w-none"
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.75, delay: 0.08 }}
       >
-        {t.engineAccent}
-      </motion.p>
+        <div className="absolute left-1/2 top-[50%] z-10 w-[74%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-lg border-2 border-white/18 bg-white/8 p-2 shadow-[0_28px_80px_rgba(0,0,0,0.36)] sm:w-[72%] sm:p-3 lg:w-[70%]">
+          <img src={stopKillingDogs} alt="" className="block h-auto w-full object-contain" loading="eager" />
+        </div>
+
+        <FloatingDog
+          src={paws}
+          className="left-[2%] top-[9%] w-[24%] sm:left-[2%] sm:top-[12%] sm:w-[27%] lg:left-[2%]"
+          delay={0.2}
+          rotate={[-10, -5, -8, -3, -10]}
+        />
+        <FloatingDog
+          src={dogScreaming}
+          className="right-[0%] top-[7%] w-[33%] sm:right-[1%] sm:top-[9%] sm:w-[37%] lg:right-[2%]"
+          delay={0.42}
+          rotate={[3, 7, 1, 6, 3]}
+          x={[0, -3, 2, -2, 0]}
+        />
+        <FloatingDog
+          src={dogSad}
+          className="left-[2%] bottom-[14%] w-[27%] sm:left-[1%] sm:bottom-[16%] sm:w-[32%] lg:left-[2%]"
+          delay={0.62}
+          rotate={[-7, -2, -5, 1, -7]}
+          y={[0, -5, -2, -7, 0]}
+        />
+        <FloatingDog
+          src={paws}
+          className="right-[4%] bottom-[8%] w-[22%] sm:right-[3%] sm:bottom-[8%] sm:w-[25%] lg:right-[4%]"
+          delay={0.78}
+          rotate={[8, 13, 7, 12, 8]}
+          x={[0, 3, -2, 1, 0]}
+        />
+        <div className="absolute bottom-[2%] left-1/2 z-30 w-[11.5rem] -translate-x-1/2 rotate-[2deg] border-2 border-black bg-card p-4 text-primary shadow-[8px_8px_0_rgba(255,59,48,0.76)] sm:bottom-[4%] sm:w-52">
+          <p className="text-4xl font-extrabold leading-none text-accent">5</p>
+          <p className="mt-1 text-xs font-extrabold uppercase tracking-[0.14em]">days to be seen</p>
+        </div>
+      </motion.div>
     </div>
   </section>
 );
 
-const EcosystemSection = ({ t }: { t: PageCopy }) => (
-  <section className="bg-surface py-20 sm:py-24">
-    <div className="mx-auto max-w-6xl px-5 sm:px-6">
-      <SectionIntro tag={t.ecosystemTag} title={t.ecosystemTitle} />
+const Problem = ({ t }: { t: PageCopy }) => (
+  <section id="about" className="bg-surface py-20 sm:py-24">
+    <div className="mx-auto max-w-7xl px-5 sm:px-6">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+        <FadeIn>
+          <SectionLabel>{t.problemEyebrow}</SectionLabel>
+          <h2 className="mt-5 text-[2.75rem] font-extrabold leading-[0.92] text-primary sm:text-[4.5rem] lg:text-[5.5rem]">
+            230 000
+          </h2>
+          <p className="mt-5 max-w-xl text-2xl font-extrabold leading-tight text-primary sm:text-4xl">
+            {t.problemTitle.replace("230 000 ", "").replace("230,000 ", "")}
+          </p>
+        </FadeIn>
+        <FadeIn className="lg:pt-12">
+          <p className="text-lg leading-8 text-secondary">{t.problemIntro}</p>
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {t.problemCards.map((card) => (
+              <article key={card.value} className="rounded-lg border-2 border-black/70 bg-card p-5 shadow-[0_8px_0_rgba(0,0,0,0.16)]">
+                <p className="text-4xl font-extrabold text-accent">{card.value}</p>
+                <p className="mt-3 text-sm leading-6 text-secondary">{card.text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-8 border-l-4 border-accent pl-5 text-lg font-semibold leading-8 text-primary">
+            {t.problemClose}
+          </p>
+        </FadeIn>
+      </div>
+    </div>
+  </section>
+);
+
+const Armor = ({ t }: { t: PageCopy }) => (
+  <section className="bg-white py-20 sm:py-24">
+    <div className="mx-auto max-w-7xl px-5 sm:px-6">
+      <FadeIn className="max-w-4xl">
+        <SectionLabel>{t.armorEyebrow}</SectionLabel>
+        <h2 className="mt-5 text-[2.6rem] font-extrabold leading-[0.95] text-primary sm:text-[4.7rem]">
+          {t.armorTitle}
+        </h2>
+        <div className="mt-7 space-y-5 text-lg leading-8 text-secondary">
+          {t.armorBody.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
+      </FadeIn>
 
       <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
-        {t.ecosystemItems.map(({ Icon, title, desc }, index) => (
-          <motion.article
-            key={title}
-            className="rounded-lg border-2 border-black/70 bg-card p-6 shadow-[0_8px_0_rgba(0,0,0,0.18)] sm:p-8"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.08, duration: 0.55 }}
-          >
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent text-white">
-              <Icon className="h-5 w-5" />
-            </div>
-            <h3 className="mt-6 text-[1.45rem] font-bold leading-tight text-primary">{title}</h3>
-            <p className="mt-4 text-base leading-7 text-secondary">{desc}</p>
-          </motion.article>
+        {t.armorCards.map((card, index) => (
+          <FadeIn key={card.title}>
+            <article className="h-full rounded-lg border-2 border-black/70 bg-card p-6 shadow-[0_8px_0_rgba(0,0,0,0.16)]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary text-white">
+                {[ShieldCheck, HeartPulse, Database][index] &&
+                  (() => {
+                    const Icon = [ShieldCheck, HeartPulse, Database][index];
+                    return <Icon className="h-5 w-5" />;
+                  })()}
+              </div>
+              <h3 className="mt-6 text-2xl font-extrabold leading-tight text-primary">{card.title}</h3>
+              <p className="mt-4 text-base leading-7 text-secondary">{card.desc}</p>
+            </article>
+          </FadeIn>
         ))}
       </div>
     </div>
   </section>
 );
 
-const EvidenceSection = ({ t }: { t: PageCopy }) => (
-  <section className="relative overflow-hidden bg-white py-20 sm:py-24">
-    <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-5 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
-      <div className="lg:sticky lg:top-28 lg:self-start">
-        <SectionIntro tag={t.evidenceTag} title={t.evidenceTitle} desc={t.evidenceDesc} />
+const HowItWorks = ({ t }: { t: PageCopy }) => (
+  <section id="how" className="bg-primary py-20 text-white sm:py-24">
+    <div className="mx-auto max-w-7xl px-5 sm:px-6">
+      <FadeIn className="max-w-4xl">
+        <SectionLabel dark>{t.howEyebrow}</SectionLabel>
+        <h2 className="mt-5 text-[2.55rem] font-extrabold leading-[0.95] sm:text-[4.4rem]">
+          {t.howTitle}
+        </h2>
+        <p className="mt-7 max-w-3xl text-lg leading-8 text-white/72">{t.howLead}</p>
+      </FadeIn>
+
+      <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-4">
+        {t.steps.map(({ Icon, title, desc }, index) => (
+          <FadeIn key={title}>
+            <article className="relative h-full rounded-lg border-2 border-white/18 bg-white/7 p-6 shadow-[0_8px_0_rgba(255,255,255,0.08)]">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent text-white">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <span className="text-sm font-extrabold text-accent">0{index + 1}</span>
+              </div>
+              <h3 className="mt-8 text-2xl font-extrabold text-white">{title}</h3>
+              <p className="mt-4 text-sm leading-6 text-white/68">{desc}</p>
+            </article>
+          </FadeIn>
+        ))}
       </div>
 
+      <FadeIn className="mt-12 grid grid-cols-1 items-center gap-6 rounded-lg border-2 border-white/18 bg-white/7 p-5 shadow-[0_8px_0_rgba(255,255,255,0.08)] lg:grid-cols-[0.9fr_1.1fr]">
+        <img src={adoptDontKill} alt="" className="mx-auto max-h-72 w-full object-contain" loading="lazy" />
+        <div className="grid grid-cols-3 gap-3">
+          {[Trophy, Medal, Sparkles].map((Icon, index) => (
+            <div key={index} className="rounded-lg border border-white/14 bg-white/8 p-4 text-center">
+              <Icon className="mx-auto h-6 w-6 text-accent" />
+              <div className="mt-3 h-2 rounded-full bg-white/14">
+                <div className="h-2 rounded-full bg-accent" style={{ width: `${58 + index * 16}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </FadeIn>
+    </div>
+  </section>
+);
+
+const Business = ({ t }: { t: PageCopy }) => (
+  <section id="proof" className="bg-surface py-20 sm:py-24">
+    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+      <FadeIn>
+        <SectionLabel>{t.businessEyebrow}</SectionLabel>
+        <h2 className="mt-5 text-[2.55rem] font-extrabold leading-[0.95] text-primary sm:text-[4.4rem]">
+          {t.businessTitle}
+        </h2>
+        <p className="mt-7 text-lg leading-8 text-secondary">{t.businessLead}</p>
+      </FadeIn>
       <div className="space-y-5">
-        {t.evidenceItems.map(({ Icon, title, desc }, index) => (
-          <motion.article
-            key={title}
-            className="rounded-lg border-2 border-black/70 bg-card p-6 shadow-[0_8px_0_rgba(0,0,0,0.18)] sm:p-8"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.08, duration: 0.55 }}
-          >
-            <div className="flex items-start gap-4">
-              <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-primary text-white">
-                <Icon className="h-5 w-5" />
-              </div>
-              <div>
-                <h3 className="text-[1.45rem] font-bold leading-tight text-primary">{title}</h3>
-                <p className="mt-3 text-base leading-7 text-secondary">{desc}</p>
-              </div>
-            </div>
-          </motion.article>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-const TechSection = ({ t }: { t: PageCopy }) => (
-  <section className="bg-primary py-20 text-white sm:py-24">
-    <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-5 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
-      <div className="lg:self-center">
-        <SectionIntro tag={t.techTag} title={t.techTitle} desc={t.techDesc} dark />
-
-        <div className="mt-10 space-y-4">
-          {t.techItems.map(({ Icon, title, desc }, index) => (
-            <motion.article
-              key={title}
-              className="rounded-lg border-2 border-white/18 bg-white/7 p-5 shadow-[0_8px_0_rgba(255,255,255,0.08)]"
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.08, duration: 0.55 }}
-            >
-              <div className="flex items-start gap-4">
-                <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-accent text-white">
+        {t.businessCards.map(({ Icon, title, desc }) => (
+          <FadeIn key={title}>
+            <article className="rounded-lg border-2 border-black/70 bg-card p-6 shadow-[0_8px_0_rgba(0,0,0,0.16)] sm:p-8">
+              <div className="flex items-start gap-5">
+                <div className="flex h-12 w-12 flex-none items-center justify-center rounded-lg bg-accent text-white">
                   <Icon className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/70">{desc}</p>
+                  <h3 className="text-2xl font-extrabold text-primary">{title}</h3>
+                  <p className="mt-4 text-base leading-7 text-secondary">{desc}</p>
                 </div>
               </div>
-            </motion.article>
-          ))}
-        </div>
+            </article>
+          </FadeIn>
+        ))}
       </div>
-
-      <motion.figure
-        className="overflow-hidden rounded-lg border-2 border-white/16 bg-white/6 shadow-[0_20px_50px_rgba(0,0,0,0.35)]"
-        initial={{ opacity: 0, y: 18 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-      >
-        <img
-          src={doggiesPoster}
-          alt=""
-          className="block h-full w-full object-cover"
-          loading="lazy"
-        />
-      </motion.figure>
     </div>
   </section>
 );
 
-const CtaSection = ({ t }: { t: PageCopy }) => (
-  <section className="bg-surface py-20 sm:py-24">
-    <motion.div
-      className="mx-auto flex max-w-4xl flex-col items-center gap-7 px-5 text-center sm:px-6"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7 }}
-    >
-      <p className="text-xs font-bold uppercase tracking-[0.28em] text-accent">Kyshik</p>
-      <h2 className="text-[2.3rem] font-extrabold leading-[0.95] text-primary md:text-[4rem]">
-        {t.ctaTitle}
-      </h2>
-      <p className="max-w-2xl text-base leading-8 text-secondary sm:text-lg">
-        {t.ctaDesc}
-      </p>
-      <HeroActions betaLabel={t.betaButton} partnerLabel={t.partnerButton} />
-    </motion.div>
+const Flywheel = ({ t }: { t: PageCopy }) => (
+  <section className="overflow-hidden bg-white py-20 sm:py-24">
+    <div className="mx-auto max-w-7xl px-5 sm:px-6">
+      <FadeIn className="max-w-4xl">
+        <SectionLabel>{t.flywheelEyebrow}</SectionLabel>
+        <h2 className="mt-5 text-[2.6rem] font-extrabold leading-[0.95] text-primary sm:text-[4.6rem]">
+          {t.flywheelTitle}
+        </h2>
+      </FadeIn>
+      <div className="mt-12 grid grid-cols-1 items-stretch gap-3 lg:grid-cols-5">
+        {t.flywheelSteps.map((step, index) => (
+          <FadeIn key={step}>
+            <div className="flex h-full items-center gap-3 rounded-lg border-2 border-black/70 bg-card p-5 shadow-[0_8px_0_rgba(0,0,0,0.16)] lg:flex-col lg:items-start">
+              <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-accent text-sm font-extrabold text-white">
+                {index + 1}
+              </span>
+              <p className="text-lg font-extrabold leading-tight text-primary">{step}</p>
+              {index < t.flywheelSteps.length - 1 && (
+                <ArrowRight className="ml-auto h-5 w-5 text-accent lg:ml-0 lg:mt-auto" />
+              )}
+            </div>
+          </FadeIn>
+        ))}
+      </div>
+      <FadeIn className="mt-10 grid grid-cols-1 items-center gap-8 lg:grid-cols-[0.7fr_1.3fr]">
+        <div className="relative overflow-hidden rounded-lg bg-primary/5 p-3 shadow-[0_16px_40px_rgba(0,0,0,0.18)]">
+          <img src={doggies} alt="" className="mx-auto block h-auto w-full rounded-md object-contain" loading="lazy" />
+          <img
+            src={greenDogSad}
+            alt=""
+            className="pointer-events-none absolute bottom-0 right-0 w-[38%] translate-x-[5%] translate-y-[6%] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.28)]"
+            loading="lazy"
+          />
+        </div>
+        <p className="text-2xl font-extrabold leading-snug text-primary sm:text-4xl">{t.flywheelBody}</p>
+      </FadeIn>
+    </div>
+  </section>
+);
+
+const CTA = ({ t }: { t: PageCopy }) => (
+  <section className="relative overflow-hidden bg-primary py-20 text-white sm:py-24">
+    <div className="pointer-events-none absolute inset-0 opacity-20 bg-[repeating-linear-gradient(-18deg,rgba(255,255,255,0.18),rgba(255,255,255,0.18)_1px,transparent_1px,transparent_8px)]" />
+    <FadeIn className="relative mx-auto max-w-5xl px-5 text-center sm:px-6">
+      <h2 className="text-[2.8rem] font-extrabold leading-[0.92] sm:text-[5rem]">{t.ctaTitle}</h2>
+      <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-white/74">{t.ctaBody}</p>
+      <motion.a
+        href={BETA_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-9 inline-flex items-center justify-center gap-2.5 rounded-full bg-accent px-8 py-4 text-sm font-extrabold text-white shadow-[0_14px_32px_rgba(255,59,48,0.38)]"
+        whileHover={{ scale: 1.035 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <Sparkles className="h-5 w-5" />
+        {t.ctaButton}
+      </motion.a>
+      <motion.a
+        href={CONTACT_FORM_URL}
+        className="mt-4 inline-flex items-center justify-center gap-2.5 rounded-full border-2 border-white/22 bg-white/8 px-8 py-4 text-sm font-extrabold text-white shadow-[0_12px_28px_rgba(0,0,0,0.24)]"
+        whileHover={{ scale: 1.035 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <Mail className="h-5 w-5" />
+        hello@kyshik.com
+      </motion.a>
+    </FadeIn>
   </section>
 );
 
 export const Home = () => {
   const { language } = useLanguage();
-  const t = PAGE_TEXT[language];
+  const t = COPY[language];
 
   return (
     <div className="min-h-screen">
-      <main>
-        <section
-          className="relative overflow-hidden"
-          style={{
-            background:
-              "linear-gradient(160deg, #f7f8f5 0%, #e8ece8 58%, #d6dcd6 100%)",
-          }}
-        >
-          <div className="pointer-events-none absolute inset-0 opacity-35 bg-[repeating-linear-gradient(-18deg,rgba(0,0,0,0.08),rgba(0,0,0,0.08)_1px,transparent_1px,transparent_8px)]" />
-          <div className="pointer-events-none absolute left-1/2 top-[10%] h-40 w-[26rem] -translate-x-1/2 rounded-full bg-accent/16 blur-3xl sm:top-[14%] sm:h-56 sm:w-[40rem]" />
-          <div className="pointer-events-none absolute left-[12%] top-[34%] hidden h-28 w-28 rounded-full border border-black/10 bg-white/28 blur-2xl sm:block" />
-          <div className="pointer-events-none absolute right-[10%] top-[18%] hidden h-20 w-20 rounded-full border border-accent/20 bg-accent/10 blur-2xl sm:block" />
-          <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-7 px-3 pb-12 pt-8 text-center sm:min-h-svh sm:justify-center sm:gap-9 sm:px-6 sm:pb-12 sm:pt-24">
-            <motion.div
-              className="w-full max-w-[74rem] px-2"
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.42 }}
-            >
-              <p className="inline-flex -rotate-2 rounded-lg border-2 border-black bg-accent px-5 py-2 text-[11px] font-extrabold uppercase tracking-[0.26em] text-white shadow-[6px_6px_0_rgba(0,0,0,0.24)] sm:text-xs">
-                {t.heroTag}
-              </p>
-              <h1 className="mx-auto mt-5 max-w-[70rem] text-[2.5rem] font-extrabold leading-[0.9] text-primary sm:mt-6 sm:text-[3.8rem] lg:text-[5.25rem]">
-                <span className="block text-accent [text-shadow:0_10px_30px_rgba(255,59,48,0.18)]">Kyshik</span>
-                <span className="block">{t.heroTitle}</span>
-              </h1>
-              <p className="mx-auto mt-5 max-w-[52rem] text-sm font-medium leading-7 text-secondary sm:mt-6 sm:text-base sm:leading-8">
-                {t.heroDesc}
-              </p>
-              <HeroSignalRail items={t.heroSignals} />
-              <div className="mt-7 flex justify-center sm:mt-8">
-                <HeroActions betaLabel={t.betaButton} partnerLabel={t.partnerButton} />
-              </div>
-            </motion.div>
-
-            <div className="w-full pt-1 sm:pt-3">
-              <HeroPoster notes={t.heroPosterNotes} />
-            </div>
-          </div>
-        </section>
-
-        <EngineSection t={t} />
-        <EcosystemSection t={t} />
-        <EvidenceSection t={t} />
-        <TechSection t={t} />
-        <CtaSection t={t} />
-      </main>
+      <Hero t={t} />
+      <Problem t={t} />
+      <Armor t={t} />
+      <HowItWorks t={t} />
+      <Business t={t} />
+      <Flywheel t={t} />
+      <CTA t={t} />
     </div>
   );
 };

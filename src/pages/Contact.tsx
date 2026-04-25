@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, CheckCircle2, MapPin, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, Mail, MapPin, ShieldCheck } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 
 const WEB3FORMS_ACCESS_KEY = "f117ad90-c89c-4844-b9ce-3dae5a63b2de";
+const CONTACT_FORM_ANCHOR = "#contact-form";
 
 export const Contact = () => {
+  const location = useLocation();
   const { language } = useLanguage();
   const [sent, setSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,6 +33,7 @@ export const Contact = () => {
           leftDesc: "We are open to pilots, volunteers, partners, and people who want to make animal counting more honest.",
           location: "Kazakhstan",
           privacy: "No public exact coordinates",
+          emailContact: "hello@kyshik.com",
           sentTitle: "Message sent",
           sentDesc: "Thank you. We will get back to you soon.",
           formTitle: "Tell us how you want to help",
@@ -54,6 +58,7 @@ export const Contact = () => {
           leftDesc: "Мы открыты к пилотам, волонтерам, партнерам и людям, которые хотят сделать учет животных честнее.",
           location: "Казахстан",
           privacy: "Без публичных точных координат",
+          emailContact: "hello@kyshik.com",
           sentTitle: "Сообщение отправлено",
           sentDesc: "Спасибо. Мы свяжемся с тобой в ближайшее время.",
           formTitle: "Расскажи, чем хочешь помочь",
@@ -108,6 +113,17 @@ export const Contact = () => {
     }
   };
 
+  useEffect(() => {
+    if (location.hash !== CONTACT_FORM_ANCHOR) {
+      return;
+    }
+
+    // Wait for paint so the form node exists after route transition.
+    requestAnimationFrame(() => {
+      document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [location.hash]);
+
   return (
     <section className="relative min-h-[calc(100svh-4rem)] bg-[#f8f8f5] py-20 sm:py-24 overflow-hidden">
       <div className="pointer-events-none absolute inset-0 opacity-18 bg-[repeating-linear-gradient(-18deg,rgba(0,0,0,0.08),rgba(0,0,0,0.08)_1px,transparent_1px,transparent_8px)]" />
@@ -157,10 +173,13 @@ export const Contact = () => {
                 <ShieldCheck className="w-4 h-4 text-accent" />
                 {t.privacy}
               </p>
-              <p className="flex items-center gap-3">
-                <ArrowRight className="w-4 h-4 text-accent" />
-                @kyshikbot
-              </p>
+              <a
+                href={CONTACT_FORM_ANCHOR}
+                className="inline-flex items-center gap-3 text-white/80 underline-offset-2 hover:text-white hover:underline transition-colors"
+              >
+                <Mail className="w-4 h-4 text-accent" />
+                {t.emailContact}
+              </a>
             </div>
           </div>
 
@@ -178,7 +197,7 @@ export const Contact = () => {
                 </p>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
+              <form id="contact-form" onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
                 <h3 className="text-2xl font-bold text-primary mb-1">{t.formTitle}</h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
