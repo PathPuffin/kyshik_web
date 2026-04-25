@@ -21,7 +21,7 @@ import {
 import { useLanguage } from "../context/LanguageContext";
 import adoptDontKill from "../../adopt_dont_kill.webp";
 import dogSad from "../../dog_sad.webp";
-import dogScreaming from "../../dog_screaming.webp";
+import dogSwag from "../../dog_swag.webp";
 import doggies from "../../doggies.webp";
 import greenDogSad from "../../green_dog_sad.webp";
 import paws from "../../paws.webp";
@@ -348,8 +348,8 @@ const Hero = ({ t }: { t: PageCopy }) => (
           rotate={[-10, -5, -8, -3, -10]}
         />
         <FloatingDog
-          src={dogScreaming}
-          className="right-[0%] top-[7%] w-[33%] sm:right-[1%] sm:top-[9%] sm:w-[37%] lg:right-[2%]"
+          src={dogSwag}
+          className="right-[0%] top-[7%] w-[30%] sm:right-[1%] sm:top-[9%] sm:w-[34%] lg:right-[2%]"
           delay={0.42}
           rotate={[3, 7, 1, 6, 3]}
           x={[0, -3, 2, -2, 0]}
