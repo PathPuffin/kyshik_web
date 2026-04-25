@@ -48,7 +48,7 @@ export const Footer = () => {
           <Link to="/blog" className="hover:text-white transition-colors">{labels.blog}</Link>
           <Link to="/crew" className="hover:text-white transition-colors">{labels.crew}</Link>
           <Link to="/contact" className="hover:text-white transition-colors">{labels.contact}</Link>
-          <a href={CONTACT_FORM_URL} className="hover:text-white transition-colors">{labels.email}</a>
+          <Link to={CONTACT_FORM_URL} className="hover:text-white transition-colors">{labels.email}</Link>
         </nav>
         <div className="flex flex-wrap items-center justify-center gap-4">
           <a
@@ -60,10 +60,10 @@ export const Footer = () => {
             <Sparkles size={15} />
             {labels.beta}
           </a>
-          <a href={CONTACT_FORM_URL} className="flex items-center gap-1.5 text-white/40 hover:text-white/80 text-sm transition-colors">
+          <Link to={CONTACT_FORM_URL} className="flex items-center gap-1.5 text-white/40 hover:text-white/80 text-sm transition-colors">
             <Mail size={15} />
             hello@kyshik.com
-          </a>
+          </Link>
         </div>
         <p className="text-white/25 text-xs tracking-widest uppercase">
           © 2026 kyshik.com

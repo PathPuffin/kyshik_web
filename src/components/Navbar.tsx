@@ -11,19 +11,18 @@ const CONTACT_FORM_URL = "/contact#contact-form";
 type NavItem = {
   label: string;
   href: string;
-  external?: boolean;
 };
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Блог", href: "/blog" },
   { label: "Crew", href: "/crew" },
-  { label: "Почта", href: CONTACT_FORM_URL, external: true },
+  { label: "Почта", href: CONTACT_FORM_URL },
 ];
 
 const NAV_ITEMS_EN: NavItem[] = [
   { label: "Blog", href: "/blog" },
   { label: "Crew", href: "/crew" },
-  { label: "Email", href: CONTACT_FORM_URL, external: true },
+  { label: "Email", href: CONTACT_FORM_URL },
 ];
 
 export const Navbar = () => {
@@ -77,25 +76,15 @@ export const Navbar = () => {
           </Link>
 
           <div className="hidden md:flex items-center gap-6">
-            {navItems.map((item) =>
-              item.external ? (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-xs font-bold uppercase tracking-widest text-secondary hover:text-accent transition-colors"
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  className="text-xs font-bold uppercase tracking-widest text-secondary hover:text-accent transition-colors"
-                >
-                  {item.label}
-                </Link>
-              ),
-            )}
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                to={item.href}
+                className="text-xs font-bold uppercase tracking-widest text-secondary hover:text-accent transition-colors"
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
 
           <div className="flex flex-none items-center gap-2 sm:gap-3">
@@ -107,15 +96,13 @@ export const Navbar = () => {
             >
               {language === "en" ? "EN" : "RU"}
             </button>
-            <motion.a
-              href={CONTACT_FORM_URL}
+            <Link
+              to={CONTACT_FORM_URL}
               className="hidden h-10 items-center justify-center gap-2 rounded-full border-2 border-black/80 bg-white px-4 text-xs font-bold text-primary shadow-[0_8px_18px_rgba(0,0,0,0.14)] lg:flex"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
             >
               <Mail size={16} />
               {emailLabel}
-            </motion.a>
+            </Link>
             <motion.a
               href={BETA_URL}
               target="_blank"
@@ -140,27 +127,16 @@ export const Navbar = () => {
         animate={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "auto" : "none" }}
         transition={{ duration: 0.22 }}
       >
-        {navItems.map(({ label, href, external }) =>
-          external ? (
-            <a
-              key={label}
-              href={href}
-              onClick={() => setMenuOpen(false)}
-              className="font-serif text-4xl font-light text-primary/70 hover:text-primary py-4 border-b border-border transition-colors"
-            >
-              {label}
-            </a>
-          ) : (
-            <Link
-              key={label}
-              to={href}
-              onClick={() => setMenuOpen(false)}
-              className="font-serif text-4xl font-light text-primary/70 hover:text-primary py-4 border-b border-border transition-colors"
-            >
-              {label}
-            </Link>
-          ),
-        )}
+        {navItems.map(({ label, href }) => (
+          <Link
+            key={label}
+            to={href}
+            onClick={() => setMenuOpen(false)}
+            className="font-serif text-4xl font-light text-primary/70 hover:text-primary py-4 border-b border-border transition-colors"
+          >
+            {label}
+          </Link>
+        ))}
       </motion.div>
     </>
   );

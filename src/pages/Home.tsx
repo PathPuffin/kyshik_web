@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
   BadgeCheck,
@@ -577,15 +578,13 @@ const CTA = ({ t }: { t: PageCopy }) => (
         <Sparkles className="h-5 w-5" />
         {t.ctaButton}
       </motion.a>
-      <motion.a
-        href={CONTACT_FORM_URL}
+      <Link
+        to={CONTACT_FORM_URL}
         className="mt-4 inline-flex items-center justify-center gap-2.5 rounded-full border-2 border-white/22 bg-white/8 px-8 py-4 text-sm font-extrabold text-white shadow-[0_12px_28px_rgba(0,0,0,0.24)]"
-        whileHover={{ scale: 1.035 }}
-        whileTap={{ scale: 0.98 }}
       >
         <Mail className="h-5 w-5" />
         hello@kyshik.com
-      </motion.a>
+      </Link>
     </FadeIn>
   </section>
 );
