@@ -28,6 +28,7 @@ import greenDogSad from "../../green_dog_sad.webp";
 const BETA_URL = "/beta-test";
 const CONTACT_FORM_URL = "/contact#contact-form";
 const HERO_TIMER_START_SECONDS = 119 * 60 * 60 + 59 * 60 + 58;
+const HERO_TIMER_SPEED_MULTIPLIER = 6;
 
 const formatCountdown = (totalSeconds: number) => {
   const safeSeconds = Math.max(0, totalSeconds);
@@ -277,8 +278,8 @@ const Hero = ({ t, language, countdownSeconds }: { t: PageCopy; language: Langua
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
         >
-          <div className="inline-flex items-center gap-3 border border-white/34 bg-black/42 px-4 py-2.5 text-xs font-extrabold uppercase tracking-[0.16em] text-white shadow-[6px_6px_0_rgba(255,59,48,0.36)] backdrop-blur-sm sm:px-5 sm:py-3 sm:text-sm">
-            <Clock3 className="h-5 w-5 text-accent" />
+          <div className="inline-flex items-center gap-3 border border-white/34 bg-black/42 px-5 py-3 text-sm font-extrabold uppercase tracking-[0.16em] text-white shadow-[6px_6px_0_rgba(255,59,48,0.36)] backdrop-blur-sm sm:px-6 sm:py-3.5 sm:text-base lg:text-lg">
+            <Clock3 className="h-6 w-6 text-accent" />
             {formatCountdown(countdownSeconds)} {language === "en" ? "until euthanasia" : "до эвтаназии"}
           </div>
           <h1 className="mt-6 max-w-4xl text-[3.2rem] font-extrabold leading-[0.86] tracking-normal text-white drop-shadow-[0_10px_34px_rgba(0,0,0,0.92)] sm:text-[5.8rem] lg:text-[7.4rem]">
@@ -552,15 +553,24 @@ const CTA = ({ t }: { t: PageCopy }) => (
 export const Home = () => {
   const { language } = useLanguage();
   const t = COPY[language];
+  const [heroCountdownStartMs] = useState(() => Date.now());
   const [heroCountdownSeconds, setHeroCountdownSeconds] = useState(HERO_TIMER_START_SECONDS);
 
   useEffect(() => {
+    const updateCountdown = () => {
+      const elapsedRealSeconds = Math.floor((Date.now() - heroCountdownStartMs) / 1000);
+      const elapsedSimulatedSeconds = elapsedRealSeconds * HERO_TIMER_SPEED_MULTIPLIER;
+      setHeroCountdownSeconds(Math.max(0, HERO_TIMER_START_SECONDS - elapsedSimulatedSeconds));
+    };
+
+    updateCountdown();
+
     const timer = window.setInterval(() => {
-      setHeroCountdownSeconds((prev) => Math.max(0, prev - 1));
+      updateCountdown();
     }, 1000);
 
     return () => window.clearInterval(timer);
-  }, []);
+  }, [heroCountdownStartMs]);
 
   return (
     <div className="min-h-screen">
