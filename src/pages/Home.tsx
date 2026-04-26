@@ -28,7 +28,7 @@ import greenDogSad from "../../green_dog_sad.webp";
 const BETA_URL = "/beta-test";
 const CONTACT_FORM_URL = "/contact#contact-form";
 const HERO_TIMER_START_SECONDS = 119 * 60 * 60 + 59 * 60 + 58;
-const HERO_TIMER_SPEED_MULTIPLIER = 30;
+const HERO_TIMER_SPEED_MULTIPLIER = 1;
 
 const formatCountdown = (totalSeconds: number) => {
   const safeSeconds = Math.max(0, totalSeconds);
@@ -269,7 +269,7 @@ const Hero = ({ t, language, countdownSeconds }: { t: PageCopy; language: Langua
       <img
         src={dogKilled}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover object-center opacity-74"
+        className="absolute inset-0 h-full w-full object-cover object-[50%_58%] lg:object-[50%_64%] opacity-74"
         loading="eager"
       />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_50%,rgba(255,255,255,0.1),rgba(0,0,0,0.34)_34%,rgba(0,0,0,0.9)_82%)]" />
