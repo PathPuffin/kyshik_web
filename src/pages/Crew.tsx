@@ -9,6 +9,7 @@ import vladaWeb from "../../vlada.webp";
 type Member = {
   name: string;
   role?: string;
+  quote?: string;
   image: string;
   imageClass?: string;
 };
@@ -36,11 +37,13 @@ export const Crew = () => {
     {
       name: "Niyaz M.",
       role: t.cofounder,
+      quote: "У бездомных животных тоже есть имя",
       image: niyazWeb,
     },
     {
       name: "Abylay D.",
       role: t.cofounder,
+      quote: "let's save some dawgs",
       image: abylayWeb,
     },
     {
@@ -103,6 +106,9 @@ export const Crew = () => {
                   <p className="text-base font-extrabold tracking-wide text-primary">{member.name}</p>
                   {member.role && (
                     <p className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-accent">{member.role}</p>
+                  )}
+                  {member.quote && (
+                    <p className="mt-2 text-xs font-medium leading-5 text-primary/75">{member.quote}</p>
                   )}
                 </figcaption>
               </motion.figure>

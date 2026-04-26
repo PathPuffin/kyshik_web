@@ -7,6 +7,7 @@ import { Blog } from "./pages/Blog";
 import { BlogPost } from "./pages/BlogPost";
 import { Contact } from "./pages/Contact";
 import { Crew } from "./pages/Crew";
+import { PitchDeck } from "./pages/PitchDeck";
 import { LanguageProvider } from "./context/LanguageContext";
 
 const ScrollToTop = () => {
@@ -33,6 +34,8 @@ export default function App() {
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/crew" element={<Crew />} />
+              <Route path="/pitchdeck" element={<PitchDeck />} />
+              <Route path="/kyshik/pitchdeck" element={<PitchDeck />} />
             </Routes>
           </main>
           <Footer />
