@@ -83,7 +83,7 @@ const COPY: Record<Language, PageCopy> = {
     heroTimer: "119:59:58 до эвтаназии",
     heroTitle: "У них есть всего 5 дней.",
     heroLead:
-      "Проект Kyshik создан, чтобы остановить конвейер смерти. Мы предлагаем прозрачный цифровой учет вместо слепого истребления. Мы превращаем фотографии с вашего телефона в верифицированные цифровые паспорта, давая бездомным животным имя, историю и право на жизнь.",
+      "Проект Kyshik создан, чтобы остановить конвейер смерти. Мы предлагаем вести цифровой учет вместо слепого истребления.",
     heroButton: "Получить доступ к бета-тестированию",
     problemEyebrow: "Суровая реальность",
     problemTitle: "230 000 собак убито за 2025 год. И это только начало.",
@@ -187,7 +187,7 @@ const COPY: Record<Language, PageCopy> = {
     heroTimer: "119:59:58 until euthanasia",
     heroTitle: "They only have 5 days.",
     heroLead:
-      "Kyshik exists to stop the death conveyor. We offer transparent digital records instead of blind extermination. Photos from your phone become verified digital passports, giving stray animals a name, a history, and a claim to life.",
+      "Kyshik exists to stop the death conveyor. We offer digital record-keeping instead of blind extermination.",
     heroButton: "Get access to beta testing",
     problemEyebrow: "The hard reality",
     problemTitle: "230,000 dogs were killed in 2025. And this is only the beginning.",

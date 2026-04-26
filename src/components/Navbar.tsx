@@ -62,8 +62,8 @@ export const Navbar = () => {
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <div
-          className={`relative mx-auto box-border flex w-full max-w-7xl items-center justify-between gap-3 border-b bg-black/45 px-3 py-3 pr-14 text-white backdrop-blur-sm transition-colors duration-300 sm:px-4 md:pr-4 ${
-            scrolled || menuOpen ? "border-white/48 bg-black/62" : "border-white/28"
+          className={`relative mx-auto box-border flex w-full max-w-7xl items-center justify-between gap-3 border-b bg-black/24 px-3 py-3 pr-14 text-white backdrop-blur-sm transition-colors duration-300 sm:px-4 md:pr-4 ${
+            scrolled || menuOpen ? "border-white/42 bg-black/34" : "border-white/24"
           }`}
         >
           <Link to="/" className="flex min-w-0 items-center gap-2.5" aria-label="Kyshik home">
