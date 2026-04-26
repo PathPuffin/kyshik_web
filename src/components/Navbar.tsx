@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import logo from "../../logo.webp";
 
-const BETA_URL = "https://tally.so/r/rjrG2p";
+const BETA_URL = "/beta-test";
 const CONTACT_FORM_URL = "/contact#contact-form";
 
 type NavItem = {
@@ -13,16 +13,14 @@ type NavItem = {
   href: string;
 };
 
-const NAV_ITEMS: NavItem[] = [
+const NAV_ITEMS_RU: NavItem[] = [
   { label: "Блог", href: "/blog" },
-  { label: "Crew", href: "/crew" },
-  { label: "Почта", href: CONTACT_FORM_URL },
+  { label: "Команда", href: "/crew" },
 ];
 
 const NAV_ITEMS_EN: NavItem[] = [
   { label: "Blog", href: "/blog" },
   { label: "Crew", href: "/crew" },
-  { label: "Email", href: CONTACT_FORM_URL },
 ];
 
 export const Navbar = () => {
@@ -32,111 +30,144 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const lastY = useRef(0);
-  const navItems = language === "en" ? NAV_ITEMS_EN : NAV_ITEMS;
-  const betaLabel = language === "en" ? "Beta Testing" : "Бета-тестинг";
+  const navItems = language === "en" ? NAV_ITEMS_EN : NAV_ITEMS_RU;
+  const betaLabel = language === "en" ? "Beta Testing" : "Бета-тест";
   const toggleMenuLabel = language === "en" ? "Toggle menu" : "Открыть меню";
-  const emailLabel = language === "en" ? "Email us" : "Написать";
+  const emailLabel = language === "en" ? "Contact us" : "Связаться";
 
   useEffect(() => {
-    const fn = () => {
+    const handleScroll = () => {
       const y = window.scrollY;
       setVisible(y < lastY.current || y < 60);
-      setScrolled(y > 80);
+      setScrolled(y > 70);
       lastY.current = y;
     };
 
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
     setVisible(true);
     setMenuOpen(false);
     lastY.current = window.scrollY;
-    setScrolled(window.scrollY > 80);
+    setScrolled(window.scrollY > 70);
   }, [location.pathname]);
 
   return (
     <>
       <motion.nav
-        className={`fixed top-0 w-full z-50 transition-colors duration-500 border-b ${
-          scrolled || menuOpen
-            ? "bg-white/88 backdrop-blur-xl border-black/15"
-            : "bg-white/20 backdrop-blur-sm border-transparent"
-        }`}
-        animate={{ y: visible ? 0 : "-100%" }}
+        className="fixed left-0 right-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-5"
+        animate={{ y: visible ? 0 : "-125%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        <div className="max-w-7xl mx-auto px-3 py-3 flex justify-between items-center gap-2 sm:px-6 sm:py-4">
-          <Link to="/" className="flex min-w-0 items-center gap-1.5 sm:gap-3" aria-label="Kyshik home">
-            <img src={logo} alt="" className="block h-9 w-auto object-contain sm:h-14" loading="eager" />
-            <span className="text-xl font-bold text-primary leading-none sm:text-3xl">
+        <div
+          className={`relative mx-auto box-border flex w-full max-w-7xl items-center justify-between gap-3 border-b bg-black/45 px-3 py-3 pr-14 text-white backdrop-blur-sm transition-colors duration-300 sm:px-4 md:pr-4 ${
+            scrolled || menuOpen ? "border-white/48 bg-black/62" : "border-white/28"
+          }`}
+        >
+          <Link to="/" className="flex min-w-0 items-center gap-2.5" aria-label="Kyshik home">
+            <img src={logo} alt="" className="block h-9 w-auto object-contain sm:h-11" loading="eager" />
+            <span className="truncate text-xl font-extrabold leading-none tracking-normal text-white sm:text-2xl">
               kyshik<span className="text-accent">.com</span>
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden items-center gap-7 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 to={item.href}
-                className="text-xs font-bold uppercase tracking-widest text-secondary hover:text-accent transition-colors"
+                className="border-b border-white/45 text-[11px] font-extrabold uppercase tracking-[0.18em] text-white/86 transition-colors hover:border-accent hover:text-white"
               >
                 {item.label}
               </Link>
             ))}
+            <Link
+              to={CONTACT_FORM_URL}
+              className="border-b border-white/45 text-[11px] font-extrabold uppercase tracking-[0.18em] text-white/86 transition-colors hover:border-accent hover:text-white"
+            >
+              {language === "en" ? "Email" : "Почта"}
+            </Link>
           </div>
 
-          <div className="flex flex-none items-center gap-2 sm:gap-3">
+          <div className="absolute right-3 top-1/2 flex -translate-y-1/2 flex-none items-center gap-2 md:static md:translate-y-0">
             <button
               type="button"
               onClick={toggleLanguage}
-              className="flex h-9 min-w-11 items-center justify-center rounded-full border-2 border-black/80 bg-white text-[10px] font-extrabold tracking-[0.14em] text-primary shadow-[0_8px_18px_rgba(0,0,0,0.16)] sm:h-10 sm:min-w-12 sm:text-[11px]"
+              className="hidden h-9 min-w-11 items-center justify-center border border-white/32 bg-transparent px-3 text-[10px] font-extrabold tracking-[0.14em] text-white transition-colors hover:bg-white hover:text-primary md:flex"
               aria-label={language === "en" ? "Switch to Russian" : "Switch to English"}
             >
               {language === "en" ? "EN" : "RU"}
             </button>
             <Link
               to={CONTACT_FORM_URL}
-              className="hidden h-10 items-center justify-center gap-2 rounded-full border-2 border-black/80 bg-white px-4 text-xs font-bold text-primary shadow-[0_8px_18px_rgba(0,0,0,0.14)] lg:flex"
+              className="hidden h-9 items-center justify-center gap-2 border border-white/32 bg-transparent px-4 text-xs font-extrabold text-white transition-colors hover:bg-white hover:text-primary lg:flex"
             >
-              <Mail size={16} />
+              <Mail size={15} />
               {emailLabel}
             </Link>
             <motion.a
               href={BETA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden h-9 w-9 items-center justify-center gap-2 rounded-full bg-accent p-0 text-xs font-bold text-white shadow-[0_8px_20px_rgba(255,59,48,0.36)] sm:flex sm:h-auto sm:w-auto sm:px-5 sm:py-2.5"
-              whileHover={{ scale: 1.04 }}
+              className="hidden h-9 items-center justify-center gap-2 bg-accent px-4 text-xs font-extrabold text-white shadow-[6px_6px_0_rgba(0,0,0,0.3)] sm:flex"
+              whileHover={{ scale: 1.035 }}
               whileTap={{ scale: 0.97 }}
             >
-              <Sparkles size={16} />
-              <span className="hidden sm:inline">{betaLabel}</span>
+              <Sparkles size={15} />
+              <span>{betaLabel}</span>
             </motion.a>
-            <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 text-primary" aria-label={toggleMenuLabel}>
-              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            <button
+              onClick={() => setMenuOpen((value) => !value)}
+              className="flex h-9 w-9 items-center justify-center border border-white/32 bg-transparent text-white md:hidden"
+              aria-label={toggleMenuLabel}
+            >
+              {menuOpen ? <X size={19} /> : <Menu size={19} />}
             </button>
           </div>
         </div>
       </motion.nav>
 
       <motion.div
-        className="fixed inset-0 z-40 bg-surface md:hidden flex flex-col px-8 pt-28 pb-12"
+        className="fixed inset-0 z-40 flex flex-col bg-black px-5 pb-10 pt-28 text-white md:hidden"
         initial={false}
         animate={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "auto" : "none" }}
         transition={{ duration: 0.22 }}
       >
-        {navItems.map(({ label, href }) => (
+        <div className="flex flex-col border-y border-white/14">
+          {navItems.map(({ label, href }) => (
+            <Link
+              key={label}
+              to={href}
+              onClick={() => setMenuOpen(false)}
+              className="border-b border-white/14 py-5 text-3xl font-extrabold leading-none text-white/76 transition-colors last:border-b-0 hover:text-white"
+            >
+              {label}
+            </Link>
+          ))}
           <Link
-            key={label}
-            to={href}
+            to={CONTACT_FORM_URL}
             onClick={() => setMenuOpen(false)}
-            className="font-serif text-4xl font-light text-primary/70 hover:text-primary py-4 border-b border-border transition-colors"
+            className="border-b border-white/14 py-5 text-3xl font-extrabold leading-none text-white/76 transition-colors hover:text-white"
           >
-            {label}
+            {language === "en" ? "Email" : "Почта"}
           </Link>
-        ))}
+        </div>
+        <motion.a
+          href={BETA_URL}
+          onClick={() => setMenuOpen(false)}
+          className="mt-7 inline-flex items-center justify-center gap-2 bg-accent px-5 py-4 text-sm font-extrabold text-white"
+          whileTap={{ scale: 0.98 }}
+        >
+          <Sparkles size={18} />
+          {betaLabel}
+        </motion.a>
+        <button
+          type="button"
+          onClick={toggleLanguage}
+          className="mt-4 inline-flex items-center justify-center border border-white/18 bg-white/8 px-5 py-4 text-sm font-extrabold uppercase tracking-[0.18em] text-white"
+        >
+          {language === "en" ? "Switch to RU" : "Switch to EN"}
+        </button>
       </motion.div>
     </>
   );

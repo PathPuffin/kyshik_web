@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { Link } from "react-router-dom";
 import {
   ArrowRight,
   BadgeCheck,
@@ -17,17 +16,15 @@ import {
   Stethoscope,
   Trophy,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import { useLanguage } from "../context/LanguageContext";
 import adoptDontKill from "../../adopt_dont_kill.webp";
-import dogSad from "../../dog_sad.webp";
-import dogSwag from "../../dog_swag.webp";
 import doggies from "../../doggies.webp";
+import dogKilled from "../../dog_killed.webp";
 import greenDogSad from "../../green_dog_sad.webp";
-import paws from "../../paws.webp";
-import stopKillingDogs from "../../stop_killing_dogs.webp";
 
-const BETA_URL = "https://tally.so/r/rjrG2p";
+const BETA_URL = "/beta-test";
 const CONTACT_FORM_URL = "/contact#contact-form";
 
 type Language = "ru" | "en";
@@ -43,7 +40,6 @@ type PageCopy = {
   heroTitle: string;
   heroLead: string;
   heroButton: string;
-  heroStats: string[];
   problemEyebrow: string;
   problemTitle: string;
   problemIntro: string;
@@ -76,8 +72,7 @@ const COPY: Record<Language, PageCopy> = {
     heroTitle: "У них есть всего 5 дней.",
     heroLead:
       "Проект Kyshik создан, чтобы остановить конвейер смерти. Мы предлагаем прозрачный цифровой учет вместо слепого истребления. Мы превращаем фотографии с вашего телефона в верифицированные цифровые паспорта, давая бездомным животным имя, историю и право на жизнь.",
-    heroButton: "Скачать приложение и стать глазами системы",
-    heroStats: ["5 дней без чипа", "60 дней с чипом", "Цифровой паспорт вместо бумажной тени"],
+    heroButton: "Получить доступ к бета-тестированию",
     problemEyebrow: "Суровая реальность",
     problemTitle: "230 000 собак убито за 2025 год. И это только начало.",
     problemIntro:
@@ -181,8 +176,7 @@ const COPY: Record<Language, PageCopy> = {
     heroTitle: "They only have 5 days.",
     heroLead:
       "Kyshik exists to stop the death conveyor. We offer transparent digital records instead of blind extermination. Photos from your phone become verified digital passports, giving stray animals a name, a history, and a claim to life.",
-    heroButton: "Download the app and become the eyes of the system",
-    heroStats: ["5 days without a chip", "60 days with a chip", "A digital passport instead of a paper shadow"],
+    heroButton: "Get access to beta testing",
     problemEyebrow: "The hard reality",
     problemTitle: "230,000 dogs were killed in 2025. And this is only the beginning.",
     problemIntro:
@@ -253,126 +247,69 @@ const FadeIn = ({ children, className = "" }: { children: React.ReactNode; class
   </motion.div>
 );
 
-type FloatingDogProps = {
-  src: string;
-  className: string;
-  delay?: number;
-  rotate?: number[];
-  x?: number[];
-  y?: number[];
-};
-
-const FloatingDog = ({
-  src,
-  className,
-  delay = 0,
-  rotate = [-2, 2, -1, 2, -2],
-  x = [0, 3, -2, 2, 0],
-  y = [0, -8, -3, -10, 0],
-}: FloatingDogProps) => (
-  <motion.img
-    src={src}
-    alt=""
-    className={`pointer-events-none absolute z-20 object-contain drop-shadow-[0_22px_28px_rgba(0,0,0,0.34)] ${className}`}
-    loading="eager"
-    initial={{ opacity: 1, scale: 1 }}
-    animate={{ scale: [1, 1.02, 1], rotate, x, y }}
-    transition={{
-      scale: { duration: 4.4, repeat: Infinity, ease: "easeInOut", delay },
-      rotate: { duration: 4.4, repeat: Infinity, ease: "easeInOut", delay },
-      x: { duration: 4.4, repeat: Infinity, ease: "easeInOut", delay },
-      y: { duration: 4.4, repeat: Infinity, ease: "easeInOut", delay },
-    }}
-  />
-);
-
 const Hero = ({ t }: { t: PageCopy }) => (
-  <section className="relative overflow-hidden bg-primary text-white">
-    <div className="pointer-events-none absolute inset-0 opacity-20 bg-[repeating-linear-gradient(-18deg,rgba(255,255,255,0.18),rgba(255,255,255,0.18)_1px,transparent_1px,transparent_8px)]" />
-    <div className="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 items-center gap-8 px-5 pb-14 pt-10 sm:px-6 sm:pb-16 sm:pt-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12 lg:py-16">
-      <motion.div
-        className="min-w-0 text-center lg:text-left"
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65 }}
-      >
-        <div className="inline-flex items-center gap-3 border-2 border-accent bg-accent px-4 py-2 text-sm font-extrabold uppercase tracking-[0.14em] text-white shadow-[8px_8px_0_rgba(255,255,255,0.14)]">
-          <Clock3 className="h-5 w-5" />
-          {t.heroTimer}
-        </div>
-        <h1 className="mx-auto mt-7 max-w-[18rem] text-[1.95rem] font-extrabold leading-[0.94] tracking-normal sm:max-w-4xl sm:text-[4.6rem] lg:mx-0 lg:text-[5.8rem]">
-          {t.heroTitle}
-        </h1>
-        <p className="mx-auto mt-7 max-w-[18rem] text-sm leading-7 text-white/74 sm:max-w-2xl sm:text-lg sm:leading-8 lg:mx-0">
-          {t.heroLead}
-        </p>
-        <div className="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
-          <motion.a
-            href={BETA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-full max-w-[22rem] items-center justify-center gap-2.5 rounded-full bg-accent px-5 py-4 text-center text-sm font-extrabold leading-5 text-white shadow-[0_14px_32px_rgba(255,59,48,0.38)] sm:w-auto sm:px-8"
-            whileHover={{ scale: 1.035 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Sparkles className="h-5 w-5" />
-            <span className="min-w-0 whitespace-normal">{t.heroButton}</span>
-          </motion.a>
-        </div>
-        <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
-          {t.heroStats.map((item) => (
-            <span
-              key={item}
-              className="max-w-[21rem] rounded-full border border-white/20 bg-white/8 px-4 py-2 text-center text-xs font-bold uppercase tracking-[0.08em] text-white/78 sm:tracking-[0.12em]"
+  <section className="relative overflow-hidden bg-black px-3 py-3 text-white sm:px-5 sm:py-5">
+    <div className="relative min-h-[calc(100svh-5.5rem)] overflow-hidden border border-white/22 bg-primary shadow-[0_28px_80px_rgba(0,0,0,0.48)]">
+      <img
+        src={dogKilled}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover object-center opacity-74"
+        loading="eager"
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_50%,rgba(255,255,255,0.1),rgba(0,0,0,0.34)_34%,rgba(0,0,0,0.9)_82%)]" />
+      <div className="absolute inset-0 opacity-12 bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.11),rgba(255,255,255,0.11)_1px,transparent_1px,transparent_5px)]" />
+
+      <div className="relative z-10 flex min-h-[calc(100svh-5.5rem)] flex-col justify-between px-5 pb-6 pt-24 sm:px-8 sm:pt-28 lg:px-10">
+        <motion.div
+          className="max-w-3xl"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65 }}
+        >
+          <div className="inline-flex items-center gap-3 border border-white/34 bg-black/42 px-3 py-2 text-[11px] font-extrabold uppercase tracking-[0.16em] text-white shadow-[6px_6px_0_rgba(255,59,48,0.36)] backdrop-blur-sm sm:text-xs">
+            <Clock3 className="h-4 w-4 text-accent" />
+            {t.heroTimer}
+          </div>
+          <h1 className="mt-6 max-w-4xl text-[3.2rem] font-extrabold leading-[0.86] tracking-normal text-white drop-shadow-[0_10px_34px_rgba(0,0,0,0.92)] sm:text-[5.8rem] lg:text-[7.4rem]">
+            {t.heroTitle}
+          </h1>
+        </motion.div>
+
+        <motion.div
+          className="grid grid-cols-1 items-end gap-8 md:grid-cols-[1fr_auto_1fr]"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.08 }}
+        >
+          <div className="max-w-md text-sm font-bold leading-7 text-white/90 drop-shadow-[0_3px_18px_rgba(0,0,0,0.78)] sm:text-base">
+            {t.heroLead}
+          </div>
+
+          <div className="hidden justify-self-center text-center text-lg font-extrabold leading-tight text-white md:block">
+            <p>Kyshik</p>
+            <p className="text-white/82">See To Be Seen</p>
+          </div>
+
+          <div className="flex flex-col gap-4 md:items-end">
+            <motion.a
+              href={BETA_URL}
+              className="inline-flex w-full min-w-0 max-w-[22rem] items-center justify-center gap-2.5 bg-accent px-5 py-3.5 text-center text-xs font-extrabold text-white shadow-[7px_7px_0_rgba(0,0,0,0.42)] transition-colors hover:bg-white hover:text-primary sm:w-auto sm:max-w-none sm:text-sm"
+              whileHover={{ scale: 1.025 }}
+              whileTap={{ scale: 0.98 }}
             >
-              {item}
-            </span>
-          ))}
-        </div>
-      </motion.div>
-
-      <motion.div
-        className="relative mx-auto h-[390px] w-full max-w-[34rem] overflow-visible sm:h-[560px] sm:max-w-[46rem] lg:h-[660px] lg:max-w-none"
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.75, delay: 0.08 }}
-      >
-        <div className="absolute left-1/2 top-[50%] z-10 w-[74%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-lg border-2 border-white/18 bg-white/8 p-2 shadow-[0_28px_80px_rgba(0,0,0,0.36)] sm:w-[72%] sm:p-3 lg:w-[70%]">
-          <img src={stopKillingDogs} alt="" className="block h-auto w-full object-contain" loading="eager" />
-        </div>
-
-        <FloatingDog
-          src={paws}
-          className="left-[2%] top-[9%] w-[24%] sm:left-[2%] sm:top-[12%] sm:w-[27%] lg:left-[2%]"
-          delay={0.2}
-          rotate={[-10, -5, -8, -3, -10]}
-        />
-        <FloatingDog
-          src={dogSwag}
-          className="right-[0%] top-[7%] w-[30%] sm:right-[1%] sm:top-[9%] sm:w-[34%] lg:right-[2%]"
-          delay={0.42}
-          rotate={[3, 7, 1, 6, 3]}
-          x={[0, -3, 2, -2, 0]}
-        />
-        <FloatingDog
-          src={dogSad}
-          className="left-[2%] bottom-[14%] w-[27%] sm:left-[1%] sm:bottom-[16%] sm:w-[32%] lg:left-[2%]"
-          delay={0.62}
-          rotate={[-7, -2, -5, 1, -7]}
-          y={[0, -5, -2, -7, 0]}
-        />
-        <FloatingDog
-          src={paws}
-          className="right-[4%] bottom-[8%] w-[22%] sm:right-[3%] sm:bottom-[8%] sm:w-[25%] lg:right-[4%]"
-          delay={0.78}
-          rotate={[8, 13, 7, 12, 8]}
-          x={[0, 3, -2, 1, 0]}
-        />
-        <div className="absolute bottom-[2%] left-1/2 z-30 w-[11.5rem] -translate-x-1/2 rotate-[2deg] border-2 border-black bg-card p-4 text-primary shadow-[8px_8px_0_rgba(255,59,48,0.76)] sm:bottom-[4%] sm:w-52">
-          <p className="text-4xl font-extrabold leading-none text-accent">5</p>
-          <p className="mt-1 text-xs font-extrabold uppercase tracking-[0.14em]">days to be seen</p>
-        </div>
-      </motion.div>
+              <Sparkles className="h-5 w-5 flex-none" />
+              <span className="min-w-0 whitespace-normal leading-5">{t.heroButton}</span>
+            </motion.a>
+            <Link
+              to={CONTACT_FORM_URL}
+              className="inline-flex w-full min-w-0 items-center justify-center gap-2.5 border border-white/22 bg-white/10 px-5 py-3 text-sm font-extrabold text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-primary sm:w-auto"
+            >
+              <Mail className="h-5 w-5 flex-none" />
+              <span className="min-w-0">Contact us</span>
+            </Link>
+          </div>
+        </motion.div>
+      </div>
     </div>
   </section>
 );
@@ -445,7 +382,7 @@ const Armor = ({ t }: { t: PageCopy }) => (
   </section>
 );
 
-const HowItWorks = ({ t }: { t: PageCopy }) => (
+const HowItWorks = ({ t, language }: { t: PageCopy; language: Language }) => (
   <section id="how" className="bg-primary py-20 text-white sm:py-24">
     <div className="mx-auto max-w-7xl px-5 sm:px-6">
       <FadeIn className="max-w-4xl">
@@ -473,17 +410,31 @@ const HowItWorks = ({ t }: { t: PageCopy }) => (
         ))}
       </div>
 
-      <FadeIn className="mt-12 grid grid-cols-1 items-center gap-6 rounded-lg border-2 border-white/18 bg-white/7 p-5 shadow-[0_8px_0_rgba(255,255,255,0.08)] lg:grid-cols-[0.9fr_1.1fr]">
-        <img src={adoptDontKill} alt="" className="mx-auto max-h-72 w-full object-contain" loading="lazy" />
-        <div className="grid grid-cols-3 gap-3">
-          {[Trophy, Medal, Sparkles].map((Icon, index) => (
-            <div key={index} className="rounded-lg border border-white/14 bg-white/8 p-4 text-center">
-              <Icon className="mx-auto h-6 w-6 text-accent" />
-              <div className="mt-3 h-2 rounded-full bg-white/14">
-                <div className="h-2 rounded-full bg-accent" style={{ width: `${58 + index * 16}%` }} />
+      <FadeIn className="mt-12 grid grid-cols-1 items-center gap-6 rounded-lg border-2 border-white/18 bg-white/7 p-4 shadow-[0_8px_0_rgba(255,255,255,0.08)] sm:p-5 lg:grid-cols-[0.82fr_1.18fr]">
+        <div className="grid grid-cols-1 gap-4">
+          <img src={adoptDontKill} alt="" className="mx-auto max-h-64 w-full object-contain" loading="lazy" />
+          <div className="grid grid-cols-3 gap-3">
+            {[Trophy, Medal, Sparkles].map((Icon, index) => (
+              <div key={index} className="rounded-lg border border-white/14 bg-white/8 p-4 text-center">
+                <Icon className="mx-auto h-6 w-6 text-accent" />
+                <div className="mt-3 h-2 rounded-full bg-white/14">
+                  <div className="h-2 rounded-full bg-accent" style={{ width: `${58 + index * 16}%` }} />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+        <div className="border-l-0 border-white/14 pl-0 lg:border-l lg:pl-8">
+          <p className="text-2xl font-extrabold leading-tight text-white sm:text-4xl">
+            {language === "en"
+              ? "Every sighting strengthens one living record."
+              : "Каждое наблюдение усиливает один живой паспорт."}
+          </p>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-white/68">
+            {language === "en"
+              ? "The interface stays simple: find an animal, add context, and let the record grow over time."
+              : "Интерфейс остается простым: найти животное, добавить контекст и дать записи расти со временем."}
+          </p>
         </div>
       </FadeIn>
     </div>
@@ -569,21 +520,19 @@ const CTA = ({ t }: { t: PageCopy }) => (
       <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-white/74">{t.ctaBody}</p>
       <motion.a
         href={BETA_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-9 inline-flex items-center justify-center gap-2.5 rounded-full bg-accent px-8 py-4 text-sm font-extrabold text-white shadow-[0_14px_32px_rgba(255,59,48,0.38)]"
+        className="mt-9 inline-flex max-w-full items-center justify-center gap-2.5 rounded-full bg-accent px-8 py-4 text-sm font-extrabold text-white shadow-[0_14px_32px_rgba(255,59,48,0.38)]"
         whileHover={{ scale: 1.035 }}
         whileTap={{ scale: 0.98 }}
       >
-        <Sparkles className="h-5 w-5" />
-        {t.ctaButton}
+        <Sparkles className="h-5 w-5 flex-none" />
+        <span className="min-w-0 whitespace-normal">{t.ctaButton}</span>
       </motion.a>
       <Link
         to={CONTACT_FORM_URL}
-        className="mt-4 inline-flex items-center justify-center gap-2.5 rounded-full border-2 border-white/22 bg-white/8 px-8 py-4 text-sm font-extrabold text-white shadow-[0_12px_28px_rgba(0,0,0,0.24)]"
+        className="mt-4 inline-flex max-w-full items-center justify-center gap-2.5 rounded-full border-2 border-white/22 bg-white/8 px-8 py-4 text-sm font-extrabold text-white shadow-[0_12px_28px_rgba(0,0,0,0.24)]"
       >
-        <Mail className="h-5 w-5" />
-        hello@kyshik.com
+        <Mail className="h-5 w-5 flex-none" />
+        <span className="min-w-0">Contact us</span>
       </Link>
     </FadeIn>
   </section>
@@ -598,7 +547,7 @@ export const Home = () => {
       <Hero t={t} />
       <Problem t={t} />
       <Armor t={t} />
-      <HowItWorks t={t} />
+      <HowItWorks t={t} language={language} />
       <Business t={t} />
       <Flywheel t={t} />
       <CTA t={t} />

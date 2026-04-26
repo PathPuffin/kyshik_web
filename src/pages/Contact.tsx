@@ -1,18 +1,27 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, CheckCircle2, Mail, MapPin, ShieldCheck } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 
-const WEB3FORMS_ACCESS_KEY = "f117ad90-c89c-4844-b9ce-3dae5a63b2de";
 const CONTACT_FORM_ANCHOR = "#contact-form";
+const RECIPIENT = "salem@kyshik.com";
+const CONTACT_FORM_URL = "/contact#contact-form";
+const WEB3FORMS_ACCESS_KEY = "f117ad90-c89c-4844-b9ce-3dae5a63b2de";
+
+type ContactForm = {
+  name: string;
+  company: string;
+  email: string;
+  message: string;
+};
 
 export const Contact = () => {
   const location = useLocation();
   const { language } = useLanguage();
   const [sent, setSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<ContactForm>({
     name: "",
     company: "",
     email: "",
@@ -33,9 +42,8 @@ export const Contact = () => {
           leftDesc: "We are open to pilots, volunteers, partners, and people who want to make animal counting more honest.",
           location: "Kazakhstan",
           privacy: "No public exact coordinates",
-          emailContact: "hello@kyshik.com",
           sentTitle: "Message sent",
-          sentDesc: "Thank you. We will get back to you soon.",
+          sentDesc: "Thank you. Your message was sent to salem@kyshik.com.",
           formTitle: "Tell us how you want to help",
           name: "Name *",
           org: "Organization",
@@ -43,7 +51,7 @@ export const Contact = () => {
           message: "Message *",
           namePlaceholder: "Niyaz",
           orgPlaceholder: "Kyshik",
-          emailPlaceholder: "hello@kyshik.com",
+          emailPlaceholder: "salem@kyshik.com",
           messagePlaceholder: "I want to discuss a city pilot...",
           sending: "Sending...",
           send: "Send",
@@ -52,16 +60,15 @@ export const Contact = () => {
       : {
           sectionTag: "Контакт",
           title: "Подключиться к Kyshik",
-          desc: "Напиши нам, если хочешь помочь с пилотом, партнерством или данными по бездомным животным.",
-          leftTag: "Байланыс",
+          desc: "Напишите нам, если хотите помочь с пилотом, партнерством или данными по бездомным животным.",
+          leftTag: "Связь",
           leftTitle: "Начнем разговор",
           leftDesc: "Мы открыты к пилотам, волонтерам, партнерам и людям, которые хотят сделать учет животных честнее.",
           location: "Казахстан",
           privacy: "Без публичных точных координат",
-          emailContact: "hello@kyshik.com",
           sentTitle: "Сообщение отправлено",
-          sentDesc: "Спасибо. Мы свяжемся с тобой в ближайшее время.",
-          formTitle: "Расскажи, чем хочешь помочь",
+          sentDesc: "Спасибо. Ваше сообщение отправлено на salem@kyshik.com.",
+          formTitle: "Расскажите, чем хотите помочь",
           name: "Имя *",
           org: "Организация",
           email: "Email *",
@@ -72,7 +79,7 @@ export const Contact = () => {
           messagePlaceholder: "Хочу обсудить пилот в городе...",
           sending: "Отправляем...",
           send: "Отправить",
-          alert: "Could not send your message right now. Please try again.",
+          alert: "Не удалось отправить сообщение. Попробуйте еще раз.",
         };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,13 +92,9 @@ export const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const payload = new FormData();
-      payload.append("access_key", WEB3FORMS_ACCESS_KEY);
-      payload.append("name", form.name);
-      payload.append("email", form.email);
-      payload.append("message", form.message);
-      payload.append("company", form.company);
-      payload.append("subject", `New contact from ${form.name}`);
+      const payload = new FormData(e.currentTarget);
+      payload.append("subject", `Kyshik contact - ${form.name}`);
+      payload.append("from_name", "Kyshik Contact Form");
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -118,7 +121,6 @@ export const Contact = () => {
       return;
     }
 
-    // Wait for paint so the form node exists after route transition.
     requestAnimationFrame(() => {
       document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -173,13 +175,13 @@ export const Contact = () => {
                 <ShieldCheck className="w-4 h-4 text-accent" />
                 {t.privacy}
               </p>
-              <a
-                href={CONTACT_FORM_ANCHOR}
+              <Link
+                to={CONTACT_FORM_URL}
                 className="inline-flex items-center gap-3 text-white/80 underline-offset-2 hover:text-white hover:underline transition-colors"
               >
                 <Mail className="w-4 h-4 text-accent" />
-                {t.emailContact}
-              </a>
+                {RECIPIENT}
+              </Link>
             </div>
           </div>
 
@@ -197,7 +199,14 @@ export const Contact = () => {
                 </p>
               </motion.div>
             ) : (
-              <form id="contact-form" onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
+              <form
+                id="contact-form"
+                action="https://api.web3forms.com/submit"
+                method="POST"
+                onSubmit={handleSubmit}
+                className="w-full flex flex-col gap-5"
+              >
+                <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
                 <h3 className="text-2xl font-bold text-primary mb-1">{t.formTitle}</h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -205,6 +214,7 @@ export const Contact = () => {
                     <label className="text-xs uppercase tracking-widest text-secondary font-bold">{t.name}</label>
                     <input
                       type="text"
+                      name="name"
                       placeholder={t.namePlaceholder}
                       required
                       value={form.name}
@@ -216,6 +226,7 @@ export const Contact = () => {
                     <label className="text-xs uppercase tracking-widest text-secondary font-bold">{t.org}</label>
                     <input
                       type="text"
+                      name="company"
                       placeholder={t.orgPlaceholder}
                       value={form.company}
                       onChange={(e) => setForm({ ...form, company: e.target.value })}
@@ -228,6 +239,7 @@ export const Contact = () => {
                   <label className="text-xs uppercase tracking-widest text-secondary font-bold">{t.email}</label>
                   <input
                     type="email"
+                    name="email"
                     placeholder={t.emailPlaceholder}
                     required
                     value={form.email}
@@ -239,6 +251,7 @@ export const Contact = () => {
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs uppercase tracking-widest text-secondary font-bold">{t.message}</label>
                   <textarea
+                    name="message"
                     placeholder={t.messagePlaceholder}
                     required
                     rows={5}
