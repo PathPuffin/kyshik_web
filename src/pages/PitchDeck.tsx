@@ -152,11 +152,17 @@ const slides: Slide[] = [
     Icon: BadgeCheck,
   },
   {
-    eyebrow: "14 / Closing",
-    title: "The data layer animal care has been missing.",
-    body: "Lost animals become verified passports. More animals seen means a more valuable network and more revenue lines.",
+    eyebrow: "14 / The Ask",
+    title: "Raising $100K at a $2.5M valuation cap (4% equity).",
+    bullets: [
+      "Build the passport matching engine and API layer",
+      "Launch mobile app MVP and validate engagement loops",
+      "Secure first clinic pilot with paid contract",
+      "Initiate insurer conversations toward LOI",
+      "12-month runway to first revenue and next-round metrics",
+    ],
     Icon: Sparkles,
-    accent: "Lost animals -> verified passports -> enterprise revenue",
+    accent: "Lost animals -> verified passports -> enterprise revenue. The data layer animal care has been missing.",
   },
 ];
 
