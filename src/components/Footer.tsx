@@ -21,6 +21,9 @@ const WEB3FORMS_ACCESS_KEY = "f117ad90-c89c-4844-b9ce-3dae5a63b2de";
 const askPrompt =
   "I want to understand Kyshik and how it helps create verified digital passports for lost, stray, rescued, and undocumented animals. Summarize what Kyshik does, how its phone-based animal sightings and visual matching create longitudinal animal records, and why this matters for clinics, insurers, shelters, and communities. Use information from their website: https://kyshik.com/";
 
+const GOOGLE_FOOTER_URL =
+  `https://www.google.com/aimode?hl=en-US&q=${encodeURIComponent("I want to understand how Pathpuffin works as an engineering studio. Summarize what Pathpuffin does, their philosophy of engineering with soul, and their core principles. Use information from their website: https://pathpuffin.com/")}`;
+
 const buildAskUrl = (base: string, param: string) =>
   `${base}?${param}=${encodeURIComponent(askPrompt)}`;
 
@@ -29,7 +32,7 @@ const askAiLinks = [
   { label: "Gemini", href: buildAskUrl("https://gemini.google.com/app", "prompt"), Icon: Gem },
   { label: "Claude", href: buildAskUrl("https://claude.ai/new", "q"), Icon: Sparkles },
   { label: "Perplexity", href: buildAskUrl("https://www.perplexity.ai/search", "q"), Icon: BrainCircuit },
-  { label: "Google", href: buildAskUrl("https://www.google.com/search", "q"), Icon: Search },
+  { label: "Google", href: GOOGLE_FOOTER_URL, Icon: Search },
 ];
 
 export const Footer = () => {

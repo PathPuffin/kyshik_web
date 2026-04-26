@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import {
   ArrowRight,
@@ -26,6 +27,16 @@ import greenDogSad from "../../green_dog_sad.webp";
 
 const BETA_URL = "/beta-test";
 const CONTACT_FORM_URL = "/contact#contact-form";
+const HERO_TIMER_START_SECONDS = 119 * 60 * 60 + 59 * 60 + 58;
+
+const formatCountdown = (totalSeconds: number) => {
+  const safeSeconds = Math.max(0, totalSeconds);
+  const hours = Math.floor(safeSeconds / 3600);
+  const minutes = Math.floor((safeSeconds % 3600) / 60);
+  const seconds = safeSeconds % 60;
+
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+};
 
 type Language = "ru" | "en";
 
@@ -247,7 +258,7 @@ const FadeIn = ({ children, className = "" }: { children: React.ReactNode; class
   </motion.div>
 );
 
-const Hero = ({ t }: { t: PageCopy }) => (
+const Hero = ({ t, language, countdownSeconds }: { t: PageCopy; language: Language; countdownSeconds: number }) => (
   <section className="relative overflow-hidden bg-black px-3 py-3 text-white sm:px-5 sm:py-5">
     <div className="relative min-h-[calc(100svh-5.5rem)] overflow-hidden border border-white/22 bg-primary shadow-[0_28px_80px_rgba(0,0,0,0.48)]">
       <img
@@ -266,9 +277,9 @@ const Hero = ({ t }: { t: PageCopy }) => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
         >
-          <div className="inline-flex items-center gap-3 border border-white/34 bg-black/42 px-3 py-2 text-[11px] font-extrabold uppercase tracking-[0.16em] text-white shadow-[6px_6px_0_rgba(255,59,48,0.36)] backdrop-blur-sm sm:text-xs">
-            <Clock3 className="h-4 w-4 text-accent" />
-            {t.heroTimer}
+          <div className="inline-flex items-center gap-3 border border-white/34 bg-black/42 px-4 py-2.5 text-xs font-extrabold uppercase tracking-[0.16em] text-white shadow-[6px_6px_0_rgba(255,59,48,0.36)] backdrop-blur-sm sm:px-5 sm:py-3 sm:text-sm">
+            <Clock3 className="h-5 w-5 text-accent" />
+            {formatCountdown(countdownSeconds)} {language === "en" ? "until euthanasia" : "до эвтаназии"}
           </div>
           <h1 className="mt-6 max-w-4xl text-[3.2rem] font-extrabold leading-[0.86] tracking-normal text-white drop-shadow-[0_10px_34px_rgba(0,0,0,0.92)] sm:text-[5.8rem] lg:text-[7.4rem]">
             {t.heroTitle}
@@ -541,10 +552,19 @@ const CTA = ({ t }: { t: PageCopy }) => (
 export const Home = () => {
   const { language } = useLanguage();
   const t = COPY[language];
+  const [heroCountdownSeconds, setHeroCountdownSeconds] = useState(HERO_TIMER_START_SECONDS);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setHeroCountdownSeconds((prev) => Math.max(0, prev - 1));
+    }, 1000);
+
+    return () => window.clearInterval(timer);
+  }, []);
 
   return (
     <div className="min-h-screen">
-      <Hero t={t} />
+      <Hero t={t} language={language} countdownSeconds={heroCountdownSeconds} />
       <Problem t={t} />
       <Armor t={t} />
       <HowItWorks t={t} language={language} />
