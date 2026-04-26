@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowRight,
   BadgeCheck,
@@ -28,7 +28,7 @@ import greenDogSad from "../../green_dog_sad.webp";
 const BETA_URL = "/beta-test";
 const CONTACT_FORM_URL = "/contact#contact-form";
 const HERO_TIMER_START_SECONDS = 119 * 60 * 60 + 59 * 60 + 58;
-const HERO_TIMER_SPEED_MULTIPLIER = 6;
+const HERO_TIMER_SPEED_MULTIPLIER = 30;
 
 const formatCountdown = (totalSeconds: number) => {
   const safeSeconds = Math.max(0, totalSeconds);
@@ -259,8 +259,12 @@ const FadeIn = ({ children, className = "" }: { children: React.ReactNode; class
   </motion.div>
 );
 
-const Hero = ({ t, language, countdownSeconds }: { t: PageCopy; language: Language; countdownSeconds: number }) => (
-  <section className="relative overflow-hidden bg-black px-3 py-3 text-white sm:px-5 sm:py-5">
+const Hero = ({ t, language, countdownSeconds }: { t: PageCopy; language: Language; countdownSeconds: number }) => {
+  const countdownLabel = language === "en" ? "until euthanasia" : "до эвтаназии";
+  const countdownValue = formatCountdown(countdownSeconds);
+
+  return (
+    <section className="relative overflow-hidden bg-black px-3 py-3 text-white sm:px-5 sm:py-5">
     <div className="relative min-h-[calc(100svh-5.5rem)] overflow-hidden border border-white/22 bg-primary shadow-[0_28px_80px_rgba(0,0,0,0.48)]">
       <img
         src={dogKilled}
@@ -280,7 +284,24 @@ const Hero = ({ t, language, countdownSeconds }: { t: PageCopy; language: Langua
         >
           <div className="inline-flex items-center gap-3 border border-white/34 bg-black/42 px-5 py-3 text-sm font-extrabold uppercase tracking-[0.16em] text-white shadow-[6px_6px_0_rgba(255,59,48,0.36)] backdrop-blur-sm sm:px-6 sm:py-3.5 sm:text-base lg:text-lg">
             <Clock3 className="h-6 w-6 text-accent" />
-            {formatCountdown(countdownSeconds)} {language === "en" ? "until euthanasia" : "до эвтаназии"}
+            <span className="inline-flex items-center gap-2">
+              <span className="relative inline-flex min-w-[9ch] tabular-nums">
+                <AnimatePresence mode="popLayout" initial={false}>
+                  <motion.span
+                    key={countdownValue}
+                    initial={{ opacity: 0, y: 8, filter: "blur(1.5px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -8, filter: "blur(1.5px)" }}
+                    transition={{ duration: 0.24, ease: "easeOut" }}
+                    className="absolute inset-0"
+                  >
+                    {countdownValue}
+                  </motion.span>
+                </AnimatePresence>
+                <span className="invisible">000:00:00</span>
+              </span>
+              <span>{countdownLabel}</span>
+            </span>
           </div>
           <h1 className="mt-6 max-w-4xl text-[3.2rem] font-extrabold leading-[0.86] tracking-normal text-white drop-shadow-[0_10px_34px_rgba(0,0,0,0.92)] sm:text-[5.8rem] lg:text-[7.4rem]">
             {t.heroTitle}
@@ -323,8 +344,9 @@ const Hero = ({ t, language, countdownSeconds }: { t: PageCopy; language: Langua
         </motion.div>
       </div>
     </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const Problem = ({ t }: { t: PageCopy }) => (
   <section id="about" className="bg-surface py-20 sm:py-24">
