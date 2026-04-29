@@ -216,14 +216,6 @@ export const Footer = () => {
                 Threads
                 <ArrowUpRight className="h-4 w-4 text-accent" />
               </a>
-              <a href="https://www.linkedin.com/company/kyshik" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-white">
-                LinkedIn
-                <ArrowUpRight className="h-4 w-4 text-accent" />
-              </a>
-              <a href="https://x.com/kyshik" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-white">
-                X
-                <ArrowUpRight className="h-4 w-4 text-accent" />
-              </a>
             </div>
           </section>
 
