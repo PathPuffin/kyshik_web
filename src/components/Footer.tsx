@@ -208,6 +208,14 @@ export const Footer = () => {
           <section className="min-h-44 border border-white/14 bg-white/7 p-5 shadow-[8px_8px_0_rgba(255,255,255,0.06)]">
             <h3 className="text-lg font-extrabold">{labels.follow}</h3>
             <div className="mt-5 space-y-3 text-sm text-white/62">
+              <a href="https://www.instagram.com/kyshikapp/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-white">
+                Instagram
+                <ArrowUpRight className="h-4 w-4 text-accent" />
+              </a>
+              <a href="https://www.threads.com/@kyshikapp" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-white">
+                Threads
+                <ArrowUpRight className="h-4 w-4 text-accent" />
+              </a>
               <a href="https://www.linkedin.com/company/kyshik" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-white">
                 LinkedIn
                 <ArrowUpRight className="h-4 w-4 text-accent" />
