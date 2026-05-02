@@ -238,8 +238,8 @@ export const Footer = () => {
       </div>
 
       <div className="mx-auto flex max-w-7xl flex-col gap-2 border-t border-white/10 px-5 py-6 text-xs uppercase tracking-[0.18em] text-white/34 sm:px-6 md:flex-row md:items-center md:justify-between">
-        <p>PathPuffin Systems LLC</p>
-        <p>© 2026 PathPuffin Systems LLC</p>
+        <p>Kyshik: See to be Seen</p>
+        <p>©2026 Kyshik</p>
       </div>
     </footer>
   );
