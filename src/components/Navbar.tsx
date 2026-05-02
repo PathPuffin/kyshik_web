@@ -87,7 +87,7 @@ export const Navbar = () => {
               to={CONTACT_FORM_URL}
               className="border-b border-white/45 text-[11px] font-extrabold uppercase tracking-[0.18em] text-white/86 transition-colors hover:border-accent hover:text-white"
             >
-              {language === "en" ? "Email" : "Почта"}
+              {language === "en" ? "Contact us" : "Связаться с нами"}
             </Link>
           </div>
 
